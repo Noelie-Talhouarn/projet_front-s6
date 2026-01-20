@@ -5,9 +5,9 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-8">
         <!-- Section Marque -->
         <div class="footer-section animate-fade-in-up" style="animation-delay: 0.1s">
-          <h3 class="text-2xl lg:text-3xl font-bold bg-gradient-glow bg-clip-text text-transparent mb-2">
+          <MyTitle as="h3" size="medium" class="mb-2">
             L'Étincelle
-          </h3>
+          </MyTitle>
           <p class="text-gray-400 text-sm italic">
             Illuminez votre créativité
           </p>

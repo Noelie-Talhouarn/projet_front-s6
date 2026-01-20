@@ -12,7 +12,7 @@
             Illuminez votre créativité
           </p>
         </div>
-        
+
       </div>
 
       <!-- Bas du footer -->

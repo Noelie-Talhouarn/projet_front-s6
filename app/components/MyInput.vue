@@ -5,6 +5,7 @@ const props = defineProps<{
   label?: string
   type: 'text' | 'email' | 'password' | 'date'
   size?: 'default' | 'small' | 'medium' | 'large'
+  placeholder?: string
 }>()
 
 const sizeClasses = {
@@ -16,17 +17,17 @@ const sizeClasses = {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
-    <label v-if="label" class="text-xs font-bold uppercase tracking-wider text-spark-light ml-1">
+  <div class="flex flex-col gap-2 group">
+    <label v-if="label" class="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1 transition-colors group-focus-within:text-spark-light">
       {{ label }}
     </label>
 
     <input
       v-model="model"
       :type="type"
-      class="w-full rounded-lg border border-night-700 bg-night-800 px-4 py-3 text-slate-200 placeholder-slate-500 outline-none transition-all focus:border-spark focus:ring-1 focus:ring-spark/50"
+      class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/20 outline-none transition-all duration-300 focus:border-spark focus:bg-white/10 focus:shadow-[0_0_15px_rgba(124,58,237,0.3)] focus:ring-1 focus:ring-spark/50"
       :class="sizeClasses[size || 'default']"
-      :placeholder="label"
+      :placeholder="placeholder || label"
     >
   </div>
 </template>

@@ -4,6 +4,18 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/fonts', '@nuxtjs/tailwindcss'],
 
+  runtimeConfig: {
+    public: {
+      apiUrl: '' // Vide pour utiliser le proxy relatif
+    }
+  },
+
+  routeRules: {
+    '/api/**': {
+      proxy: (process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3002') + '/api/**'
+    }
+  },
+
   app: {
     head: {
       link: [

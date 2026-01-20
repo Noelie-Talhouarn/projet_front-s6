@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-gradient-to-br from-night-900 to-night-800 text-white border-t border-night-700">
-    <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+    <div class="mx-auto px-6 py-3 lg:py-16">
       <!-- Contenu principal du footer -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-8">
         <!-- Section Marque -->
@@ -12,84 +12,7 @@
             Illuminez votre créativité
           </p>
         </div>
-
-        <!-- Section Navigation -->
-        <div class="footer-section animate-fade-in-up" style="animation-delay: 0.2s">
-          <h4 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">
-            Navigation
-          </h4>
-          <ul class="space-y-2">
-            <li>
-              <a href="#" class="footer-link group">
-                <span class="relative">
-                  Accueil
-                  <span class="link-underline"></span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="footer-link group">
-                <span class="relative">
-                  À propos
-                  <span class="link-underline"></span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="footer-link group">
-                <span class="relative">
-                  Jeux
-                  <span class="link-underline"></span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="footer-link group">
-                <span class="relative">
-                  Contact
-                  <span class="link-underline"></span>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Section Réseaux Sociaux -->
-        <div class="footer-section animate-fade-in-up" style="animation-delay: 0.3s">
-          <h4 class="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">
-            Suivez-nous
-          </h4>
-          <div class="flex gap-3">
-            <a 
-              href="#" 
-              class="social-link"
-              aria-label="Instagram"
-            >
-              <Icon name="mdi:instagram" class="text-xl" />
-            </a>
-            <a 
-              href="#" 
-              class="social-link"
-              aria-label="Twitter"
-            >
-              <Icon name="mdi:twitter" class="text-xl" />
-            </a>
-            <a 
-              href="#" 
-              class="social-link"
-              aria-label="Facebook"
-            >
-              <Icon name="mdi:facebook" class="text-xl" />
-            </a>
-            <a 
-              href="#" 
-              class="social-link"
-              aria-label="LinkedIn"
-            >
-              <Icon name="mdi:linkedin" class="text-xl" />
-            </a>
-          </div>
-        </div>
+        
       </div>
 
       <!-- Bas du footer -->

@@ -18,12 +18,23 @@
       </MyButton>
     </div>
     
-    <NuxtLink v-else to="/profile" class="h-10 w-10 overflow-hidden rounded-full border-2 border-spark/50 hover:border-spark-light transition-colors">
-      <img src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff" alt="Profil" />
-    </NuxtLink>
+    <div v-else class="flex items-center gap-4">
+      <MyButton 
+        variant="default"
+        size="small"
+        @click="logout"
+      >
+        Déconnexion
+      </MyButton>
+    </div>
   </header>
 </template>
 
-<script setup>
-const token = useCookie('auth_token')
+<script setup lang="ts">
+const token = useCookie('recipe_token')
+
+const logout = () => {
+  token.value = null // Deletes the cookie
+  return navigateTo('/login')
+}
 </script>

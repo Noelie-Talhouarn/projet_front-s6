@@ -26,7 +26,7 @@
 
     <!-- Citation du jour -->
     <div class="w-full animate-fade-in-up" style="animation-delay: 0.2s">
-      <DailyQuote />
+      <DailyQuote/>
     </div>
 
   </div>

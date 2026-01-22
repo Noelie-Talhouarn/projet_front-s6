@@ -67,7 +67,43 @@ export const useMeditations = () => {
         }
     }
 
+    const fetchCategories = async (): Promise<{ id: string, label: string }[]> => {
+        try {
+            const response = await $fetch<any[]>(`${apiBase}/api/meditations/categories`, {
+                headers: { Authorization: `Bearer ${token.value}` },
+                ignoreResponseError: true
+            }).catch(() => null)
+
+            if (response && Array.isArray(response) && response.length > 0) {
+                // Add 'all' option if not present
+                const cats = response.map((item: any) => ({
+                    id: item.id || item.slug || item.code,
+                    label: item.label || item.name || item.title
+                }))
+
+                // Ensure "Tout" is first
+                return [{ id: 'all', label: 'Tout' }, ...cats]
+            }
+
+            // Fallback
+            return [
+                { id: 'all', label: 'Tout' },
+                { id: 'sommeil', label: 'Sommeil' },
+                { id: 'nature', label: 'Nature' },
+                { id: 'musique', label: 'Musique' },
+            ]
+        } catch (e) {
+            return [
+                { id: 'all', label: 'Tout' },
+                { id: 'sommeil', label: 'Sommeil' },
+                { id: 'nature', label: 'Nature' },
+                { id: 'musique', label: 'Musique' },
+            ]
+        }
+    }
+
     return {
-        fetchMeditations
+        fetchMeditations,
+        fetchCategories
     }
 }

@@ -19,9 +19,10 @@ const currentTime = ref(0)
 const duration = ref(0)
 
 // Gestion du chargement
-watch(() => props.session, (newSession) => {
-  if (audioPlayer.value && newSession) {
-    audioPlayer.value.src = newSession.audioUrl
+// Gestion du chargement
+function loadSession() {
+  if (audioPlayer.value && props.session) {
+    audioPlayer.value.src = props.session.audioUrl
     audioPlayer.value.load()
     if (props.autoPlay) {
       play()
@@ -29,7 +30,15 @@ watch(() => props.session, (newSession) => {
       isPlaying.value = false
     }
   }
-}, { immediate: true }) // important pour le premier chargement
+}
+
+onMounted(() => {
+  loadSession()
+})
+
+watch(() => props.session, () => {
+  loadSession()
+})
 
 function togglePlay() {
   if (!audioPlayer.value) return
@@ -50,8 +59,13 @@ function play() {
         emit('play')
       })
       .catch(error => { 
-        console.error("Erreur lecture:", error)
-        isPlaying.value = false 
+        // Autoplay bloqué par le navigateur (normal si pas d'interaction préalable)
+        if (error.name === 'NotAllowedError') {
+            isPlaying.value = false
+        } else {
+            console.error("Erreur lecture:", error)
+            isPlaying.value = false 
+        }
       })
   }
 }

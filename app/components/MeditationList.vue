@@ -12,12 +12,13 @@ const emit = defineEmits<{
 }>()
 
 // Catégories
-const categories = [
-  { id: 'all', label: 'Tout' },
-  { id: 'sommeil', label: 'Sommeil' },
-  { id: 'nature', label: 'Nature' },
-  { id: 'musique', label: 'Musique' },
-]
+// Catégories
+const { fetchCategories } = useMeditations()
+const categories = ref<{ id: string, label: string }[]>([])
+
+onMounted(async () => {
+  categories.value = await fetchCategories()
+})
 const selectedCategory = ref('all')
 
 const filteredSessions = computed(() => {

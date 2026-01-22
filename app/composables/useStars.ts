@@ -4,9 +4,9 @@ export const useStars = () => {
     const apiBase = 'http://localhost:3002'
 
     // Récupérer les étoiles
-    const fetchStars = async () => {
+    const fetchStars = async (): Promise<Star[]> => {
         try {
-            const data = await $fetch<any[]>(`${apiBase}/api/stars`, {
+            const data = await $fetch<Star[]>(`${apiBase}/api/stars`, {
                 headers: { Authorization: `Bearer ${token.value}` }
             })
             return data || []
@@ -17,9 +17,9 @@ export const useStars = () => {
     }
 
     // Ajouter une étoile
-    const addStarApi = async (star: any) => {
+    const addStarApi = async (star: Omit<Star, 'id'>) => {
         try {
-            const newStar = await $fetch<any>(`${apiBase}/api/stars`, {
+            const newStar = await $fetch<Star>(`${apiBase}/api/stars`, {
                 method: 'POST',
                 body: star,
                 headers: { Authorization: `Bearer ${token.value}` }

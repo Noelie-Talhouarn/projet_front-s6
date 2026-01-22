@@ -2,18 +2,18 @@
   <nav class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4 md:hidden">
     <div class="mx-auto flex max-w-md items-center justify-around rounded-[2rem] border border-white/10 bg-night-900/90 py-3 shadow-xl backdrop-blur-lg">
       
-      <NuxtLink to="/dashboard" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
+      <NuxtLink to="/" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
         <div class="rounded-xl p-2 group-[.router-link-active]:bg-spark/20 group-[.router-link-active]:text-spark-light text-slate-500 transition-colors">
           <span class="text-xl">🏠</span>
         </div>
         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-spark-light transition-colors">Home</span>
       </NuxtLink>
 
-      <NuxtLink to="/games" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
-        <div class="rounded-xl p-2 group-[.router-link-active]:bg-glow/20 group-[.router-link-active]:text-glow-light text-slate-500 transition-colors">
-          <span class="text-xl">🎮</span>
+      <NuxtLink to="/meditation" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
+        <div class="rounded-xl p-2 group-[.router-link-active]:bg-emerald-500/20 group-[.router-link-active]:text-emerald-400 text-slate-500 transition-colors">
+          <span class="text-xl">🧘‍♀️</span>
         </div>
-        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-glow-light transition-colors">Jeux</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-emerald-400 transition-colors">Zen</span>
       </NuxtLink>
 
       <NuxtLink to="/sparks/new" class="relative -mt-12 flex flex-col items-center group">

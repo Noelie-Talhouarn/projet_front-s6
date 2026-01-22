@@ -1,14 +1,5 @@
 <script setup lang="ts">
-// Structure d'une étoile
-interface Star {
-  id: number
-  x: number
-  y: number
-  message: string
-  intensity: 'small' | 'medium' | 'large'
-  date: string
-  animationDelay: string
-}
+
 
 // Liste de secours (Fallback) si l'API ne répond pas
 const DEFAULT_WORDS = [
@@ -120,7 +111,7 @@ async function addStar() {
     message: newMessage.value,
     intensity: selectedIntensity.value,
     // On envoie la date au format ISO (YYYY-MM-DD) pour éviter les erreurs SQL
-    date: selectedDate.value, 
+    date: selectedDate.value || new Date().toISOString(), 
     animationDelay: `${Math.random() * 3}s`
   }
 
@@ -151,7 +142,7 @@ async function addStar() {
 async function deleteStar(id: number) {
   // Suppression optimiste
   const previousStars = [...stars.value]
-  stars.value = stars.value.filter(s => s.id !== id)
+  stars.value = stars.value.filter((s: Star) => s.id !== id)
   
   const success = await removeStarApi(id)
   if (!success) {

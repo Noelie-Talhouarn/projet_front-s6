@@ -14,10 +14,10 @@ const displayQuote = computed(() => {
     <!-- Effet de bordure dégradée -->
     <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-spark/50 via-spark-pink/50 to-spark/50 blur opacity-75"></div>
     
-    <div class="relative flex flex-col gap-4 rounded-2xl bg-night-900/80 backdrop-blur-xl border border-white/10 p-8 text-center shadow-2xl">
+    <div class="relative flex flex-col gap-1 rounded-2xl bg-night-900/80 backdrop-blur-xl border border-white/10 p-2 text-center shadow-2xl">
       
       <!-- Titre décoratif -->
-      <div class="flex justify-center mb-2">
+      <div class="flex justify-center">
         <span class="text-3xl">❝</span>
       </div>
 
@@ -30,7 +30,7 @@ const displayQuote = computed(() => {
       <div v-else-if="error" class="text-red-400 text-sm">
         Impossible de charger la citation inspirante du jour.
         <br>
-        <button @click="refresh" class="text-white hover:underline mt-2 text-xs">Réessayer</button>
+        <MyButton @click="refresh" class="">Réessayer</MyButton>
       </div>
 
       <!-- Citation -->
@@ -44,7 +44,7 @@ const displayQuote = computed(() => {
         </cite>
       </div>
 
-      <div class="flex justify-center mt-2">
+      <div class="flex justify-center">
         <span class="text-3xl rotate-180">❝</span>
       </div>
 

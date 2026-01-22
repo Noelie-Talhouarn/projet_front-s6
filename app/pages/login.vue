@@ -28,7 +28,7 @@ async function onSubmit () {
     cookie.value = response.token
 
     console.log('🔵 Redirection vers le dashboard...')
-    navigateTo('/dashboard')
+    navigateTo('/profil')
 
   } catch (err: any) {
     console.error('🔴 Erreur de connexion :', err)

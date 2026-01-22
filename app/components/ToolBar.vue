@@ -30,7 +30,7 @@
         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-spark-pink transition-colors">Souffle</span>
       </NuxtLink>
 
-      <NuxtLink to="/profile" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
+      <NuxtLink to="/profil" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
         <div class="rounded-xl p-2 group-[.router-link-active]:bg-slate-700 group-[.router-link-active]:text-slate-200 text-slate-500 transition-colors">
           <span class="text-xl">👤</span>
         </div>

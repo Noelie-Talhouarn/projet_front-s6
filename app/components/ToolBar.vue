@@ -23,11 +23,11 @@
         <span class="mt-1 text-[10px] font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-spark">Lueur</span>
       </NuxtLink>
 
-      <NuxtLink to="/breathing" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
-        <div class="rounded-xl p-2 group-[.router-link-active]:bg-spark-pink/20 group-[.router-link-active]:text-spark-pink text-slate-500 transition-colors">
-          <span class="text-xl">🌬️</span>
+      <NuxtLink to="/ciel" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">
+        <div class="rounded-xl p-2 group-[.router-link-active]:bg-indigo-500/20 group-[.router-link-active]:text-indigo-300 text-slate-500 transition-colors">
+          <span class="text-xl">🌌</span>
         </div>
-        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-spark-pink transition-colors">Souffle</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-indigo-300 transition-colors">Ciel</span>
       </NuxtLink>
 
       <NuxtLink to="/profil" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">

@@ -51,7 +51,7 @@ onMounted(async () => {
 
 async function loadUserProfile() {
   try {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     if (!token.value) {
       navigateTo('/login')
       return
@@ -80,7 +80,7 @@ async function loadUserProfile() {
 
 async function loadUserStats() {
   try {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     if (!token.value) return
 
     const response = await $fetch<any>('/api/users/stats', {
@@ -114,7 +114,7 @@ function cancelEditing() {
 
 async function saveProfile() {
   try {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     if (!token.value) return
 
     await $fetch('/api/users/profile', {
@@ -143,7 +143,7 @@ async function saveProfile() {
 
 async function updatePreferences() {
   try {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     if (!token.value) return
 
     await $fetch('/api/users/preferences', {
@@ -207,7 +207,7 @@ async function deleteAccount() {
   errorMessage.value = ''
 
   try {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     if (!token.value) return
 
     await $fetch('/api/users/account', {
@@ -218,7 +218,7 @@ async function deleteAccount() {
     })
 
     // Supprimer le cookie
-    const cookie = useCookie('recipe_token')
+    const cookie = useCookie('auth_token')
     cookie.value = null
 
     // Rediriger vers la page de connexion

@@ -1,5 +1,5 @@
 export const useMeditations = () => {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     const apiBase = 'http://localhost:3002'
 
     // Données de secours (MP3 libres de droits pour tester)

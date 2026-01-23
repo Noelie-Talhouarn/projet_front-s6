@@ -6,7 +6,7 @@ const isLoading = ref(true)
 
 async function fetchGames() {
     try {
-        const token = useCookie('recipe_token')
+        const token = useCookie('auth_token')
         const data = await $fetch('/api/games', {
             headers: token.value ? { Authorization: `Bearer ${token.value}` } : {}
         }) as any[]

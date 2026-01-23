@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'landing'
+})
 const email = ref('')
 const mot_de_passe = ref('')
 const errorMessage = ref('')
@@ -24,11 +27,11 @@ async function onSubmit () {
     console.log('🟢 Connexion réussie ! Token reçu.')
 
     // 🔐 Stockage du JWT
-    const cookie = useCookie('recipe_token')
+    const cookie = useCookie('auth_token')
     cookie.value = response.token
 
     console.log('🔵 Redirection vers le dashboard...')
-    navigateTo('/profil')
+    navigateTo('/home')
 
   } catch (err: any) {
     console.error('🔴 Erreur de connexion :', err)

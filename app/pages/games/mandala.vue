@@ -14,7 +14,7 @@ const PALETTES = {
 
 // État du Jeu (Persistant : Cookie + API Sync)
 const level = useCookie<number>('mandala_level', { default: () => 1 }) // Fallback local
-const recipe_token = useCookie('recipe_token') // Pour l'auth
+const recipe_token = useCookie('auth_token') // Pour l'auth
 const progress = ref(0)
 const isCompleted = ref(false)
 

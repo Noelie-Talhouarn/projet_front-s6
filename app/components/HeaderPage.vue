@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-const token = useCookie('recipe_token')
+const token = useCookie('auth_token')
 
 const logout = () => {
   token.value = null // Deletes the cookie

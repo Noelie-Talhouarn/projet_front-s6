@@ -1,5 +1,5 @@
 export const useStars = () => {
-    const token = useCookie('recipe_token')
+    const token = useCookie('auth_token')
     // On pointe vers votre backend sur le port 3002
     const apiBase = 'http://localhost:3002'
 

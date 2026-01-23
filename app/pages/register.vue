@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'landing'
+})
 const prenom = ref('')
 const nom = ref('')
 const email = ref('')
@@ -44,11 +47,11 @@ async function onSubmit () {
     console.log('🟢 Connexion réussie, récupération du token')
     
     // Stockage du cookie
-    const cookie = useCookie('recipe_token')
+    const cookie = useCookie('auth_token')
     cookie.value = loginResponse.token
 
     console.log('🔵 Redirection vers l\'accueil...')
-    return navigateTo('/')
+    return navigateTo('/home')
 
   } catch (err: any) {
     console.error('🔴 Erreur :', err)

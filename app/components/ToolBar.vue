@@ -16,11 +16,11 @@
         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 group-[.router-link-active]:text-emerald-400 transition-colors">Zen</span>
       </NuxtLink>
 
-      <NuxtLink to="/sparks/new" class="relative -mt-12 flex flex-col items-center group">
+      <NuxtLink to="/games/mandala" class="relative -mt-12 flex flex-col items-center group">
         <div class="flex h-16 w-16 items-center justify-center rounded-full border-4 border-night-900 bg-gradient-spark text-2xl shadow-lg shadow-spark/40 transition-all group-hover:scale-110 group-active:scale-95 group-hover:shadow-spark/60">
-          ✨
+          🎨
         </div>
-        <span class="mt-1 text-[10px] font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-spark">Lueur</span>
+        <span class="mt-1 text-[10px] font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-spark">Art</span>
       </NuxtLink>
 
       <NuxtLink to="/ciel" class="flex flex-col items-center gap-1 transition-all active:scale-95 group">

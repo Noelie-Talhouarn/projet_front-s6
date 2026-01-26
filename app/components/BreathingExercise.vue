@@ -35,6 +35,40 @@ const stopBreathing = () => {
   if (cycleTimeout) clearTimeout(cycleTimeout)
 }
 
+const finishSession = async () => {
+  // Arrêter l'exercice
+  stopBreathing()
+  
+  // Sauvegarder la session si du temps a été écouté
+  if (elapsedTime.value > 0) {
+    try {
+      const seconds = elapsedTime.value
+      const token = useCookie('auth_token')
+      
+      if (token.value) {
+        console.log("🏁 Fin de session cohérence, temps écouté:", seconds, 's')
+        await $fetch('/api/meditations/session', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token.value}`
+          },
+          body: {
+            duration: seconds,
+            type: 'coherence_cardiaque'
+          }
+        })
+        console.log("✅ Séance de respiration enregistrée 🌬️")
+      }
+    } catch (e) {
+      console.error("❌ Erreur sauvegarde respiration", e)
+    }
+  }
+  
+  // Réinitialiser
+  elapsedTime.value = 0
+  instruction.value = 'Prêt ?'
+}
+
 const toggleBreathing = () => {
   if (isRunning.value) {
     stopBreathing()
@@ -122,15 +156,26 @@ onBeforeUnmount(() => {
           {{ formattedTime }}
         </div>
         
-        <MyButton 
-          :variant="isRunning ? 'default' : 'pink'" 
-          size="large" 
-          @click="toggleBreathing"
-        >
-          {{ isRunning ? 'Arrêter la séance' : 'Commencer la séance' }}
-        </MyButton>
+        <div class="flex gap-3">
+          <MyButton 
+            :variant="isRunning ? 'default' : 'pink'" 
+            size="large" 
+            @click="toggleBreathing"
+          >
+            {{ isRunning ? 'Pause' : (elapsedTime > 0 ? 'Reprendre' : 'Commencer la séance') }}
+          </MyButton>
 
-        <p v-if="!isRunning" class="text-slate-400 text-sm max-w-sm">
+          <MyButton 
+            v-if="elapsedTime > 0"
+            variant="pink" 
+            size="large" 
+            @click="finishSession"
+          >
+            ✓ Terminer
+          </MyButton>
+        </div>
+
+        <p v-if="!isRunning && elapsedTime === 0" class="text-slate-400 text-sm max-w-sm">
             Inspirez quand la lumière grandit, expirez quand elle rétrécit.
         </p>
       </div>

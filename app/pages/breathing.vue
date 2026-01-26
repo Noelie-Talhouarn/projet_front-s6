@@ -30,11 +30,43 @@ const startBreathing = () => {
   runCycle()
 }
 
-const stopBreathing = () => {
-  showIntro.value = true
+const stopBreathing = async () => {
   isRunning.value = false
   if (timerInterval) clearInterval(timerInterval)
   if (cycleTimeout) clearTimeout(cycleTimeout)
+}
+
+const finishSession = async () => {
+  // Arrêter l'exercice
+  stopBreathing()
+  
+  // Sauvegarder la session si du temps a été écouté
+  if (elapsedTime.value > 0) {
+    try {
+      const seconds = elapsedTime.value
+      const token = useCookie('auth_token')
+      
+      if (token.value) {
+        console.log("🏁 Fin de session cohérence, temps écouté:", seconds, 's')
+        await $fetch('/api/meditations/session', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token.value}`
+          },
+          body: {
+            duration: seconds,
+            type: 'coherence_cardiaque'
+          }
+        })
+        console.log("✅ Séance de respiration enregistrée 🌬️")
+      }
+    } catch (e) {
+      console.error("❌ Erreur sauvegarde respiration", e)
+    }
+  }
+  
+  // Retourner à l'intro
+  showIntro.value = true
 }
 
 const runCycle = () => {
@@ -139,9 +171,23 @@ onBeforeUnmount(() => {
           {{ formattedTime }}
         </div>
         
-        <MyButton variant="default" size="small" @click="stopBreathing">
-          Arrêter
-        </MyButton>
+        <div class="flex gap-3">
+          <MyButton 
+            :variant="isRunning ? 'default' : 'pink'" 
+            size="small" 
+            @click="isRunning ? stopBreathing() : startBreathing()"
+          >
+            {{ isRunning ? 'Pause' : 'Reprendre' }}
+          </MyButton>
+          
+          <MyButton 
+            variant="pink" 
+            size="small" 
+            @click="finishSession"
+          >
+            ✓ Terminer la session
+          </MyButton>
+        </div>
       </div>
 
     </div>

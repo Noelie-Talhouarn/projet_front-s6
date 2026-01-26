@@ -22,11 +22,27 @@ const successMessage = ref('')
 
 // Statistiques
 const stats = ref({
-  sparks_count: 0,
+  // Globales (en secondes)
+  stars_count: 0,
   breathing_sessions: 0,
   total_breathing_time: 0,
+  total_coherence_time: 0,
+  total_meditation_time: 0,
   games_played: 0,
-  days_active: 0
+  days_active: 0,
+  sparks_count: 0,
+  current_streak: 0,
+  
+  // Hebdomadaires (en secondes)
+  weekly_stars_count: 0,
+  weekly_breathing_sessions_count: 0,
+  weekly_games_played_count: 0,
+  weekly_meditation_time: 0,
+  weekly_coherence_time: 0,
+  weekly_breathing_time: 0,
+  
+  // Badges
+  badges: null as any
 })
 
 // Préférences
@@ -89,10 +105,72 @@ async function loadUserStats() {
       }
     })
 
-    stats.value = response
+    console.log('📊 Stats reçues:', response)
+
+    stats.value = {
+        // Globales (en secondes)
+        stars_count: response.stars_count || 0,
+        breathing_sessions: response.breathing_sessions || 0,
+        total_breathing_time: response.total_breathing_time || 0,
+        total_coherence_time: response.total_coherence_time || 0,
+        total_meditation_time: response.total_meditation_time || 0,
+        games_played: response.games_played || 0,
+        days_active: response.days_active || 0,
+        sparks_count: response.sparks_count || 0,
+        current_streak: response.current_streak || 0,
+        
+        // Hebdomadaires (en secondes)
+        weekly_stars_count: response.weekly_stars_count || 0,
+        weekly_breathing_sessions_count: response.weekly_breathing_sessions_count || 0,
+        weekly_games_played_count: response.weekly_games_played_count || 0,
+        weekly_meditation_time: response.weekly_meditation_time || 0,
+        weekly_coherence_time: response.weekly_coherence_time || 0,
+        weekly_breathing_time: response.weekly_breathing_time || 0,
+        
+        // Badges
+        badges: response.badges || null
+    }
+    
+    console.log('✅ Stats chargées:', stats.value)
   } catch (err) {
     console.error('Erreur lors du chargement des statistiques:', err)
   }
+}
+
+// Fonction pour formater le temps intelligemment
+function formatTime(seconds: number) {
+  if (!seconds || seconds === 0) return '0s'
+  
+  if (seconds < 60) {
+    // Moins d'une minute : afficher en secondes
+    return `${seconds}s`
+  } else {
+    // Plus d'une minute : afficher en minutes (et secondes si nécessaire)
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    
+    if (remainingSeconds === 0) {
+      return `${minutes} min`
+    } else {
+      return `${minutes} min ${remainingSeconds}s`
+    }
+  }
+}
+
+// Message selon le streak
+function getStreakMessage(streak: number) {
+  if (streak === 0) return 'Commence une nouvelle série dès aujourd\'hui ! 💪'
+  if (streak === 1) return 'Bon début ! Continue demain pour garder la flamme 🔥'
+  if (streak < 7) return `${streak} jours consécutifs ! Continue comme ça 🌟`
+  if (streak < 30) return `${streak} jours ! Tu es sur une belle lancée 🚀`
+  if (streak < 100) return `${streak} jours ! Incroyable régularité 🏆`
+  return `${streak} jours ! Tu es une légende vivante 👑`
+}
+
+// Prochain palier (3, 7, 14, 30, 60, 100, etc.)
+function getNextMilestone(streak: number) {
+  const milestones = [3, 7, 14, 30, 60, 100, 365]
+  return milestones.find(m => m > streak) || streak + 100
 }
 
 function startEditing() {
@@ -163,11 +241,22 @@ async function updatePreferences() {
   }
 }
 
-function formatDuration(minutes: number) {
-  if (minutes < 60) return `${minutes} min`
-  const hours = Math.floor(minutes / 60)
-  const mins = minutes % 60
-  return `${hours}h ${mins}min`
+function formatDuration(seconds: number) {
+  if (!seconds) return '0 s'
+  
+  // Si moins d'une minute, afficher en secondes
+  if (seconds < 60) {
+    return `${seconds} s`
+  }
+  
+  // Sinon convertir en minutes/heures
+  const hours = Math.floor(seconds / 3600)
+  const mins = Math.floor((seconds % 3600) / 60)
+  
+  if (hours > 0) {
+    return `${hours}h ${mins}min`
+  }
+  return `${mins} min`
 }
 
 function formatDate(dateString: string) {
@@ -332,132 +421,385 @@ async function deleteAccount() {
         </div>
 
         <!-- Statistiques -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in-up" style="animation-delay: 0.1s">
+        <div class="space-y-4 animate-fade-in-up" style="animation-delay: 0.1s">
           
-          <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-spark/50 transition-all hover:scale-105">
-            <div class="text-3xl mb-2">✨</div>
-            <div class="text-2xl font-bold text-spark-light mb-1">{{ stats.sparks_count }}</div>
-            <div class="text-xs text-slate-400 uppercase tracking-wider">Lueurs créées</div>
+          <!-- Méditation -->
+          <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-glow/50 transition-all">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="text-4xl">🧘‍♀️</div>
+              <h3 class="text-xl font-bold text-white">Méditation</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-center p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                <div class="text-xs text-purple-300 uppercase tracking-wider mb-1">Cette semaine</div>
+                <div class="text-2xl font-bold text-purple-400">{{ formatTime(stats.weekly_meditation_time) }}</div>
+              </div>
+              <div class="text-center p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                <div class="text-xs text-yellow-300 uppercase tracking-wider mb-1">Total</div>
+                <div class="text-2xl font-bold text-yellow-400">{{ formatTime(stats.total_meditation_time) }}</div>
+              </div>
+            </div>
           </div>
 
-          <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-spark-pink/50 transition-all hover:scale-105">
-            <div class="text-3xl mb-2">🌬️</div>
-            <div class="text-2xl font-bold text-spark-pink mb-1">{{ stats.breathing_sessions }}</div>
-            <div class="text-xs text-slate-400 uppercase tracking-wider">Sessions</div>
+          <!-- Cohérence Cardiaque -->
+          <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-spark-pink/50 transition-all">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="text-4xl">🌬️</div>
+              <h3 class="text-xl font-bold text-white">Cohérence Cardiaque</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-center p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                <div class="text-xs text-purple-300 uppercase tracking-wider mb-1">Cette semaine</div>
+                <div class="text-2xl font-bold text-purple-400">{{ formatTime(stats.weekly_coherence_time) }}</div>
+              </div>
+              <div class="text-center p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                <div class="text-xs text-yellow-300 uppercase tracking-wider mb-1">Total</div>
+                <div class="text-2xl font-bold text-yellow-400">{{ formatTime(stats.total_coherence_time) }}</div>
+              </div>
+            </div>
           </div>
 
-          <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-glow/50 transition-all hover:scale-105">
-            <div class="text-3xl mb-2">⏱️</div>
-            <div class="text-2xl font-bold text-glow-light mb-1">{{ formatDuration(stats.total_breathing_time) }}</div>
-            <div class="text-xs text-slate-400 uppercase tracking-wider">Méditation</div>
-          </div>
-
-          <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-purple-400/50 transition-all hover:scale-105">
-            <div class="text-3xl mb-2">🎮</div>
-            <div class="text-2xl font-bold text-purple-400 mb-1">{{ stats.games_played }}</div>
-            <div class="text-xs text-slate-400 uppercase tracking-wider">Jeux joués</div>
-          </div>
-        </div>
-
-        <!-- Préférences -->
-        <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.2s">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-2xl">⚙️</span>
-            <MyTitle as="h2" size="small">Préférences</MyTitle>
-          </div>
-
-          <div class="space-y-4">
+          <!-- Grille des autres stats -->
+          <div class="grid grid-cols-2 gap-4">
             
-            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-              <div class="flex items-center gap-3">
-                <span class="text-xl">🔔</span>
-                <div>
-                  <div class="font-medium text-white">Notifications</div>
-                  <div class="text-sm text-slate-400">Recevoir des rappels quotidiens</div>
-                </div>
-              </div>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  v-model="preferences.notifications" 
-                  @change="updatePreferences"
-                  class="sr-only peer"
-                >
-                <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-spark/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-spark"></div>
-              </label>
+            <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-amber-400/50 transition-all hover:scale-105">
+              <div class="text-3xl mb-2">⭐</div>
+              <div class="text-2xl font-bold text-amber-400 mb-1">{{ stats.stars_count || 0 }}</div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider">Étoiles Créées</div>
             </div>
 
-            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-              <div class="flex items-center gap-3">
-                <span class="text-xl">💬</span>
-                <div>
-                  <div class="font-medium text-white">Citation du jour</div>
-                  <div class="text-sm text-slate-400">Afficher une citation inspirante</div>
-                </div>
-              </div>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  v-model="preferences.daily_quote" 
-                  @change="updatePreferences"
-                  class="sr-only peer"
-                >
-                <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-spark/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-spark"></div>
-              </label>
-            </div>
-
-            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-              <div class="flex items-center gap-3">
-                <span class="text-xl">🌙</span>
-                <div>
-                  <div class="font-medium text-white">Mode sombre</div>
-                  <div class="text-sm text-slate-400">Thème de l'application</div>
-                </div>
-              </div>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  v-model="preferences.dark_mode" 
-                  @change="updatePreferences"
-                  class="sr-only peer"
-                >
-                <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-spark/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-spark"></div>
-              </label>
+            <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-blue-400/50 transition-all hover:scale-105">
+              <div class="text-3xl mb-2">📅</div>
+              <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.days_active || 0 }}</div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider">Jours Actifs</div>
             </div>
           </div>
         </div>
 
-        <!-- Progression et Badges -->
+        <!-- Streak (Série de jours consécutifs) -->
+        <div class="rounded-2xl border-2 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up hover:translate-y-[-2px] transition-all" 
+             :class="stats.current_streak > 0 ? 'border-orange-400/50 bg-gradient-to-br from-orange-500/10 to-red-500/10' : 'border-white/10'"
+             style="animation-delay: 0.2s">
+          <div class="flex items-center gap-6">
+            <div class="relative">
+              <!-- Flamme animée -->
+              <div 
+                class="text-6xl transition-all duration-300"
+                :class="{
+                  'animate-pulse': stats.current_streak > 0,
+                  'grayscale opacity-30': stats.current_streak === 0
+                }"
+              >
+                🔥
+              </div>
+              <!-- Badge du nombre de jours -->
+              <div 
+                v-if="stats.current_streak > 0"
+                class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full w-8 h-8 flex items-center justify-center border-2 border-white"
+              >
+                {{ stats.current_streak }}
+              </div>
+            </div>
+            
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-white mb-1">
+                {{ stats.current_streak > 0 ? 'Série en cours' : 'Série éteinte' }}
+              </h3>
+              <p class="text-sm text-white/60">
+                {{ getStreakMessage(stats.current_streak) }}
+              </p>
+              
+              <!-- Barre de progression vers le prochain palier -->
+              <div v-if="stats.current_streak > 0" class="mt-3">
+                <div class="flex justify-between text-xs text-white/60 mb-1">
+                  <span>Prochain palier : {{ getNextMilestone(stats.current_streak) }} jours</span>
+                  <span>{{ stats.current_streak }} / {{ getNextMilestone(stats.current_streak) }}</span>
+                </div>
+                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div 
+                    class="h-full bg-gradient-to-r from-orange-400 to-red-500 transition-all duration-500"
+                    :style="{ width: `${(stats.current_streak / getNextMilestone(stats.current_streak)) * 100}%` }"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badges Dynamiques -->
         <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.3s">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-2xl">🏆</span>
-            <MyTitle as="h2" size="small">Badges et Réalisations</MyTitle>
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🏆</span>
+              <MyTitle as="h2" size="small">Mes Badges</MyTitle>
+            </div>
+            <div class="text-sm text-white/60">
+              {{ stats.badges?.total || 0 }} / {{ stats.badges?.totalPossible || 15 }} débloqués
+            </div>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- Barre de progression globale -->
+          <div class="mb-8">
+            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+              <div 
+                class="h-full bg-gradient-to-r from-purple-500 to-yellow-400 transition-all duration-500"
+                :style="{ width: `${(stats.badges?.total / stats.badges?.totalPossible * 100) || 0}%` }"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Badges débloqués récents (dernier de chaque catégorie) -->
+          <div v-if="stats.badges?.unlocked?.length > 0" class="mb-8">
+            <h4 class="text-lg font-semibold text-white mb-4">🆕 Derniers badges débloqués</h4>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <!-- Dernier badge Étoiles -->
+              <div 
+                v-if="stats.badges.unlocked.filter(b => b.category === 'stars').length > 0"
+                v-for="badge in [stats.badges.unlocked.filter(b => b.category === 'stars').slice(-1)[0]]"
+                :key="badge.id"
+                class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-500/20 to-purple-500/20 backdrop-blur-lg rounded-2xl border-2 border-yellow-400/50 hover:scale-105 transition-transform cursor-pointer group"
+                :title="badge.description"
+              >
+                <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
+                  {{ badge.emoji }}
+                </div>
+                <div class="text-center">
+                  <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
+                  <p class="text-xs text-white/60 mt-1">{{ badge.description }}</p>
+                  <p class="text-xs text-yellow-400 mt-1">⭐ Étoiles</p>
+                </div>
+              </div>
+
+              <!-- Dernier badge Méditation -->
+              <div 
+                v-if="stats.badges.unlocked.filter(b => b.category === 'meditation').length > 0"
+                v-for="badge in [stats.badges.unlocked.filter(b => b.category === 'meditation').slice(-1)[0]]"
+                :key="badge.id"
+                class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-500/20 to-purple-500/20 backdrop-blur-lg rounded-2xl border-2 border-yellow-400/50 hover:scale-105 transition-transform cursor-pointer group"
+                :title="badge.description"
+              >
+                <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
+                  {{ badge.emoji }}
+                </div>
+                <div class="text-center">
+                  <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
+                  <p class="text-xs text-white/60 mt-1">{{ badge.description }}</p>
+                  <p class="text-xs text-purple-400 mt-1">🧘‍♀️ Méditation</p>
+                </div>
+              </div>
+
+              <!-- Dernier badge Cohérence -->
+              <div 
+                v-if="stats.badges.unlocked.filter(b => b.category === 'coherence').length > 0"
+                v-for="badge in [stats.badges.unlocked.filter(b => b.category === 'coherence').slice(-1)[0]]"
+                :key="badge.id"
+                class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-500/20 to-purple-500/20 backdrop-blur-lg rounded-2xl border-2 border-yellow-400/50 hover:scale-105 transition-transform cursor-pointer group"
+                :title="badge.description"
+              >
+                <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
+                  {{ badge.emoji }}
+                </div>
+                <div class="text-center">
+                  <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
+                  <p class="text-xs text-white/60 mt-1">{{ badge.description }}</p>
+                  <p class="text-xs text-blue-400 mt-1">🌬️ Cohérence</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prochains badges à débloquer -->
+          <div v-if="stats.badges?.next && (stats.badges.next.stars || stats.badges.next.meditation || stats.badges.next.coherence)" class="mb-8">
+            <h4 class="text-lg font-semibold text-white mb-4">🎯 Prochains objectifs</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <!-- Prochain badge Étoiles -->
+              <div 
+                v-if="stats.badges.next.stars"
+                class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="text-3xl opacity-50">{{ stats.badges.next.stars.emoji }}</div>
+                  <div class="flex-1">
+                    <p class="text-sm font-semibold text-white">{{ stats.badges.next.stars.name }}</p>
+                    <p class="text-xs text-white/60">{{ stats.badges.next.stars.description }}</p>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-xs text-white/60">
+                    <span>Progression</span>
+                    <span>{{ stats.badges.next.stars.progress }}%</span>
+                  </div>
+                  <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div 
+                      class="h-full bg-yellow-400 transition-all duration-500"
+                      :style="{ width: `${stats.badges.next.stars.progress}%` }"
+                    ></div>
+                  </div>
+                  <p class="text-xs text-white/60 text-center">
+                    Encore {{ stats.badges.next.stars.remaining }} étoile{{ stats.badges.next.stars.remaining > 1 ? 's' : '' }}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Prochain badge Méditation -->
+              <div 
+                v-if="stats.badges.next.meditation"
+                class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="text-3xl opacity-50">{{ stats.badges.next.meditation.emoji }}</div>
+                  <div class="flex-1">
+                    <p class="text-sm font-semibold text-white">{{ stats.badges.next.meditation.name }}</p>
+                    <p class="text-xs text-white/60">{{ stats.badges.next.meditation.description }}</p>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-xs text-white/60">
+                    <span>Progression</span>
+                    <span>{{ stats.badges.next.meditation.progress }}%</span>
+                  </div>
+                  <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div 
+                      class="h-full bg-purple-400 transition-all duration-500"
+                      :style="{ width: `${stats.badges.next.meditation.progress}%` }"
+                    ></div>
+                  </div>
+                  <p class="text-xs text-white/60 text-center">
+                    Encore {{ formatTime(stats.badges.next.meditation.remaining) }}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Prochain badge Cohérence -->
+              <div 
+                v-if="stats.badges.next.coherence"
+                class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="text-3xl opacity-50">{{ stats.badges.next.coherence.emoji }}</div>
+                  <div class="flex-1">
+                    <p class="text-sm font-semibold text-white">{{ stats.badges.next.coherence.name }}</p>
+                    <p class="text-xs text-white/60">{{ stats.badges.next.coherence.description }}</p>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-xs text-white/60">
+                    <span>Progression</span>
+                    <span>{{ stats.badges.next.coherence.progress }}%</span>
+                  </div>
+                  <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div 
+                      class="h-full bg-blue-400 transition-all duration-500"
+                      :style="{ width: `${stats.badges.next.coherence.progress}%` }"
+                    ></div>
+                  </div>
+                  <p class="text-xs text-white/60 text-center">
+                    Encore {{ formatTime(stats.badges.next.coherence.remaining) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tous les badges par catégorie -->
+          <div v-if="stats.badges?.unlocked || stats.badges?.locked">
+            <h4 class="text-lg font-semibold text-white mb-4">📜 Tous les badges</h4>
             
-            <div class="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all hover:scale-105 cursor-pointer" :class="stats.sparks_count >= 1 ? 'opacity-100' : 'opacity-40'">
-              <div class="text-4xl mb-2">✨</div>
-              <div class="text-xs font-bold text-spark-light">Première Lueur</div>
-              <div class="text-[10px] text-slate-500 mt-1">Créer votre première lueur</div>
+            <!-- Badges Étoiles -->
+            <div class="mb-6">
+              <h5 class="text-sm font-semibold text-yellow-400 mb-3 flex items-center gap-2">
+                <span>⭐</span> Badges Étoiles
+              </h5>
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- Badges étoiles débloqués -->
+                <div 
+                  v-for="badge in [...(stats.badges?.unlocked || []), ...(stats.badges?.locked || [])].filter(b => b.category === 'stars')" 
+                  :key="badge.id"
+                  :class="stats.badges?.unlocked?.find(u => u.id === badge.id) 
+                    ? 'bg-gradient-to-br from-yellow-500/20 to-purple-500/20 border-2 border-yellow-400/50' 
+                    : 'bg-white/5 border border-white/10 opacity-50'"
+                  class="flex flex-col items-center p-4 backdrop-blur-lg rounded-2xl"
+                >
+                  <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
+                    {{ badge.emoji }}
+                  </div>
+                  <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
+                    {{ badge.name }}
+                  </p>
+                  <div v-if="!stats.badges?.unlocked?.find(u => u.id === badge.id) && badge.progress !== undefined" class="w-full mt-2">
+                    <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+                      <div 
+                        class="h-full bg-white/30"
+                        :style="{ width: `${badge.progress}%` }"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all hover:scale-105 cursor-pointer" :class="stats.breathing_sessions >= 5 ? 'opacity-100' : 'opacity-40'">
-              <div class="text-4xl mb-2">🧘</div>
-              <div class="text-xs font-bold text-spark-pink">Zen Master</div>
-              <div class="text-[10px] text-slate-500 mt-1">5 sessions de respiration</div>
+            <!-- Badges Méditation -->
+            <div class="mb-6">
+              <h5 class="text-sm font-semibold text-purple-400 mb-3 flex items-center gap-2">
+                <span>🧘‍♀️</span> Badges Méditation
+              </h5>
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div 
+                  v-for="badge in [...(stats.badges?.unlocked || []), ...(stats.badges?.locked || [])].filter(b => b.category === 'meditation')" 
+                  :key="badge.id"
+                  :class="stats.badges?.unlocked?.find(u => u.id === badge.id) 
+                    ? 'bg-gradient-to-br from-yellow-500/20 to-purple-500/20 border-2 border-yellow-400/50' 
+                    : 'bg-white/5 border border-white/10 opacity-50'"
+                  class="flex flex-col items-center p-4 backdrop-blur-lg rounded-2xl"
+                >
+                  <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
+                    {{ badge.emoji }}
+                  </div>
+                  <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
+                    {{ badge.name }}
+                  </p>
+                  <div v-if="!stats.badges?.unlocked?.find(u => u.id === badge.id) && badge.progress !== undefined" class="w-full mt-2">
+                    <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+                      <div 
+                        class="h-full bg-white/30"
+                        :style="{ width: `${badge.progress}%` }"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all hover:scale-105 cursor-pointer" :class="stats.days_active >= 7 ? 'opacity-100' : 'opacity-40'">
-              <div class="text-4xl mb-2">🔥</div>
-              <div class="text-xs font-bold text-orange-400">Série de 7</div>
-              <div class="text-[10px] text-slate-500 mt-1">7 jours consécutifs</div>
-            </div>
-
-            <div class="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all hover:scale-105 cursor-pointer" :class="stats.games_played >= 10 ? 'opacity-100' : 'opacity-40'">
-              <div class="text-4xl mb-2">🎨</div>
-              <div class="text-xs font-bold text-purple-400">Artiste</div>
-              <div class="text-[10px] text-slate-500 mt-1">10 jeux complétés</div>
+            <!-- Badges Cohérence Cardiaque -->
+            <div>
+              <h5 class="text-sm font-semibold text-blue-400 mb-3 flex items-center gap-2">
+                <span>🌬️</span> Badges Cohérence Cardiaque
+              </h5>
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div 
+                  v-for="badge in [...(stats.badges?.unlocked || []), ...(stats.badges?.locked || [])].filter(b => b.category === 'coherence')" 
+                  :key="badge.id"
+                  :class="stats.badges?.unlocked?.find(u => u.id === badge.id) 
+                    ? 'bg-gradient-to-br from-yellow-500/20 to-purple-500/20 border-2 border-yellow-400/50' 
+                    : 'bg-white/5 border border-white/10 opacity-50'"
+                  class="flex flex-col items-center p-4 backdrop-blur-lg rounded-2xl"
+                >
+                  <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
+                    {{ badge.emoji }}
+                  </div>
+                  <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
+                    {{ badge.name }}
+                  </p>
+                  <div v-if="!stats.badges?.unlocked?.find(u => u.id === badge.id) && badge.progress !== undefined" class="w-full mt-2">
+                    <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+                      <div 
+                        class="h-full bg-white/30"
+                        :style="{ width: `${badge.progress}%` }"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -515,7 +857,7 @@ async function deleteAccount() {
         <div class="mb-6 space-y-2 rounded-lg bg-red-500/10 p-4 text-sm text-slate-300">
           <div class="flex items-center gap-2">
             <span>✨</span>
-            <span>{{ stats.sparks_count }} lueurs créées</span>
+            <span>{{ stats.stars_count }} lueurs créées</span>
           </div>
           <div class="flex items-center gap-2">
             <span>🌬️</span>

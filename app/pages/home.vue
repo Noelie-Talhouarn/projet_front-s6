@@ -8,6 +8,36 @@ definePageMeta({
 
 // Récupération de l'utilisateur
 const cookie = useCookie('auth_token')
+
+// Streak
+const currentStreak = ref(0)
+
+// Charger le streak
+onMounted(async () => {
+  try {
+    const token = useCookie('auth_token')
+    if (token.value) {
+      const response = await $fetch<any>('/api/users/stats', {
+        headers: {
+          Authorization: `Bearer ${token.value}`
+        }
+      })
+      currentStreak.value = response.current_streak || 0
+    }
+  } catch (err) {
+    console.error('Erreur chargement streak:', err)
+  }
+})
+
+// Message selon le streak
+function getStreakMessage(streak: number) {
+  if (streak === 0) return 'Commence une nouvelle série dès aujourd\'hui !'
+  if (streak === 1) return 'Continue demain pour garder la flamme'
+  if (streak < 7) return `Série de ${streak} jours !`
+  if (streak < 30) return `${streak} jours consécutifs ! 🚀`
+  if (streak < 100) return `${streak} jours ! Incroyable régularité 🏆`
+  return `${streak} jours ! Légende 👑`
+}
 // Idéalement on récupérerait le profil utilisateur ici pour afficher "Bonjour Prénom"
 </script>
 
@@ -20,6 +50,9 @@ const cookie = useCookie('auth_token')
            <h1 class="text-3xl font-light text-white mb-2">Bienvenue dans votre espace,</h1>
            <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
        </header>
+
+       <!-- Streak Compact -->
+       <StreakCard :streak="currentStreak" class="mb-6" />
 
        <DailyQuote />
     </section>

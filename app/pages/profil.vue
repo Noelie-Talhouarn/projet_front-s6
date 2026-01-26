@@ -31,7 +31,6 @@ const stats = ref({
   games_played: 0,
   days_active: 0,
   sparks_count: 0,
-  current_streak: 0,
   
   // Hebdomadaires (en secondes)
   weekly_stars_count: 0,
@@ -117,7 +116,6 @@ async function loadUserStats() {
         games_played: response.games_played || 0,
         days_active: response.days_active || 0,
         sparks_count: response.sparks_count || 0,
-        current_streak: response.current_streak || 0,
         
         // Hebdomadaires (en secondes)
         weekly_stars_count: response.weekly_stars_count || 0,
@@ -155,22 +153,6 @@ function formatTime(seconds: number) {
       return `${minutes} min ${remainingSeconds}s`
     }
   }
-}
-
-// Message selon le streak
-function getStreakMessage(streak: number) {
-  if (streak === 0) return 'Commence une nouvelle série dès aujourd\'hui ! 💪'
-  if (streak === 1) return 'Bon début ! Continue demain pour garder la flamme 🔥'
-  if (streak < 7) return `${streak} jours consécutifs ! Continue comme ça 🌟`
-  if (streak < 30) return `${streak} jours ! Tu es sur une belle lancée 🚀`
-  if (streak < 100) return `${streak} jours ! Incroyable régularité 🏆`
-  return `${streak} jours ! Tu es une légende vivante 👑`
-}
-
-// Prochain palier (3, 7, 14, 30, 60, 100, etc.)
-function getNextMilestone(streak: number) {
-  const milestones = [3, 7, 14, 30, 60, 100, 365]
-  return milestones.find(m => m > streak) || streak + 100
 }
 
 function startEditing() {
@@ -370,11 +352,19 @@ async function deleteAccount() {
               </p>
             </div>
 
-            <div v-if="!isEditing">
+            <div v-if="!isEditing" class="flex items-center gap-3">
               <MyButton @click="startEditing" variant="outline" size="medium">
                 <span class="mr-2">✏️</span>
                 Modifier
               </MyButton>
+
+              <button 
+                @click="openDeleteModal" 
+                class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-colors" 
+                title="Supprimer mon compte"
+              >
+                <span class="text-lg">🗑️</span>
+              </button>
             </div>
           </div>
 
@@ -472,56 +462,6 @@ async function deleteAccount() {
               <div class="text-3xl mb-2">📅</div>
               <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.days_active || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Jours Actifs</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Streak (Série de jours consécutifs) -->
-        <div class="rounded-2xl border-2 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up hover:translate-y-[-2px] transition-all" 
-             :class="stats.current_streak > 0 ? 'border-orange-400/50 bg-gradient-to-br from-orange-500/10 to-red-500/10' : 'border-white/10'"
-             style="animation-delay: 0.2s">
-          <div class="flex items-center gap-6">
-            <div class="relative">
-              <!-- Flamme animée -->
-              <div 
-                class="text-6xl transition-all duration-300"
-                :class="{
-                  'animate-pulse': stats.current_streak > 0,
-                  'grayscale opacity-30': stats.current_streak === 0
-                }"
-              >
-                🔥
-              </div>
-              <!-- Badge du nombre de jours -->
-              <div 
-                v-if="stats.current_streak > 0"
-                class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full w-8 h-8 flex items-center justify-center border-2 border-white"
-              >
-                {{ stats.current_streak }}
-              </div>
-            </div>
-            
-            <div class="flex-1">
-              <h3 class="text-xl font-semibold text-white mb-1">
-                {{ stats.current_streak > 0 ? 'Série en cours' : 'Série éteinte' }}
-              </h3>
-              <p class="text-sm text-white/60">
-                {{ getStreakMessage(stats.current_streak) }}
-              </p>
-              
-              <!-- Barre de progression vers le prochain palier -->
-              <div v-if="stats.current_streak > 0" class="mt-3">
-                <div class="flex justify-between text-xs text-white/60 mb-1">
-                  <span>Prochain palier : {{ getNextMilestone(stats.current_streak) }} jours</span>
-                  <span>{{ stats.current_streak }} / {{ getNextMilestone(stats.current_streak) }}</span>
-                </div>
-                <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                  <div 
-                    class="h-full bg-gradient-to-r from-orange-400 to-red-500 transition-all duration-500"
-                    :style="{ width: `${(stats.current_streak / getNextMilestone(stats.current_streak)) * 100}%` }"
-                  ></div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -828,13 +768,6 @@ async function deleteAccount() {
               <span class="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
             </button>
 
-            <button @click="openDeleteModal" class="w-full text-left p-4 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-colors flex items-center justify-between group">
-              <div class="flex items-center gap-3">
-                <span class="text-xl">🗑️</span>
-                <span class="font-medium text-red-400">Supprimer mon compte</span>
-              </div>
-              <span class="text-red-400 group-hover:translate-x-1 transition-transform">→</span>
-            </button>
           </div>
         </div>
 

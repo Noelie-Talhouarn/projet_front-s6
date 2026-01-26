@@ -91,8 +91,8 @@ function handleSkyClick(event: MouseEvent) {
   const rect = el.getBoundingClientRect()
   
   clickCoordinates.value = {
-    x: ((event.clientX - rect.left) / rect.width) * 100,
-    y: ((event.clientY - rect.top) / rect.height) * 100
+    x: Math.max(5, Math.min(95, ((event.clientX - rect.left) / rect.width) * 100)),
+    y: Math.max(10, Math.min(90, ((event.clientY - rect.top) / rect.height) * 100))
   }
 
   newMessage.value = ''
@@ -213,8 +213,16 @@ async function deleteStar(id: number) {
     </client-only>
 
     <!-- Modale d'ajout -->
-    <div v-if="showModal" class="absolute z-50 modal-content" :style="{ left: `${clickCoordinates.x}%`, top: `${clickCoordinates.y}%` }">
-      <div class="relative -translate-x-1/2 -translate-y-full mb-4 w-72 bg-slate-900/95 backdrop-blur-xl border border-white/10 p-5 rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.1)] animate-pop-in">
+    <div 
+      v-if="showModal" 
+      class="modal-content fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:block md:absolute md:inset-auto md:p-0" 
+      :style="{ '--cx': `${clickCoordinates.x}%`, '--cy': `${clickCoordinates.y}%` }"
+    >
+      <div 
+        class="relative w-full max-w-sm bg-slate-900/95 backdrop-blur-xl border border-white/10 p-5 rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.1)] animate-pop-in 
+               md:w-72 md:fixed-desktop-pos md:-translate-x-1/2 md:-translate-y-full md:mb-4"
+        @click.stop
+      >
         
         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Nouveau Souvenir</h3>
         
@@ -287,11 +295,20 @@ async function deleteStar(id: number) {
 }
 
 @keyframes pop-in {
-  0% { opacity: 0; transform: translate(-50%, -40%) scale(0.95); filter: blur(5px); }
-  100% { opacity: 1; transform: translate(-50%, -100%) scale(1); filter: blur(0); }
+  0% { opacity: 0; transform: scale(0.95); filter: blur(5px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@media (min-width: 768px) {
+  .fixed-desktop-pos {
+    position: absolute;
+    left: var(--cx);
+    top: var(--cy);
+  }
 }
 
 .animate-pop-in {
   animation: pop-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 </style>
+```

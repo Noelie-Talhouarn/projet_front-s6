@@ -21,4 +21,13 @@ declare global {
         date: string
         animationDelay: string
     }
+
+    type User = {
+        id?: string | number
+        prenom: string
+        nom: string
+        email: string
+        avatar?: string
+        date_inscription?: string
+    }
 }

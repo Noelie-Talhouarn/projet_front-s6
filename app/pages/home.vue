@@ -7,25 +7,32 @@ definePageMeta({
 })
 
 // Récupération de l'utilisateur
+// Récupération de l'utilisateur via le state global
+const { user, fetchUser } = useAuth()
 const cookie = useCookie('auth_token')
 
 // Streak
 const currentStreak = ref(0)
 
-// Charger le streak
+// Charger les données (streak + profil via composable)
 onMounted(async () => {
   try {
     const token = useCookie('auth_token')
+    
+    // 1. Charger l'utilisateur (global)
+    await fetchUser()
+
+    // 2. Stats pour le streak (spécifique à cette page for now)
     if (token.value) {
-      const response = await $fetch<any>('/api/users/stats', {
+      const statsResponse = await $fetch<any>('/api/users/stats', {
         headers: {
           Authorization: `Bearer ${token.value}`
         }
       })
-      currentStreak.value = response.current_streak || 0
+      currentStreak.value = statsResponse.current_streak || 0
     }
   } catch (err) {
-    console.error('Erreur chargement streak:', err)
+    console.error('Erreur chargement données home:', err)
   }
 })
 
@@ -38,7 +45,6 @@ function getStreakMessage(streak: number) {
   if (streak < 100) return `${streak} jours ! Incroyable régularité 🏆`
   return `${streak} jours ! Légende 👑`
 }
-// Idéalement on récupérerait le profil utilisateur ici pour afficher "Bonjour Prénom"
 </script>
 
 <template>
@@ -47,7 +53,7 @@ function getStreakMessage(streak: number) {
     <!-- Hero / Citation du jour -->
     <section class="mb-12 animate-fade-in-up">
        <header class="mb-8">
-           <h1 class="text-3xl font-light text-white mb-2">Bienvenue dans votre espace,</h1>
+           <h1 class="text-3xl font-light text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
            <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
        </header>
 

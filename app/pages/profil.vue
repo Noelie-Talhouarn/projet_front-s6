@@ -21,7 +21,8 @@ const errorMessage = ref('')
 const successMessage = ref('')
 
 // Statistiques
-const stats = ref({
+// Statistiques
+const stats = ref<UserStats>({
   // Globales (en secondes)
   stars_count: 0,
   breathing_sessions: 0,
@@ -41,8 +42,9 @@ const stats = ref({
   weekly_breathing_time: 0,
   
   // Badges
-  badges: null as any
+  badges: undefined
 })
+
 
 // Préférences
 const preferences = ref({
@@ -301,7 +303,7 @@ async function deleteAccount() {
   }
 }
 
-function getBadgeIcon(badge: any, type: string) {
+function getBadgeIcon(badge: Badge | undefined, type: string) {
     if (!badge) return 'fi fi-rr-trophy'
     
     // Gestion spécifique des étoiles pour varier les icônes
@@ -539,69 +541,69 @@ function getBadgeIcon(badge: any, type: string) {
           </div>
 
           <!-- Barre de progression globale -->
-          <div class="mb-8">
+          <div class="mb-8" v-if="stats.badges">
             <div class="h-2 bg-white/10 rounded-full overflow-hidden">
               <div 
                 class="h-full bg-gradient-to-r from-purple-500 to-yellow-400 transition-all duration-500"
-                :style="{ width: `${(stats.badges?.total / stats.badges?.totalPossible * 100) || 0}%` }"
+                :style="{ width: `${(stats.badges.total / stats.badges.totalPossible * 100) || 0}%` }"
               ></div>
             </div>
           </div>
 
           <!-- Badges débloqués récents (dernier de chaque catégorie) -->
-          <div v-if="stats.badges?.unlocked?.length > 0" class="mb-8">
+          <div v-if="(stats.badges?.unlocked?.length || 0) > 0" class="mb-8">
             <h4 class="text-lg font-zen tracking-wide text-white mb-4">🆕 Derniers badges débloqués</h4>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
               <!-- Dernier badge Étoiles -->
               <div 
-                v-if="stats.badges.unlocked.filter(b => b.category === 'stars').length > 0"
-                v-for="badge in [stats.badges.unlocked.filter(b => b.category === 'stars').slice(-1)[0]]"
-                :key="badge.id"
+                v-if="stats.badges?.unlocked?.filter((b: Badge) => b.category === 'stars').length"
+                v-for="badge in [stats.badges?.unlocked?.filter((b: Badge) => b.category === 'stars').slice(-1)[0]]"
+                :key="badge?.id || 'star'"
                 class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-500/20 to-purple-500/20 backdrop-blur-lg rounded-2xl border-2 border-yellow-400/50 hover:scale-105 transition-transform cursor-pointer group"
-                :title="badge.description"
+                :title="badge?.description"
               >
                 <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
                    <i :class="getBadgeIcon(badge, 'star')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
-                  <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
-                  <p class="text-xs text-white/60 mt-1">{{ badge.description }}</p>
+                  <p class="text-sm font-semibold text-white">{{ badge?.name }}</p>
+                  <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
                   <p class="text-xs text-yellow-400 mt-1">⭐ Étoiles</p>
                 </div>
               </div>
 
               <!-- Dernier badge Méditation -->
               <div 
-                v-if="stats.badges.unlocked.filter(b => b.category === 'meditation').length > 0"
-                v-for="badge in [stats.badges.unlocked.filter(b => b.category === 'meditation').slice(-1)[0]]"
-                :key="badge.id"
+                v-if="stats.badges?.unlocked?.filter((b: Badge) => b.category === 'meditation').length"
+                v-for="badge in [stats.badges?.unlocked?.filter((b: Badge) => b.category === 'meditation').slice(-1)[0]]"
+                :key="badge?.id || 'meditation'"
                 class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-500/20 to-purple-500/20 backdrop-blur-lg rounded-2xl border-2 border-yellow-400/50 hover:scale-105 transition-transform cursor-pointer group"
-                :title="badge.description"
+                :title="badge?.description"
               >
                 <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
                    <i :class="getBadgeIcon(badge, 'spa')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
-                  <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
-                  <p class="text-xs text-white/60 mt-1">{{ badge.description }}</p>
+                  <p class="text-sm font-semibold text-white">{{ badge?.name }}</p>
+                  <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
                   <p class="text-xs text-purple-400 mt-1">🧘‍♀️ Méditation</p>
                 </div>
               </div>
 
               <!-- Dernier badge Cohérence -->
               <div 
-                v-if="stats.badges.unlocked.filter(b => b.category === 'coherence').length > 0"
-                v-for="badge in [stats.badges.unlocked.filter(b => b.category === 'coherence').slice(-1)[0]]"
-                :key="badge.id"
+                v-if="stats.badges?.unlocked?.filter((b: Badge) => b.category === 'coherence').length"
+                v-for="badge in [stats.badges?.unlocked?.filter((b: Badge) => b.category === 'coherence').slice(-1)[0]]"
+                :key="badge?.id || 'coherence'"
                 class="flex flex-col items-center p-4 bg-gradient-to-br from-yellow-500/20 to-purple-500/20 backdrop-blur-lg rounded-2xl border-2 border-yellow-400/50 hover:scale-105 transition-transform cursor-pointer group"
-                :title="badge.description"
+                :title="badge?.description"
               >
                 <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
                    <i :class="getBadgeIcon(badge, 'heart')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
-                  <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
-                  <p class="text-xs text-white/60 mt-1">{{ badge.description }}</p>
+                  <p class="text-sm font-semibold text-white">{{ badge?.name }}</p>
+                  <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
                   <p class="text-xs text-blue-400 mt-1">🌬️ Cohérence</p>
                 </div>
               </div>
@@ -614,7 +616,7 @@ function getBadgeIcon(badge: any, type: string) {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <!-- Prochain badge Étoiles -->
               <div 
-                v-if="stats.badges.next.stars"
+                v-if="stats.badges?.next?.stars"
                 class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
               >
                 <div class="flex items-center gap-3 mb-3">
@@ -636,14 +638,14 @@ function getBadgeIcon(badge: any, type: string) {
                     ></div>
                   </div>
                   <p class="text-xs text-white/60 text-center">
-                    Encore {{ stats.badges.next.stars.remaining }} étoile{{ stats.badges.next.stars.remaining > 1 ? 's' : '' }}
+                    Encore {{ stats.badges.next.stars.remaining }} étoile{{ (stats.badges.next.stars.remaining || 0) > 1 ? 's' : '' }}
                   </p>
                 </div>
               </div>
 
               <!-- Prochain badge Méditation -->
               <div 
-                v-if="stats.badges.next.meditation"
+                v-if="stats.badges?.next?.meditation"
                 class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
               >
                 <div class="flex items-center gap-3 mb-3">
@@ -665,14 +667,14 @@ function getBadgeIcon(badge: any, type: string) {
                     ></div>
                   </div>
                   <p class="text-xs text-white/60 text-center">
-                    Encore {{ formatTime(stats.badges.next.meditation.remaining) }}
+                    Encore {{ formatTime(stats.badges.next.meditation.remaining || 0) }}
                   </p>
                 </div>
               </div>
 
               <!-- Prochain badge Cohérence -->
               <div 
-                v-if="stats.badges.next.coherence"
+                v-if="stats.badges?.next?.coherence"
                 class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
               >
                 <div class="flex items-center gap-3 mb-3">
@@ -694,7 +696,7 @@ function getBadgeIcon(badge: any, type: string) {
                     ></div>
                   </div>
                   <p class="text-xs text-white/60 text-center">
-                    Encore {{ formatTime(stats.badges.next.coherence.remaining) }}
+                    Encore {{ formatTime(stats.badges.next.coherence.remaining || 0) }}
                   </p>
                 </div>
               </div>
@@ -798,38 +800,14 @@ function getBadgeIcon(badge: any, type: string) {
                       ></div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Actions du compte -->
-        <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.4s">
-          <div class="flex items-center gap-3 mb-6">
-            <i class="fi fi-rr-shield-check text-2xl inline-block"></i>
-            <MyTitle as="h2" size="small">Sécurité et Compte</MyTitle>
-          </div>
 
-          <div class="space-y-3">
-            <button class="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-between group">
-              <div class="flex items-center gap-3">
-                <i class="fi fi-rr-key text-xl inline-block"></i>
-                <span class="font-medium text-white">Changer le mot de passe</span>
-              </div>
-              <span class="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
-            </button>
-
-            <button class="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-between group">
-              <div class="flex items-center gap-3">
-                <i class="fi fi-rr-envelope text-xl inline-block"></i>
-                <span class="font-medium text-white">Gérer les emails</span>
-              </div>
-              <span class="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
-            </button>
-
-          </div>
-        </div>
 
       </template>
     </div>

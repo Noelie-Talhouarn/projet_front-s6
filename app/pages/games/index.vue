@@ -21,7 +21,7 @@ async function fetchGames() {
                 const titleLower = g.title?.toLowerCase() || ''
 
                 // Règle spécifique demandée : L'Alchimiste -> Puzzle
-                // Règle spécifique demandée : L'Alchimiste -> Puzzle
+
                 if (titleLower.includes('alchimiste') || titleLower.includes('puzzle') || titleLower.includes('mot') || typeStart.includes('puzzle')) {
                     link = '/games/puzzle'
                 } 
@@ -40,6 +40,8 @@ async function fetchGames() {
                 link
             }
         })
+        
+
     } catch (e) {
         // Fallback pour le développement ou si l'API est offline
         console.error('Erreur chargement jeux:', e)
@@ -98,7 +100,7 @@ onMounted(() => {
             :to="game.link"
             :title="game.title"
             :desc="game.description"
-            :icon="game.type.includes('color') || game.type.includes('mandala') ? 'fi-rr-palette' : (game.type.includes('puzzle') ? 'fi-rr-puzzle-piece' : 'fi-rr-gamepad')"
+            :icon="game.type.includes('color') || game.type.includes('mandala') ? 'fi-rr-palette' : (game.type.includes('puzzle') ? 'fi-rr-puzzle-piece' : (game.type.includes('musique') ? 'fi-rr-music-alt' : 'fi-rr-gamepad'))"
             :color="game.type.includes('color') || game.type.includes('mandala') ? 'text-pink-300' : 'text-indigo-300'"
             :bg="'bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-spark/30 hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]'"
             :gradient="'from-white/[0.07]'"

@@ -39,7 +39,7 @@
                       href="mailto:bonjour@letincelle.app?subject=Hello%20L'Étincelle" 
                       class="text-lg md:text-xl font-bold text-white hover:text-spark-light transition-colors border-b-2 border-white/20 hover:border-spark-light pb-2"
                   >
-                      bonjour@letincelle.app
+                      contact@letincelle.com
                   </a>
               </div>
           </div>

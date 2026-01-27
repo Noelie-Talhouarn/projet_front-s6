@@ -1,7 +1,7 @@
 <template>
   <header class="fixed top-0 left-0 right-0 z-50 flex h-16 items-center justify-between border-b border-white/10 bg-night-900/80 px-6 backdrop-blur-md">
     <NuxtLink to="/" class="flex items-center gap-2 group">
-      <span class="text-2xl group-hover:rotate-12 transition-transform">✨</span>
+      <i class="fi fi-rr-sparkles text-2xl group-hover:rotate-12 transition-transform inline-block"></i>
       <MyTitle as="h1" size="small">L'Étincelle</MyTitle>
     </NuxtLink>
 

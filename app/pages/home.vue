@@ -70,7 +70,7 @@ function getStreakMessage(streak: number) {
         <NuxtLink to="/meditation" class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 hover:border-indigo-500/30 transition-all hover:shadow-[0_0_20px_rgba(99,102,241,0.1)] overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div class="relative z-10">
-                <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition-transform duration-500">🧘‍♀️</div>
+                <i class="fi fi-rr-spa text-4xl mb-4 text-indigo-300 opacity-80 group-hover:scale-110 transition-transform duration-500 inline-block"></i>
                 <h3 class="text-lg font-bold text-white mb-2">Méditation</h3>
                 <p class="text-sm text-slate-400">Explorez nos séances guidées pour retrouver le calme.</p>
             </div>
@@ -80,7 +80,7 @@ function getStreakMessage(streak: number) {
         <NuxtLink to="/breathing" class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 hover:border-sky-500/30 transition-all hover:shadow-[0_0_20px_rgba(14,165,233,0.1)] overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div class="relative z-10">
-                <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition-transform duration-500">💨</div>
+                <i class="fi fi-rr-wind text-4xl mb-4 text-sky-300 opacity-80 group-hover:scale-110 transition-transform duration-500 inline-block"></i>
                 <h3 class="text-lg font-bold text-white mb-2">Respiration</h3>
                 <p class="text-sm text-slate-400">Cohérence cardiaque et exercices de souffle.</p>
             </div>
@@ -90,7 +90,7 @@ function getStreakMessage(streak: number) {
         <NuxtLink to="/games" class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 hover:border-pink-500/30 transition-all hover:shadow-[0_0_20px_rgba(236,72,153,0.1)] overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div class="relative z-10">
-                <div class="text-4xl mb-4 opacity-80 group-hover:scale-110 transition-transform duration-500">🎨</div>
+                <i class="fi fi-rr-palette text-4xl mb-4 text-pink-300 opacity-80 group-hover:scale-110 transition-transform duration-500 inline-block"></i>
                 <h3 class="text-lg font-bold text-white mb-2">Espace Créatif</h3>
                 <p class="text-sm text-slate-400">Mandala, Puzzles et expériences interactives.</p>
             </div>

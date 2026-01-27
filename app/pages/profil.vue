@@ -300,6 +300,66 @@ async function deleteAccount() {
     isDeleting.value = false
   }
 }
+
+function getBadgeIcon(badge: any, type: string) {
+    if (!badge) return 'fi fi-rr-trophy'
+    
+    // Gestion spécifique des étoiles pour varier les icônes
+    if (type === 'star' || badge.category === 'stars') {
+        const name = badge.name?.toLowerCase() || ''
+        
+        // Mapping basé sur le nom
+        if (name.includes('constellation')) return 'fi fi-rr-stars'
+        if (name.includes('filante') || name.includes('vitesse')) return 'fi fi-rr-comet'
+        if (name.includes('magique') || name.includes('créateur')) return 'fi fi-rr-magic-wand'
+        if (name.includes('lumière') || name.includes('éclat') || name.includes('maître')) return 'fi fi-rr-sparkles'
+        
+        // Variation basée sur l'ID pour la diversité automatique
+        if (badge.id) {
+             const id = Number(badge.id)
+             if (id % 4 === 1) return 'fi fi-rr-stars'
+             if (id % 4 === 2) return 'fi fi-rr-sparkles'
+             if (id % 4 === 3) return 'fi fi-rr-comet'
+        }
+        return 'fi fi-rr-star'
+    }
+
+    // Gestion Méditation
+    if (type === 'spa' || badge.category === 'meditation') {
+        const name = badge.name?.toLowerCase() || ''
+        
+        if (name.includes('temps') || name.includes('heure') || name.includes('durée')) return 'fi fi-rr-clock-five'
+        if (name.includes('maître') || name.includes('sage') || name.includes('expert')) return 'fi fi-rr-gem'
+        if (name.includes('nature') || name.includes('racine')) return 'fi fi-rr-leaf'
+        
+        if (badge.id) {
+             const id = Number(badge.id)
+             if (id % 4 === 1) return 'fi fi-rr-flower'
+             if (id % 4 === 2) return 'fi fi-rr-leaf'
+             if (id % 4 === 3) return 'fi fi-rr-yin-yang'
+        }
+        return 'fi fi-rr-spa'
+    }
+
+    // Gestion Cohérence
+    if (type === 'heart' || badge.category === 'coherence') {
+        const name = badge.name?.toLowerCase() || ''
+
+        if (name.includes('souffle') || name.includes('air')) return 'fi fi-rr-wind'
+        if (name.includes('rythme') || name.includes('cœur') || name.includes('pulsation')) return 'fi fi-rr-pulse'
+        if (name.includes('temps') || name.includes('minute')) return 'fi fi-rr-stopwatch'
+
+        if (badge.id) {
+             const id = Number(badge.id)
+             if (id % 4 === 1) return 'fi fi-rr-wind'
+             if (id % 4 === 2) return 'fi fi-rr-pulse'
+             if (id % 4 === 3) return 'fi fi-rr-heart-arrow'
+        }
+        return 'fi fi-rr-heart'
+    }
+    
+    return 'fi fi-rr-trophy'
+}
 </script>
 
 <template>
@@ -354,7 +414,7 @@ async function deleteAccount() {
 
             <div v-if="!isEditing" class="flex items-center gap-3">
               <MyButton @click="startEditing" variant="outline" size="medium">
-                <span class="mr-2">✏️</span>
+                <i class="fi fi-rr-pencil mr-2 inline-block"></i>
                 Modifier
               </MyButton>
 
@@ -363,7 +423,7 @@ async function deleteAccount() {
                 class="h-10 w-10 flex items-center justify-center rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-colors" 
                 title="Supprimer mon compte"
               >
-                <span class="text-lg">🗑️</span>
+                <i class="fi fi-rr-trash text-xl inline-block"></i>
               </button>
             </div>
           </div>
@@ -416,7 +476,7 @@ async function deleteAccount() {
           <!-- Méditation -->
           <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-glow/50 transition-all">
             <div class="flex items-center gap-3 mb-4">
-              <div class="text-4xl">🧘‍♀️</div>
+              <i class="fi fi-rr-spa text-4xl text-purple-300 inline-block"></i>
               <h3 class="text-xl font-bold text-white">Méditation</h3>
             </div>
             <div class="grid grid-cols-2 gap-4">
@@ -434,7 +494,7 @@ async function deleteAccount() {
           <!-- Cohérence Cardiaque -->
           <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-spark-pink/50 transition-all">
             <div class="flex items-center gap-3 mb-4">
-              <div class="text-4xl">🌬️</div>
+              <i class="fi fi-rr-heart text-4xl text-pink-300 inline-block"></i>
               <h3 class="text-xl font-bold text-white">Cohérence Cardiaque</h3>
             </div>
             <div class="grid grid-cols-2 gap-4">
@@ -453,13 +513,13 @@ async function deleteAccount() {
           <div class="grid grid-cols-2 gap-4">
             
             <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-amber-400/50 transition-all hover:scale-105">
-              <div class="text-3xl mb-2">⭐</div>
+              <i class="fi fi-rr-star text-3xl mb-2 text-amber-400 inline-block"></i>
               <div class="text-2xl font-bold text-amber-400 mb-1">{{ stats.stars_count || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Étoiles Créées</div>
             </div>
 
             <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-blue-400/50 transition-all hover:scale-105">
-              <div class="text-3xl mb-2">📅</div>
+              <i class="fi fi-rr-calendar text-3xl mb-2 text-blue-400 inline-block"></i>
               <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.days_active || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Jours Actifs</div>
             </div>
@@ -470,7 +530,7 @@ async function deleteAccount() {
         <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.3s">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-              <span class="text-2xl">🏆</span>
+              <i class="fi fi-rr-trophy text-2xl inline-block"></i>
               <MyTitle as="h2" size="small">Mes Badges</MyTitle>
             </div>
             <div class="text-sm text-white/60">
@@ -501,7 +561,7 @@ async function deleteAccount() {
                 :title="badge.description"
               >
                 <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
-                  {{ badge.emoji }}
+                   <i :class="getBadgeIcon(badge, 'star')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
                   <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
@@ -519,7 +579,7 @@ async function deleteAccount() {
                 :title="badge.description"
               >
                 <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
-                  {{ badge.emoji }}
+                   <i :class="getBadgeIcon(badge, 'spa')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
                   <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
@@ -537,7 +597,7 @@ async function deleteAccount() {
                 :title="badge.description"
               >
                 <div class="text-5xl mb-2 group-hover:scale-110 transition-transform">
-                  {{ badge.emoji }}
+                   <i :class="getBadgeIcon(badge, 'heart')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
                   <p class="text-sm font-semibold text-white">{{ badge.name }}</p>
@@ -558,7 +618,7 @@ async function deleteAccount() {
                 class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
               >
                 <div class="flex items-center gap-3 mb-3">
-                  <div class="text-3xl opacity-50">{{ stats.badges.next.stars.emoji }}</div>
+                  <div class="text-3xl opacity-50"><i :class="getBadgeIcon(stats.badges.next.stars, 'star')" class="fi inline-block"></i></div>
                   <div class="flex-1">
                     <p class="text-sm font-semibold text-white">{{ stats.badges.next.stars.name }}</p>
                     <p class="text-xs text-white/60">{{ stats.badges.next.stars.description }}</p>
@@ -587,7 +647,7 @@ async function deleteAccount() {
                 class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
               >
                 <div class="flex items-center gap-3 mb-3">
-                  <div class="text-3xl opacity-50">{{ stats.badges.next.meditation.emoji }}</div>
+                  <div class="text-3xl opacity-50"><i :class="getBadgeIcon(stats.badges.next.meditation, 'spa')" class="fi inline-block"></i></div>
                   <div class="flex-1">
                     <p class="text-sm font-semibold text-white">{{ stats.badges.next.meditation.name }}</p>
                     <p class="text-xs text-white/60">{{ stats.badges.next.meditation.description }}</p>
@@ -616,7 +676,7 @@ async function deleteAccount() {
                 class="p-4 bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10"
               >
                 <div class="flex items-center gap-3 mb-3">
-                  <div class="text-3xl opacity-50">{{ stats.badges.next.coherence.emoji }}</div>
+                  <div class="text-3xl opacity-50"><i :class="getBadgeIcon(stats.badges.next.coherence, 'heart')" class="fi inline-block"></i></div>
                   <div class="flex-1">
                     <p class="text-sm font-semibold text-white">{{ stats.badges.next.coherence.name }}</p>
                     <p class="text-xs text-white/60">{{ stats.badges.next.coherence.description }}</p>
@@ -648,7 +708,7 @@ async function deleteAccount() {
             <!-- Badges Étoiles -->
             <div class="mb-6">
               <h5 class="text-sm font-semibold text-yellow-400 mb-3 flex items-center gap-2">
-                <span>⭐</span> Badges Étoiles
+                <i class="fi fi-rr-star inline-block"></i> Badges Étoiles
               </h5>
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <!-- Badges étoiles débloqués -->
@@ -661,7 +721,7 @@ async function deleteAccount() {
                   class="flex flex-col items-center p-4 backdrop-blur-lg rounded-2xl"
                 >
                   <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
-                    {{ badge.emoji }}
+                    <i :class="getBadgeIcon(badge, 'star')" class="fi inline-block"></i>
                   </div>
                   <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
                     {{ badge.name }}
@@ -681,7 +741,7 @@ async function deleteAccount() {
             <!-- Badges Méditation -->
             <div class="mb-6">
               <h5 class="text-sm font-semibold text-purple-400 mb-3 flex items-center gap-2">
-                <span>🧘‍♀️</span> Badges Méditation
+                <i class="fi fi-rr-spa inline-block"></i> Badges Méditation
               </h5>
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div 
@@ -693,7 +753,7 @@ async function deleteAccount() {
                   class="flex flex-col items-center p-4 backdrop-blur-lg rounded-2xl"
                 >
                   <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
-                    {{ badge.emoji }}
+                    <i :class="getBadgeIcon(badge, 'spa')" class="fi inline-block"></i>
                   </div>
                   <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
                     {{ badge.name }}
@@ -713,7 +773,7 @@ async function deleteAccount() {
             <!-- Badges Cohérence Cardiaque -->
             <div>
               <h5 class="text-sm font-semibold text-blue-400 mb-3 flex items-center gap-2">
-                <span>🌬️</span> Badges Cohérence Cardiaque
+                <i class="fi fi-rr-heart inline-block"></i> Badges Cohérence Cardiaque
               </h5>
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div 
@@ -725,7 +785,7 @@ async function deleteAccount() {
                   class="flex flex-col items-center p-4 backdrop-blur-lg rounded-2xl"
                 >
                   <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
-                    {{ badge.emoji }}
+                    <i :class="getBadgeIcon(badge, 'heart')" class="fi inline-block"></i>
                   </div>
                   <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
                     {{ badge.name }}
@@ -747,14 +807,14 @@ async function deleteAccount() {
         <!-- Actions du compte -->
         <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.4s">
           <div class="flex items-center gap-3 mb-6">
-            <span class="text-2xl">🔐</span>
+            <i class="fi fi-rr-shield-check text-2xl inline-block"></i>
             <MyTitle as="h2" size="small">Sécurité et Compte</MyTitle>
           </div>
 
           <div class="space-y-3">
             <button class="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-between group">
               <div class="flex items-center gap-3">
-                <span class="text-xl">🔑</span>
+                <i class="fi fi-rr-key text-xl inline-block"></i>
                 <span class="font-medium text-white">Changer le mot de passe</span>
               </div>
               <span class="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
@@ -762,7 +822,7 @@ async function deleteAccount() {
 
             <button class="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-between group">
               <div class="flex items-center gap-3">
-                <span class="text-xl">📧</span>
+                <i class="fi fi-rr-envelope text-xl inline-block"></i>
                 <span class="font-medium text-white">Gérer les emails</span>
               </div>
               <span class="text-slate-400 group-hover:translate-x-1 transition-transform">→</span>
@@ -779,7 +839,7 @@ async function deleteAccount() {
       <div class="w-full max-w-md rounded-2xl border border-red-500/30 bg-night-900 p-6 shadow-2xl animate-scale-in">
         <div class="mb-6 text-center">
           <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20 text-3xl">
-            ⚠️
+             <i class="fi fi-rr-exclamation text-3xl text-red-400 inline-block"></i>
           </div>
           <h3 class="mb-2 text-2xl font-bold text-white">Supprimer votre compte ?</h3>
           <p class="text-slate-400">

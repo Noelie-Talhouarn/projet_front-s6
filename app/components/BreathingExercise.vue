@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
             'scale-100 shadow-[0_0_40px_rgba(124,58,237,0.4)] duration-1000' : !isRunning
           }"
         >
-          <span class="text-4xl filter drop-shadow-lg">✨</span>
+          <i class="fi fi-rr-wind text-4xl filter drop-shadow-lg inline-block text-white"></i>
         </div>
 
       </div>

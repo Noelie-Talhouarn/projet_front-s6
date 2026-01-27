@@ -56,9 +56,10 @@ const message = computed(() => getMessage())
       <div class="flex-shrink-0">
         <div 
           class="text-2xl transition-all duration-300"
-          :class="streak > 0 ? 'animate-pulse' : 'grayscale opacity-20'"
+          :class="streak > 0 ? 'text-orange-400' : 'text-slate-600'"
         >
-          🔥
+          <i v-if="streak > 0" class="fi fi-rr-flame animate-pulse inline-block"></i>
+          <i v-else class="fi fi-rr-flame inline-block"></i>
         </div>
       </div>
 
@@ -83,14 +84,14 @@ const message = computed(() => getMessage())
       <!-- Badge optionnel pour les paliers -->
       <div 
         v-if="streak >= 7"
-        class="flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold"
+        class="flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1"
         :class="{
           'bg-orange-500/20 text-orange-300': streak >= 7 && streak < 30,
           'bg-yellow-500/20 text-yellow-300': streak >= 30 && streak < 100,
           'bg-purple-500/20 text-purple-300': streak >= 100
         }"
       >
-        {{ streak >= 100 ? '🏆' : streak >= 30 ? '⭐' : '🔥' }}
+        <i class="fi" :class="streak >= 100 ? 'fi-rr-trophy' : streak >= 30 ? 'fi-rr-star' : 'fi-rr-flame'"></i>
       </div>
     </div>
   </div>

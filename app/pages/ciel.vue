@@ -268,7 +268,7 @@ async function deleteStar(id: number) {
 
     <!-- Message vide -->
     <div v-if="stars.length === 0" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none opacity-40">
-      <span class="text-4xl block mb-4">✨</span>
+      <i class="fi fi-rr-sparkles text-4xl block mb-4 animate-pulse inline-block"></i>
       <p class="text-xs tracking-[0.2em] uppercase text-slate-400">Le ciel attend vos lumières</p>
     </div>
 

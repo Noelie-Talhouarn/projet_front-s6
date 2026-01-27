@@ -24,6 +24,8 @@
           <a href="#" class="legal-link">Confidentialité</a>
           <span class="text-gray-600">•</span>
           <a href="#" class="legal-link">Conditions</a>
+          <span class="text-gray-600">•</span>
+          <NuxtLink to="/contact" class="legal-link hover:text-white">Contact</NuxtLink>
         </div>
       </div>
     </div>
@@ -90,8 +92,8 @@ const currentYear = computed(() => new Date().getFullYear())
 /* Responsive - Espace pour le menu mobile */
 @media (max-width: 768px) {
   footer {
-    @apply pb-24;
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+    /* Augmentation du padding pour éviter que le contenu soit caché par la toolbar */
+    padding-bottom: 140px;
   }
   
   .footer-section {

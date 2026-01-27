@@ -36,14 +36,109 @@ onMounted(async () => {
   }
 })
 
+// Etat de l'humeur
+const currentMood = ref<string | null>(null)
+
+// Définition des cartes
+const rawCards = [
+    { 
+        id: 'meditation',
+        to: '/meditation', 
+        title: 'Méditation', 
+        desc: 'Explorez nos séances guidées pour retrouver le calme.', 
+        icon: 'fi-rr-spa', 
+        color: 'text-indigo-300',
+        bg: 'hover:border-indigo-500/30 hover:shadow-[0_0_20px_rgba(99,102,241,0.1)]',
+        gradient: 'from-indigo-500/10'
+    },
+    { 
+        id: 'breathing',
+        to: '/breathing', 
+        title: 'Respiration', 
+        desc: 'Cohérence cardiaque et exercices de souffle.', 
+        icon: 'fi-rr-wind', 
+        color: 'text-sky-300', 
+        bg: 'hover:border-sky-500/30 hover:shadow-[0_0_20px_rgba(14,165,233,0.1)]',
+        gradient: 'from-sky-500/10'
+    },
+    { 
+        id: 'games',
+        to: '/games', 
+        title: 'Espace Créatif', 
+        desc: 'Mandala, Puzzles et expériences interactives.', 
+        icon: 'fi-rr-palette', 
+        color: 'text-pink-300', 
+        bg: 'hover:border-pink-500/30 hover:shadow-[0_0_20px_rgba(236,72,153,0.1)]',
+        gradient: 'from-pink-500/10'
+    }
+]
+
+// Logique de tri dynamique
+const orderedCards = computed(() => {
+    // Si pas d'humeur sélectionnée, on regarde si l'utilisateur en a une sauvegardée en base (chargée initialement)
+    const activeMood = currentMood.value 
+    
+    if (!activeMood) return rawCards
+
+    const cards = [...rawCards]
+    let recommendedId = ''
+
+    if (activeMood === 'anxious') recommendedId = 'breathing'
+    else if (activeMood === 'tired') recommendedId = 'meditation'
+    else if (activeMood === 'calm' || activeMood === 'joyful') recommendedId = 'games'
+
+    // On met la carte recommandée en premier
+    const recommended = cards.find(c => c.id === recommendedId)
+    const others = cards.filter(c => c.id !== recommendedId)
+
+    return recommended ? [recommended, ...others] : cards 
+})
+
+async function handleMoodChange(moodId: string | null) {
+    currentMood.value = moodId
+    
+    // Mise à jour locale du user pour la réactivité immédiate (si on l'utilise ailleurs)
+    if (user.value) {
+        user.value.emotion = moodId || undefined
+    }
+
+    // Sauvegarde en base
+    if (cookie.value) {
+        try {
+            await $fetch('/api/users/emotion', {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${cookie.value}` },
+                body: { emotion: moodId }
+            })
+            console.log('Emotion sauvegardée:', moodId)
+        } catch (e) {
+            console.error('Erreur sauvegarde emotion', e)
+        }
+    }
+}
+
+// Initialisation de l'humeur depuis le profil utilisateur
+onMounted(async () => {
+    // ... chargements précédents (inchangés) ...
+    // On peut initialiser currentMood si le user est déjà là ou après le fetch
+    if (user.value?.emotion) {
+        currentMood.value = user.value.emotion
+    }
+    
+    // Watcher pour mettre à jour si le user arrive plus tard
+    watch(() => user.value, (u) => {
+        if (u?.emotion && !currentMood.value) {
+            currentMood.value = u.emotion
+        }
+    })
+})
+
 // Message selon le streak
 function getStreakMessage(streak: number) {
+  // ... (inchangé)
   if (streak === 0) return 'Commence une nouvelle série dès aujourd\'hui !'
-  if (streak === 1) return 'Continue demain pour garder la flamme'
   if (streak < 7) return `Série de ${streak} jours !`
-  if (streak < 30) return `${streak} jours consécutifs ! 🚀`
-  if (streak < 100) return `${streak} jours ! Incroyable régularité 🏆`
-  return `${streak} jours ! Légende 👑`
+  return `${streak} jours !`
 }
 </script>
 
@@ -53,48 +148,34 @@ function getStreakMessage(streak: number) {
     <!-- Hero / Citation du jour -->
     <section class="mb-12 animate-fade-in-up">
        <header class="mb-8">
-           <h1 class="text-3xl font-light text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
+           <h1 class="text-3xl font-zen tracking-wide text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
            <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
        </header>
 
        <!-- Streak Compact -->
        <StreakCard :streak="currentStreak" class="mb-6" />
 
-       <DailyQuote />
+       <DailyQuote class="mb-8" />
+
+       <!-- Météo Intérieure -->
+       <MoodTracker class="mb-8" :initial-mood="currentMood" @select="handleMoodChange" />
     </section>
 
-    <!-- Navigation Rapide (Dashboard) -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up" style="animation-delay: 0.1s">
+    <!-- Navigation Rapide (Dashboard Dynamique) -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up transition-all duration-500" style="animation-delay: 0.1s">
         
-        <!-- Carte Méditation -->
-        <NuxtLink to="/meditation" class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 hover:border-indigo-500/30 transition-all hover:shadow-[0_0_20px_rgba(99,102,241,0.1)] overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div class="relative z-10">
-                <i class="fi fi-rr-spa text-4xl mb-4 text-indigo-300 opacity-80 group-hover:scale-110 transition-transform duration-500 inline-block"></i>
-                <h3 class="text-lg font-bold text-white mb-2">Méditation</h3>
-                <p class="text-sm text-slate-400">Explorez nos séances guidées pour retrouver le calme.</p>
-            </div>
-        </NuxtLink>
-
-        <!-- Carte Respiration -->
-        <NuxtLink to="/breathing" class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 hover:border-sky-500/30 transition-all hover:shadow-[0_0_20px_rgba(14,165,233,0.1)] overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div class="relative z-10">
-                <i class="fi fi-rr-wind text-4xl mb-4 text-sky-300 opacity-80 group-hover:scale-110 transition-transform duration-500 inline-block"></i>
-                <h3 class="text-lg font-bold text-white mb-2">Respiration</h3>
-                <p class="text-sm text-slate-400">Cohérence cardiaque et exercices de souffle.</p>
-            </div>
-        </NuxtLink>
-
-        <!-- Carte Jeux -->
-        <NuxtLink to="/games" class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 hover:border-pink-500/30 transition-all hover:shadow-[0_0_20px_rgba(236,72,153,0.1)] overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div class="relative z-10">
-                <i class="fi fi-rr-palette text-4xl mb-4 text-pink-300 opacity-80 group-hover:scale-110 transition-transform duration-500 inline-block"></i>
-                <h3 class="text-lg font-bold text-white mb-2">Espace Créatif</h3>
-                <p class="text-sm text-slate-400">Mandala, Puzzles et expériences interactives.</p>
-            </div>
-        </NuxtLink>
+        <DashboardCard 
+            v-for="(card, index) in orderedCards"
+            :key="card.id"
+            :to="card.to"
+            :title="card.title"
+            :desc="card.desc"
+            :icon="card.icon"
+            :color="card.color"
+            :bg="card.bg"
+            :gradient="card.gradient"
+            :is-featured="!!(currentMood && index === 0)"
+        />
 
     </section>
 

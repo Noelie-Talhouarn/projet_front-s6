@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
     <!-- EXERCICE DE RESPIRATION CIRCULAIRE -->
     <div v-else class="flex w-full flex-col items-center justify-center gap-12 animate-fade-in-up">
       
-      <h2 class="text-3xl font-bold tracking-widest text-white transition-all duration-500">
+      <h2 class="text-3xl font-zen tracking-widest text-white transition-all duration-500">
         {{ instruction }}
       </h2>
 

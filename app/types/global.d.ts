@@ -28,6 +28,7 @@ declare global {
         nom: string
         email: string
         avatar?: string
+        emotion?: string // 'anxious' | 'tired' | 'calm' | 'joyful'
         date_inscription?: string
     }
 }

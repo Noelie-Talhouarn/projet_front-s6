@@ -403,7 +403,7 @@ function getBadgeIcon(badge: any, type: string) {
             </div>
 
             <div class="flex-1 text-center md:text-left">
-              <h2 class="text-2xl font-bold text-white mb-1">
+              <h2 class="text-2xl font-zen tracking-wide text-white mb-1">
                 {{ user.prenom }} {{ user.nom }}
               </h2>
               <p class="text-slate-400 mb-2">{{ user.email }}</p>
@@ -477,7 +477,7 @@ function getBadgeIcon(badge: any, type: string) {
           <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-glow/50 transition-all">
             <div class="flex items-center gap-3 mb-4">
               <i class="fi fi-rr-spa text-4xl text-purple-300 inline-block"></i>
-              <h3 class="text-xl font-bold text-white">Méditation</h3>
+              <h3 class="text-xl font-zen tracking-wide text-white">Méditation</h3>
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="text-center p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
@@ -495,7 +495,7 @@ function getBadgeIcon(badge: any, type: string) {
           <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-spark-pink/50 transition-all">
             <div class="flex items-center gap-3 mb-4">
               <i class="fi fi-rr-heart text-4xl text-pink-300 inline-block"></i>
-              <h3 class="text-xl font-bold text-white">Cohérence Cardiaque</h3>
+              <h3 class="text-xl font-zen tracking-wide text-white">Cohérence Cardiaque</h3>
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="text-center p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
@@ -550,7 +550,7 @@ function getBadgeIcon(badge: any, type: string) {
 
           <!-- Badges débloqués récents (dernier de chaque catégorie) -->
           <div v-if="stats.badges?.unlocked?.length > 0" class="mb-8">
-            <h4 class="text-lg font-semibold text-white mb-4">🆕 Derniers badges débloqués</h4>
+            <h4 class="text-lg font-zen tracking-wide text-white mb-4">🆕 Derniers badges débloqués</h4>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
               <!-- Dernier badge Étoiles -->
               <div 
@@ -610,7 +610,7 @@ function getBadgeIcon(badge: any, type: string) {
 
           <!-- Prochains badges à débloquer -->
           <div v-if="stats.badges?.next && (stats.badges.next.stars || stats.badges.next.meditation || stats.badges.next.coherence)" class="mb-8">
-            <h4 class="text-lg font-semibold text-white mb-4">🎯 Prochains objectifs</h4>
+            <h4 class="text-lg font-zen tracking-wide text-white mb-4">🎯 Prochains objectifs</h4>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <!-- Prochain badge Étoiles -->
               <div 
@@ -703,7 +703,7 @@ function getBadgeIcon(badge: any, type: string) {
 
           <!-- Tous les badges par catégorie -->
           <div v-if="stats.badges?.unlocked || stats.badges?.locked">
-            <h4 class="text-lg font-semibold text-white mb-4">📜 Tous les badges</h4>
+            <h4 class="text-lg font-zen tracking-wide text-white mb-4">📜 Tous les badges</h4>
             
             <!-- Badges Étoiles -->
             <div class="mb-6">

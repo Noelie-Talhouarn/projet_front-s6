@@ -273,7 +273,7 @@ onMounted(async () => {
           ></div>
       </div>
       
-      <h1 class="mt-4 text-2xl font-bold text-white">
+      <h1 class="mt-4 text-2xl font-bold font-zen tracking-wide text-white">
         <span v-if="patternStyle === 'crystal'">💎 Cristal</span>
         <span v-else-if="patternStyle === 'pixel'">🧱 Pavés</span>
         <span v-else>🧶 Tissage</span>
@@ -306,7 +306,7 @@ onMounted(async () => {
             class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-night-900/80 backdrop-blur-sm animate-fade-in"
         >
             <div class="text-6xl mb-4 animate-bounce">🏆</div>
-            <h2 class="text-3xl font-bold text-white mb-2">Magnifique !</h2>
+            <h2 class="text-3xl font-bold font-zen tracking-wide text-white mb-2">Magnifique !</h2>
             <p class="text-slate-300 mb-8">Niveau {{ level }} complété</p>
             
             <MyButton variant="default" size="large" @click="nextLevel">

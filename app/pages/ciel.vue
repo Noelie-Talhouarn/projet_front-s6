@@ -158,7 +158,7 @@ async function deleteStar(id: number) {
     
     <!-- Titre -->
     <div class="absolute top-6 left-0 right-0 text-center pointer-events-none z-10 opacity-70">
-      <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-indigo-200 font-light tracking-[0.3em] text-xl uppercase">Ciel Intérieur</h1>
+      <h1 class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-indigo-200 font-zen tracking-[0.3em] text-xl uppercase">Ciel Intérieur</h1>
       <p class="text-[10px] text-slate-500 mt-2 tracking-widest">
         {{ stars.length }} étoiles • Prochain mot dans {{ 3 - (stars.length % 3) }} étoiles
       </p>

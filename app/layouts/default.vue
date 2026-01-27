@@ -14,7 +14,7 @@
 
 <template>
 
-  <main class="min-h-screen pt-20 bg-gradient-night text-slate-200">
+  <main class=" pt-16 bg-gradient-night text-slate-200">
     <HeaderPage />
     <ToolBar />
     <slot />

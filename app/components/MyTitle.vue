@@ -15,7 +15,7 @@ const sizeClasses = {
 <template>
   <component
     :is="as"
-    class="font-bold tracking-tight bg-gradient-spark bg-clip-text text-transparent"
+    class="font-zen tracking-wide bg-gradient-spark bg-clip-text text-transparent"
     :class="sizeClasses[size || 'default']"
   >
     <slot />

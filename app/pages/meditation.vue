@@ -81,7 +81,7 @@ function selectSession(session: Meditation) {
           <i class="fi fi-rr-spa inline-block"></i>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-white mb-2">Méditation Guidée</h3>
+          <h3 class="text-xl font-zen tracking-wide text-white mb-2">Méditation Guidée</h3>
           <p class="text-slate-400 text-sm">Explorez notre bibliothèque de séances apaisantes pour l'esprit.</p>
         </div>
       </button>
@@ -95,7 +95,7 @@ function selectSession(session: Meditation) {
           <i class="fi fi-rr-wind inline-block"></i>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-white mb-2">Respiration</h3>
+          <h3 class="text-xl font-zen tracking-wide text-white mb-2">Respiration</h3>
           <p class="text-slate-400 text-sm">Cohérence cardiaque pour calmer votre rythme intérieur.</p>
         </div>
       </button>

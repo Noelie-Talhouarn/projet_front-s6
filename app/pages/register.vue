@@ -65,7 +65,7 @@ async function onSubmit () {
   <div class="flex items-center justify-center p-4">
     <div class="w-full max-w-md animate-fade-in-up rounded-2xl border border-white/10 bg-night-900/50 p-8 shadow-2xl backdrop-blur-xl">
       
-      <MyTitle as="h1" size="medium" class="mb-8 text-center">
+      <MyTitle as="h1" size="medium" class="mb-8 text-center font-zen tracking-wide">
         Inscription
       </MyTitle>
 

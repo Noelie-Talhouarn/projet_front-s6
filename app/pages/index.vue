@@ -16,7 +16,8 @@ definePageMeta({
       </div>
 
       <!-- Titre Principal -->
-      <h1 class="text-5xl md:text-7xl font-thin tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 mb-6 animate-fade-in-up" style="animation-delay: 0.1s">
+      <!-- Titre Principal -->
+      <h1 class="text-5xl md:text-7xl font-zen tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 mb-6 animate-fade-in-up" style="animation-delay: 0.1s">
           L'Étincelle
       </h1>
 
@@ -44,8 +45,51 @@ definePageMeta({
           </NuxtLink>
       </div>
 
-      <!-- Footer discret (puisqu'on a enlevé le global) -->
-      <div class="absolute bottom-6 text-[10px] text-slate-600 uppercase tracking-widest animate-fade-in" style="animation-delay: 0.5s">
+      <!-- Manifeste & Piliers -->
+      <div class="mt-24 max-w-4xl text-left w-full animate-fade-in-up" style="animation-delay: 0.4s">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              
+              <!-- Philosophie -->
+              <div>
+                  <h2 class="text-3xl text-white font-zen tracking-wide mb-6">Réenchanter le Monde</h2>
+                  <p class="text-slate-400 font-light leading-relaxed mb-4">
+                      Nous transformons la consommation passive du numérique en une expérience de <span class="text-indigo-300">pleine conscience</span>. 
+                  </p>
+                  <p class="text-slate-400 font-light leading-relaxed">
+                      Au lieu de créer du stress, L'Étincelle propose un sanctuaire qui utilise la technologie pour vous reconnecter à votre propre créativité et douceur.
+                  </p>
+              </div>
+
+              <!-- Piliers Cards -->
+              <div class="space-y-4">
+                  <!-- Lueur du jour -->
+                  <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                      <div class="flex items-center gap-3 mb-2">
+                          <i class="fi fi-rr-sun text-2xl text-amber-300"></i>
+                          <h3 class="text-xl text-white font-zen tracking-wide">La Lueur du Jour</h3>
+                      </div>
+                      <p class="text-sm text-slate-400 font-light">
+                          Un rendez-vous quotidien avec une citation inspirante pour nourrir votre esprit dès la connexion.
+                      </p>
+                  </div>
+
+                  <!-- Le Souffle -->
+                  <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                      <div class="flex items-center gap-3 mb-2">
+                          <i class="fi fi-rr-wind text-2xl text-sky-300"></i>
+                          <h3 class="text-xl text-white font-zen tracking-wide">Le Souffle</h3>
+                      </div>
+                      <p class="text-sm text-slate-400 font-light">
+                          Un rituel de cohérence cardiaque intégré pour ramener votre attention au moment présent.
+                      </p>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+      <!-- Footer discret -->
+      <div class="mt-20 text-[10px] text-slate-600 uppercase tracking-widest animate-fade-in" style="animation-delay: 0.6s">
           © 2026 L'Étincelle • v1.0
       </div>
 

@@ -72,6 +72,7 @@ export default {
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],
+                zen: ['amandine', 'sans-serif'],
             },
             animation: {
                 'fade-in-up': 'fadeInUp 0.6s ease-out',

@@ -41,9 +41,44 @@ const containerRef = ref<HTMLElement | null>(null)
 const isCompleted = ref(false)
 const isDragging = ref(false)
 const draggedPieceId = ref<number | null>(null)
+// Le mot en cours de jeu
+const currentWord = ref('')
 
 // Offset pour le drag (souris par rapport au coin de la pièce)
 const dragOffset = ref({ x: 0, y: 0 })
+
+// --- API ---
+const { fetchCloudWords } = useStars()
+const token = useCookie('auth_token')
+
+// Gestion de la progression
+async function loadProgress() {
+  if (!token.value) return
+  try {
+     const data = await $fetch<{ level: number }>('/api/users/puzzle', {
+        headers: { Authorization: `Bearer ${token.value}` }
+     })
+     // Si l'utilisateur est niveau 3, cela veut dire qu'il joue le niveau 3 -> index 2
+     if (data && data.level > 1) {
+        currentLevelIdx.value = data.level - 1
+     }
+  } catch (e) {
+     console.error("Erreur chargement progression", e)
+  }
+}
+
+async function saveProgress(newLevel: number) {
+  if (!token.value) return
+  try {
+     await $fetch('/api/users/puzzle', {
+        method: 'POST',
+        body: { level: newLevel },
+        headers: { Authorization: `Bearer ${token.value}` }
+     })
+  } catch (e) {
+      console.error("Erreur sauvegarde progression", e)
+  }
+}
 
 // --- LOGIC ---
 
@@ -62,20 +97,31 @@ async function initLevel() {
   let cols = levelData.grid[0]
   const rows = levelData.grid[1]
 
-  // Fetch depuis le backend
+  // Fetch depuis le backend (via useStars pour cohérence avec le Ciel)
+  // On récupère la liste complète des "mots du nuage" (cloudword) et on en pioche un au hasard
   if (true) {
       isLoading.value = true
       try {
-          const response = await $fetch<{ word: string, theme?: string }>('/api/games/words/random') // Appel Proxy vers Backend
-          content = response.word?.toUpperCase() || 'LUMIÈRE'
+          const words = await fetchCloudWords()
+          
+          if (words && words.length > 0) {
+             const randomWord = words[Math.floor(Math.random() * words.length)]
+             content = (randomWord || 'LUMIÈRE').toUpperCase()
+          } else {
+             content = 'LUMIÈRE'
+          }
+
           // Ajuster la grille selon la longueur du mot reçu
           cols = content.length > 7 ? 4 : (content.length > 4 ? 3 : 2)
       } catch (e) {
-          content = 'ESPOIR' // Fallback si API offline
+          content = 'ESPOIR' // Fallback ultime
       } finally {
           isLoading.value = false
       }
   }
+  
+  // On sauvegarde le mot pour l'affichage de victoire
+  currentWord.value = content
 
   const containerW = containerRef.value?.clientWidth || 350
   const pieceW = containerW / cols
@@ -131,9 +177,10 @@ function startDrag(e: MouseEvent | TouchEvent, piece: Piece) {
   // Get pointer pos
   // Get pointer pos
   let clientX, clientY
-  if ((e as TouchEvent).touches && (e as TouchEvent).touches.length > 0) {
-      clientX = (e as TouchEvent).touches[0].clientX
-      clientY = (e as TouchEvent).touches[0].clientY
+  const touches = (e as TouchEvent).touches
+  if (touches && touches.length > 0) {
+      clientX = touches[0].clientX
+      clientY = touches[0].clientY
   } else {
       clientX = (e as MouseEvent).clientX
       clientY = (e as MouseEvent).clientY
@@ -152,9 +199,10 @@ function onDrag(e: MouseEvent | TouchEvent) {
   if (!isDragging.value || draggedPieceId.value === null) return
   
   let clientX, clientY
-  if ((e as TouchEvent).touches && (e as TouchEvent).touches.length > 0) {
-      clientX = (e as TouchEvent).touches[0].clientX
-      clientY = (e as TouchEvent).touches[0].clientY
+  const touches = (e as TouchEvent).touches
+  if (touches && touches.length > 0) {
+      clientX = touches[0].clientX
+      clientY = touches[0].clientY
   } else {
       clientX = (e as MouseEvent).clientX
       clientY = (e as MouseEvent).clientY
@@ -194,8 +242,14 @@ function endDrag() {
 }
 
 function checkWin() {
+  // Eviter de sauvegarder plusieurs fois
+  if (isCompleted.value) return
+
   if (pieces.value.every(p => p.isPlaced)) {
     isCompleted.value = true
+    // Sauvegarder le déblocage du niveau suivant
+    // Ex: Finir niv 1 (idx 0) -> Débloque niv 2 -> on envoie 2
+    saveProgress(currentLevelIdx.value + 2)
   }
 }
 
@@ -206,7 +260,10 @@ function nextLevel() {
 
 
 
-onMounted(() => {
+onMounted(async () => {
+  // Charger la progression avant de commencer
+  await loadProgress()
+
   // Petit délai pour assurer que le conteneur est rendu
   setTimeout(initLevel, 100)
   
@@ -227,7 +284,7 @@ onMounted(() => {
 
     <header class="mb-8 text-center animate-fade-in-up">
        <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Puzzle Zen</span>
-       <h1 class="text-2xl font-bold text-white mt-2">Niveau {{ currentLevelIdx + 1 }}</h1>
+       <h1 class="text-2xl font-bold font-zen tracking-wide text-white mt-2">Niveau {{ currentLevelIdx + 1 }}</h1>
     </header>
 
     <!-- Zone de Jeu -->
@@ -284,8 +341,8 @@ onMounted(() => {
             v-if="isCompleted"
             class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-night-900/90 backdrop-blur-sm animate-fade-in"
         >
-             <div class="text-6xl mb-4 animate-bounce">✨</div>
-             <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-spark mb-6">Harmonie</h2>
+             <i class="fi fi-rr-sparkles text-6xl mb-4 text-spark-light animate-bounce"></i>
+             <h2 class="text-3xl font-bold font-zen tracking-widest text-transparent bg-clip-text bg-gradient-spark mb-6 uppercase">{{ currentWord }}</h2>
              <MyButton variant="pink" size="medium" @click="nextLevel">
                 Continuer
              </MyButton>

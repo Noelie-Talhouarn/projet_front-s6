@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+useSeoMeta({
+  title: 'Espace Créatif - L\'Étincelle',
+  description: 'Jouez, coloriez et détendez-vous avec nos activités zen.',
+  ogTitle: 'Espace Créatif - L\'Étincelle',
+})
+
 const games = ref<Array<{ title: string, type: string, description: string, difficulty: string, link: string }>>([])
 const isLoading = ref(true)
 

@@ -3,6 +3,13 @@
 definePageMeta({
   layout: 'default'
 })
+
+useSeoMeta({
+  title: 'À Propos - L\'Étincelle',
+  description: 'Découvrez notre mission : offrir une parenthèse de douceur dans un monde hyper-connecté. Un projet étudiant alliant technologie et bien-être.',
+  ogTitle: 'À Propos - L\'Étincelle',
+  ogDescription: 'Découvrez notre mission : offrir une parenthèse de douceur dans un monde hyper-connecté.',
+})
 </script>
 
 <template>

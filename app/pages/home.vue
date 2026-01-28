@@ -142,6 +142,13 @@ function getStreakMessage(streak: number) {
   if (streak < 7) return `Série de ${streak} jours !`
   return `${streak} jours !`
 }
+
+useSeoMeta({
+  title: 'Mon Espace - L\'Étincelle',
+  description: 'Retrouvez votre calme intérieur. Accédez à vos outils de méditation, respiration et créativité.',
+  ogTitle: 'Mon Espace - L\'Étincelle',
+  ogDescription: 'Retrouvez votre calme intérieur. Accédez à vos outils de méditation, respiration et créativité.',
+})
 </script>
 
 <template>

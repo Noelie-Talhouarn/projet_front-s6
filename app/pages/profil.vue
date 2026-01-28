@@ -365,6 +365,15 @@ function getBadgeIcon(badge: Badge | undefined, type: string) {
     
     return 'fi fi-rr-trophy'
 }
+    
+
+
+useSeoMeta({
+  title: 'Mon Profil - L\'Étincelle',
+  description: 'Consultez vos statistiques de méditation et vos badges de progression.',
+  ogTitle: 'Mon Profil - L\'Étincelle',
+})
+
 </script>
 
 <template>

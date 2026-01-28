@@ -3,6 +3,12 @@ definePageMeta({
   layout: 'landing'
 })
 
+useSeoMeta({
+  title: 'Connexion - L\'Étincelle',
+  description: 'Connectez-vous pour retrouver votre espace de sérénité.',
+  ogTitle: 'Connexion - L\'Étincelle',
+})
+
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase as string // On récupère l'adresse de Render
 

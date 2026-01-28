@@ -2,6 +2,13 @@
 definePageMeta({
   layout: 'landing'
 })
+
+useSeoMeta({
+  title: 'L\'Étincelle - Réenchantez votre quotidien',
+  description: 'Votre sanctuaire numérique pour explorer le calme, cultiver la créativité et reconnecter avec soi-même.',
+  ogTitle: 'L\'Étincelle - Réenchantez votre quotidien',
+  ogDescription: 'Votre sanctuaire numérique pour explorer le calme, cultiver la créativité et reconnecter avec soi-même.',
+})
 </script>
 
 <template>

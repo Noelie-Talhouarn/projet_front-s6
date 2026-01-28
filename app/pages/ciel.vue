@@ -327,10 +327,10 @@ async function deleteStar(id: number) {
         <i class="fi fi-rr-stars text-4xl text-indigo-300 mb-4 inline-block"></i>
         <h2 class="text-xl font-zen text-white mb-2">Le Ciel Intérieur</h2>
         <p class="text-slate-300 text-sm leading-relaxed mb-6">
-          Ce ciel est un espace partagé de positivité. Chaque étoile représente un moment de gratitude, une petite victoire ou une pensée douce déposée par vous ou un autre membre de la communauté.
+          Ce ciel est un espace rempli de positivité. Chaque étoile représente un moment de gratitude, une petite victoire ou une pensée douce déposée par vous.
         </p>
         <p class="text-slate-400 text-xs italic mb-8">
-          Cliquez n'importe où dans le ciel pour allumer votre propre étoile et rejoindre cette constellation de bienveillance.
+          Cliquez n'importe où dans le ciel pour allumer votre propre étoile et enrichir votre constellation personnelle.
         </p>
 
         <button 

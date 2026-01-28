@@ -16,19 +16,26 @@
       </div>
 
       <!-- Bas du footer -->
-      <div class="pt-8 border-t border-night-700 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="pt-8 border-t border-night-700 flex flex-col items-center gap-4 text-center">
         
-        <div class="flex items-center gap-3 text-sm">
-          <a href="#" class="legal-link underline">Confidentialité</a>
-          <span class="text-gray-600">•</span>
-          <a href="#" class="legal-link underline">Conditions</a>
-          <span class="text-gray-600">•</span>
-          <NuxtLink to="/about" class="legal-link underline hover:text-white">À propos</NuxtLink>
-          <span class="text-gray-600">•</span>
-          <NuxtLink to="/contact" class="legal-link underline hover:text-white">Contact</NuxtLink>
+        <!-- Navigation Principale -->
+        <div class="flex items-center gap-6 text-sm font-medium">
+          <NuxtLink to="/about" class="text-slate-300 hover:text-white transition-colors underline">À propos</NuxtLink>
+          <NuxtLink to="/contact" class="text-slate-300 hover:text-white transition-colors underline">Contact</NuxtLink>
         </div>
-          <p class="text-gray-500 text-sm text-center">Projet réalisé par Noélie Talhouarn dans le cadre d’un exercice pédagogique au département MMi de Montbéliard</p>
-          <p class="text-gray-500 text-sm">
+
+        <!-- Mentions Légales -->
+        <div class="flex flex-wrap justify-center items-center gap-3 text-xs text-slate-500">
+           <NuxtLink to="/mentions-legales" class="hover:text-slate-300 transition-colors">Mentions Légales</NuxtLink>
+           <span>•</span>
+           <NuxtLink to="/cgu" class="hover:text-slate-300 transition-colors">CGU</NuxtLink>
+           <span>•</span>
+           <NuxtLink to="/politique-confidentialite" class="hover:text-slate-300 transition-colors">Confidentialité</NuxtLink>
+        </div>
+
+        <p class="text-slate-600 text-xs mt-2">
+          Projet réalisé par Noélie Talhouarn dans le cadre d’un exercice pédagogique au département MMI de Montbéliard
+          <br>
           © {{ currentYear }} L'Étincelle. Tous droits réservés.
         </p>
       </div>

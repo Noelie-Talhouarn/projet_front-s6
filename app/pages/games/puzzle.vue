@@ -51,11 +51,14 @@ const dragOffset = ref({ x: 0, y: 0 })
 const { fetchCloudWords } = useStars()
 const token = useCookie('auth_token')
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
+
 // Gestion de la progression
 async function loadProgress() {
   if (!token.value) return
   try {
-     const data = await $fetch<{ level: number }>('/api/users/puzzle', {
+     const data = await $fetch<{ level: number }>(`${apiBase}/api/users/puzzle`, {
         headers: { Authorization: `Bearer ${token.value}` }
      })
      // Si l'utilisateur est niveau 3, cela veut dire qu'il joue le niveau 3 -> index 2
@@ -70,7 +73,7 @@ async function loadProgress() {
 async function saveProgress(newLevel: number) {
   if (!token.value) return
   try {
-     await $fetch('/api/users/puzzle', {
+     await $fetch(`${apiBase}/api/users/puzzle`, {
         method: 'POST',
         body: { level: newLevel },
         headers: { Authorization: `Bearer ${token.value}` }
@@ -179,8 +182,8 @@ function startDrag(e: MouseEvent | TouchEvent, piece: Piece) {
   let clientX, clientY
   const touches = (e as TouchEvent).touches
   if (touches && touches.length > 0) {
-      clientX = touches[0].clientX
-      clientY = touches[0].clientY
+      clientX = touches[0]!.clientX
+      clientY = touches[0]!.clientY
   } else {
       clientX = (e as MouseEvent).clientX
       clientY = (e as MouseEvent).clientY
@@ -201,8 +204,8 @@ function onDrag(e: MouseEvent | TouchEvent) {
   let clientX, clientY
   const touches = (e as TouchEvent).touches
   if (touches && touches.length > 0) {
-      clientX = touches[0].clientX
-      clientY = touches[0].clientY
+      clientX = touches[0]!.clientX
+      clientY = touches[0]!.clientY
   } else {
       clientX = (e as MouseEvent).clientX
       clientY = (e as MouseEvent).clientY

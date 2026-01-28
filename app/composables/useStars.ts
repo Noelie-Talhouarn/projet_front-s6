@@ -1,7 +1,7 @@
 export const useStars = () => {
     const token = useCookie('auth_token')
-    // On pointe vers votre backend sur le port 3002
-    const apiBase = 'http://localhost:3002'
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase as string
 
     // Récupérer les étoiles
     const fetchStars = async (): Promise<Star[]> => {

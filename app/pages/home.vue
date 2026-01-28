@@ -10,6 +10,8 @@ definePageMeta({
 // Récupération de l'utilisateur via le state global
 const { user, fetchUser } = useAuth()
 const cookie = useCookie('auth_token')
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
 
 // Streak
 const currentStreak = ref(0)
@@ -24,7 +26,7 @@ onMounted(async () => {
 
     // 2. Stats pour le streak (spécifique à cette page for now)
     if (token.value) {
-      const statsResponse = await $fetch<any>('/api/users/stats', {
+      const statsResponse = await $fetch<any>(`${apiBase}/api/users/stats`, {
         headers: {
           Authorization: `Bearer ${token.value}`
         }
@@ -105,7 +107,7 @@ async function handleMoodChange(moodId: string | null) {
     // Sauvegarde en base
     if (cookie.value) {
         try {
-            await $fetch('/api/users/emotion', {
+            await $fetch(`${apiBase}/api/users/emotion`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${cookie.value}` },
                 body: { emotion: moodId }

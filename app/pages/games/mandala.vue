@@ -18,6 +18,9 @@ const recipe_token = useCookie('auth_token') // Pour l'auth
 const progress = ref(0)
 const isCompleted = ref(false)
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
+
 // État Visuel
 const patternStyle = ref<'crystal' | 'pixel' | 'weave'>('crystal')
 const currentPaletteName = ref('Aurore')
@@ -48,7 +51,7 @@ async function completeLevel() {
     // Sauvegarder la progression (niveau suivant atteint)
     if (recipe_token.value) {
         try {
-            await $fetch('/api/users/mandala', {
+            await $fetch(`${apiBase}/api/users/mandala`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${recipe_token.value}` },
                 body: { level: level.value + 1 }
@@ -207,7 +210,7 @@ async function resetProgression() {
     
     if (recipe_token.value) {
         try {
-            await $fetch('/api/users/mandala', {
+            await $fetch(`${apiBase}/api/users/mandala`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${recipe_token.value}` },
                 body: { level: 1 }
@@ -241,7 +244,7 @@ onMounted(async () => {
   // Sync depuis le serveur si connecté
   if (recipe_token.value) {
       try {
-          const data = await $fetch<{ level: number }>('/api/users/mandala', {
+          const data = await $fetch<{ level: number }>(`${apiBase}/api/users/mandala`, {
              headers: { Authorization: `Bearer ${recipe_token.value}` } 
           })
           if (data && data.level) {

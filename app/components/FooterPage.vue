@@ -25,6 +25,8 @@
           <span class="text-gray-600">•</span>
           <a href="#" class="legal-link">Conditions</a>
           <span class="text-gray-600">•</span>
+          <NuxtLink to="/about" class="legal-link hover:text-white">À propos</NuxtLink>
+          <span class="text-gray-600">•</span>
           <NuxtLink to="/contact" class="legal-link hover:text-white">Contact</NuxtLink>
         </div>
       </div>

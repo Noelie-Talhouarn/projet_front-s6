@@ -21,6 +21,7 @@ const stars = ref<Star[]>([])
 const cloudWords = ref<string[]>([...DEFAULT_WORDS]) // On initialise avec le fallback
 const showModal = ref(false)
 const newMessage = ref('')
+const showInfoModal = ref(false)
 const selectedIntensity = ref<'small' | 'medium' | 'large'>('medium')
 const selectedDate = ref(new Date().toISOString().split('T')[0])
 const clickCoordinates = ref({ x: 0, y: 0 })
@@ -42,7 +43,22 @@ onMounted(async () => {
   if (remoteWords && remoteWords.length > 0) {
     cloudWords.value = remoteWords
   }
+
+  if (remoteWords && remoteWords.length > 0) {
+    cloudWords.value = remoteWords
+  }
+
+  // 3. Vérifier si l'utilisateur a déjà contribué
+  // Si non (pas de flag 'ciel_has_contributed'), on affiche l'intro à chaque fois
+  if (!localStorage.getItem('ciel_has_contributed')) {
+    showInfoModal.value = true
+  }
 })
+
+// Fonction simple pour fermer la modale sans enregistrer (puisque l'enregistrement se fait au dépôt d'étoile)
+function closeInfoModal() {
+  showInfoModal.value = false
+}
 
 // CALCUL DU NUAGE DE MOTS
 // 1 mot toutes les 3 étoiles
@@ -132,6 +148,11 @@ async function addStar() {
             ...savedStar,
             animationDelay: starData.animationDelay // On garde l'animation calculée front
         })
+        
+        // L'utilisateur a contribué, on ne lui montrera plus l'intro auto
+        localStorage.setItem('ciel_has_contributed', 'true')
+        showInfoModal.value = false // On ferme l'intro si elle était ouverte derrière (peu probable mais propre)
+
     } else {
         // Fallback optimiste (si l'API ne renvoie rien ou échoue silencieusement)
         stars.value.push({ ...starData, id: Date.now() })
@@ -169,6 +190,15 @@ async function deleteStar(id: number) {
         {{ stars.length }} étoiles • Prochain mot dans {{ 3 - (stars.length % 3) }} étoiles
       </p>
     </div>
+
+    <!-- Info Button -->
+    <button 
+      @click.stop="showInfoModal = true"
+      class="absolute top-6 right-6 z-40 text-slate-400 hover:text-white transition-colors p-2"
+      title="À propos du Ciel"
+    >
+      <i class="fi fi-rr-info text-xl"></i>
+    </button>
 
     <!-- NUAGE DE MOTS -->
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -276,6 +306,40 @@ async function deleteStar(id: number) {
     <div v-if="stars.length === 0" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none opacity-40">
       <i class="fi fi-rr-sparkles text-4xl block mb-4 animate-pulse inline-block"></i>
       <p class="text-xs tracking-[0.2em] uppercase text-slate-400">Le ciel attend vos lumières</p>
+    </div>
+
+
+
+    <!-- Info Modal -->
+    <div 
+      v-if="showInfoModal" 
+      class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-fade-in"
+      @click.self="closeInfoModal"
+    >
+      <div class="bg-slate-900/90 border border-white/10 p-8 rounded-2xl max-w-md text-center shadow-[0_0_50px_rgba(255,255,255,0.1)] relative">
+        <button 
+          @click="closeInfoModal"
+          class="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors"
+        >
+          <i class="fi fi-rr-cross-small text-xl"></i>
+        </button>
+
+        <i class="fi fi-rr-stars text-4xl text-indigo-300 mb-4 inline-block"></i>
+        <h2 class="text-xl font-zen text-white mb-2">Le Ciel Intérieur</h2>
+        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+          Ce ciel est un espace partagé de positivité. Chaque étoile représente un moment de gratitude, une petite victoire ou une pensée douce déposée par vous ou un autre membre de la communauté.
+        </p>
+        <p class="text-slate-400 text-xs italic mb-8">
+          Cliquez n'importe où dans le ciel pour allumer votre propre étoile et rejoindre cette constellation de bienveillance.
+        </p>
+
+        <button 
+          @click="closeInfoModal"
+          class="px-6 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm transition-all border border-white/5"
+        >
+          Compris
+        </button>
+      </div>
     </div>
 
   </div>

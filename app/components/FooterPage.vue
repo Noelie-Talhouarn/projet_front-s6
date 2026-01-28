@@ -17,18 +17,20 @@
 
       <!-- Bas du footer -->
       <div class="pt-8 border-t border-night-700 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-gray-500 text-sm">
+        
+        <div class="flex items-center gap-3 text-sm">
+          <a href="#" class="legal-link underline">Confidentialité</a>
+          <span class="text-gray-600">•</span>
+          <a href="#" class="legal-link underline">Conditions</a>
+          <span class="text-gray-600">•</span>
+          <NuxtLink to="/about" class="legal-link underline hover:text-white">À propos</NuxtLink>
+          <span class="text-gray-600">•</span>
+          <NuxtLink to="/contact" class="legal-link underline hover:text-white">Contact</NuxtLink>
+        </div>
+          <p class="text-gray-500 text-sm text-center">Projet réalisé par Noélie Talhouarn dans le cadre d’un exercice pédagogique au département MMi de Montbéliard</p>
+          <p class="text-gray-500 text-sm">
           © {{ currentYear }} L'Étincelle. Tous droits réservés.
         </p>
-        <div class="flex items-center gap-3 text-sm">
-          <a href="#" class="legal-link">Confidentialité</a>
-          <span class="text-gray-600">•</span>
-          <a href="#" class="legal-link">Conditions</a>
-          <span class="text-gray-600">•</span>
-          <NuxtLink to="/about" class="legal-link hover:text-white">À propos</NuxtLink>
-          <span class="text-gray-600">•</span>
-          <NuxtLink to="/contact" class="legal-link hover:text-white">Contact</NuxtLink>
-        </div>
       </div>
     </div>
   </footer>

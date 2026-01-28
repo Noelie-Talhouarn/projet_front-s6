@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useMeditations } from '~/composables/useMeditations'
 
+useSeoMeta({
+  title: 'Méditation Guidée - L\'Étincelle',
+  description: 'Bibliothèque de sons et méditations pour le sommeil et la relaxation.',
+  ogTitle: 'Méditation Guidée - L\'Étincelle',
+})
+
 // Composables & État
 
 

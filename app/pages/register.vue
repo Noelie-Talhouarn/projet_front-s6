@@ -3,6 +3,12 @@ definePageMeta({
   layout: 'landing'
 })
 
+useSeoMeta({
+  title: 'Inscription - L\'Étincelle',
+  description: 'Créez votre compte et commencez votre voyage apaisant.',
+  ogTitle: 'Inscription - L\'Étincelle',
+})
+
 // On récupère l'URL de Render configurée dans nuxt.config.ts
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase as string

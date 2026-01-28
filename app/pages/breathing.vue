@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount, computed } from 'vue'
 
+useSeoMeta({
+  title: 'Respiration & Cohérence Cardiaque - L\'Étincelle',
+  description: 'Relaxez-vous en 5 minutes avec notre guide de cohérence cardiaque.',
+  ogTitle: 'Respiration - L\'Étincelle',
+})
+
 const showIntro = ref(true)
 const isRunning = ref(false)
 const instruction = ref('Prêt ?')

@@ -10,6 +10,12 @@ const DEFAULT_WORDS = [
   "Patience", "Respect", "Foi", "Clarté", "Vérité", "Sagesse"
 ]
 
+useSeoMeta({
+  title: 'Le Ciel Étoilé - L\'Étincelle',
+  description: 'Partagez vos pensées positives et éclairez le ciel de la communauté.',
+  ogTitle: 'Le Ciel Étoilé - L\'Étincelle',
+})
+
 // État
 const stars = ref<Star[]>([])
 const cloudWords = ref<string[]>([...DEFAULT_WORDS]) // On initialise avec le fallback

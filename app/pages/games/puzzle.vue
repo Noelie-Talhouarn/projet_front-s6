@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 
+useSeoMeta({
+  title: 'Puzzle Zen - L\'Étincelle',
+  description: 'Reconstituez des phrases poétiques dans ce puzzle de mots apaisant.',
+  ogTitle: 'Puzzle Zen - L\'Étincelle',
+})
+
 // --- TYPES ---
 type Piece = {
   id: number

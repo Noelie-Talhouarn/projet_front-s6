@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+useSeoMeta({
+  title: 'Coloriage Mandala - L\'Étincelle',
+  description: 'Coloriez des mandalas procéduraux pour vous détendre.',
+  ogTitle: 'Coloriage Mandala - L\'Étincelle',
+})
+
 // --- CONFIGURATION ---
 const CANVAS_SIZE = 800 
 

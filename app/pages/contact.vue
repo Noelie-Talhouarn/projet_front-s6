@@ -1,3 +1,15 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: 'default'
+})
+
+useSeoMeta({
+  title: 'Contact - L\'Étincelle',
+  description: 'Une question ou une suggestion ? Contactez l\'équipe de L\'Étincelle.',
+  ogTitle: 'Contact - L\'Étincelle',
+})
+</script>
+
 <template>
   <div class=" bg-night-900 pt-24 px-6 pb-20 relative overflow-hidden flex items-center justify-center">
       

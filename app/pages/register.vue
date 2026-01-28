@@ -2,26 +2,25 @@
 definePageMeta({
   layout: 'landing'
 })
+
+// On récupère l'URL de Render configurée dans nuxt.config.ts
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
+
 const prenom = ref('')
 const nom = ref('')
 const email = ref('')
 const mot_de_passe = ref('')
-
 const errorMessage = ref('')
 const successMessage = ref('')
 
-// On utilise $fetch directement, pas besoin de config pour le proxy relatif
 async function onSubmit () {
-  console.log('🔵 Tentative d\'inscription...')
   errorMessage.value = ''
   successMessage.value = ''
 
   try {
-    console.log('🔵 Envoi de la requête POST vers /api/users/register')
-    
-    // 1. Inscription
-    // Utilisation de $fetch qui gère mieux les erreurs et le JSON
-    await $fetch('/api/users/register', {
+    // On ajoute baseURL pour forcer l'appel vers Render
+    await $fetch(`${apiBase}/api/users/register`, {
       method: 'POST',
       body: {
         prenom: prenom.value,
@@ -31,12 +30,10 @@ async function onSubmit () {
       }
     })
 
-    console.log('🟢 Inscription réussie !')
     successMessage.value = 'Compte créé avec succès 🎉 Connexion en cours...'
 
-    // 2. Connexion automatique
-    console.log('🔵 Tentative de connexion automatique...')
-    const loginResponse = await $fetch<{ token: string }>('/api/users/login', {
+    // Connexion automatique avec baseURL aussi
+    const loginResponse = await $fetch<{ token: string }>(`${apiBase}/api/users/login`, {
       method: 'POST',
       body: {
         email: email.value,
@@ -44,19 +41,12 @@ async function onSubmit () {
       }
     })
 
-    console.log('🟢 Connexion réussie, récupération du token')
-    
-    // Stockage du cookie
     const cookie = useCookie('auth_token')
     cookie.value = loginResponse.token
-
-    console.log('🔵 Redirection vers l\'accueil...')
     return navigateTo('/home')
 
   } catch (err: any) {
-    console.error('🔴 Erreur :', err)
-    // $fetch lance une erreur si la requête échoue, on peut récupérer le message
-    errorMessage.value = err.data?.message || err.message || 'Erreur lors de l’inscription ❌'
+    errorMessage.value = err.data?.message || 'Erreur lors de l’inscription ❌'
   }
 }
 </script>

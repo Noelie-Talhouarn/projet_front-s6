@@ -6,6 +6,9 @@ const props = defineProps<{
   autoPlay?: boolean
 }>()
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
+
 const emit = defineEmits<{
   (e: 'play'): void
   (e: 'pause'): void
@@ -48,7 +51,7 @@ async function saveMeditationSession(timeListened: number, isIncremental = false
 
     console.log(`📝 Enregistrement de ${seconds}s de méditation...`)
 
-    await $fetch('/api/meditations/session', {
+    await $fetch(`${apiBase}/api/meditations/session`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token.value}`

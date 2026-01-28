@@ -2,21 +2,20 @@
 definePageMeta({
   layout: 'landing'
 })
+
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string // On récupère l'adresse de Render
+
 const email = ref('')
 const mot_de_passe = ref('')
 const errorMessage = ref('')
 
-// const config = useRuntimeConfig() // Plus besoin grâce au proxy
-
 async function onSubmit () {
-  console.log('🔵 Tentative de connexion...')
   errorMessage.value = ''
 
   try {
-    console.log('🔵 Envoi de la requête POST vers /api/users/login')
-    
-    // Utilisation de $fetch pour gérer automatiquement le JSON et les erreurs
-    const response = await $fetch<{ token: string }>('/api/users/login', {
+    // Utilisation de baseURL pour pointer vers api-letincelle...
+    const response = await $fetch<{ token: string }>(`${apiBase}/api/users/login`, {
       method: 'POST',
       body: {
         email: email.value,
@@ -24,17 +23,11 @@ async function onSubmit () {
       }
     })
 
-    console.log('🟢 Connexion réussie ! Token reçu.')
-
-    // 🔐 Stockage du JWT
     const cookie = useCookie('auth_token')
     cookie.value = response.token
-
-    console.log('🔵 Redirection vers le dashboard...')
     navigateTo('/home')
 
   } catch (err: any) {
-    console.error('🔴 Erreur de connexion :', err)
     errorMessage.value = err.data?.message || 'Email ou mot de passe incorrect ❌'
   }
 }

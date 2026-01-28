@@ -8,6 +8,9 @@ const user = ref({
   avatar: ''
 })
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
+
 // Mode édition
 const isEditing = ref(false)
 const editForm = ref({
@@ -74,7 +77,7 @@ async function loadUserProfile() {
       return
     }
 
-    const response = await $fetch<any>('/api/users/profile', {
+    const response = await $fetch<any>(`${apiBase}/api/users/profile`, {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -100,7 +103,7 @@ async function loadUserStats() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    const response = await $fetch<any>('/api/users/stats', {
+    const response = await $fetch<any>(`${apiBase}/api/users/stats`, {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -179,7 +182,7 @@ async function saveProfile() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    await $fetch('/api/users/profile', {
+    await $fetch(`${apiBase}/api/users/profile`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token.value}`
@@ -208,7 +211,7 @@ async function updatePreferences() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    await $fetch('/api/users/preferences', {
+    await $fetch(`${apiBase}/api/users/preferences`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token.value}`
@@ -283,7 +286,7 @@ async function deleteAccount() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    await $fetch('/api/users/account', {
+    await $fetch(`${apiBase}/api/users/account`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token.value}`

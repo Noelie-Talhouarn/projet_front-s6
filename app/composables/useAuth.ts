@@ -1,6 +1,8 @@
 export const useAuth = () => {
     // useState permet de partager l'état 'user' entre tous les composants
     const user = useState<User | null>('user', () => null)
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase as string
 
     // Fonction pour charger l'utilisateur
     const fetchUser = async () => {
@@ -15,7 +17,7 @@ export const useAuth = () => {
         }
 
         try {
-            const response = await $fetch<User>('/api/users/profile', {
+            const response = await $fetch<User>(`${apiBase}/api/users/profile`, {
                 headers: {
                     Authorization: `Bearer ${token.value}`
                 }

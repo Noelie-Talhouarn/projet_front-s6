@@ -1,6 +1,7 @@
 export const useMeditations = () => {
     const token = useCookie('auth_token')
-    const apiBase = 'http://localhost:3002'
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase as string
 
     // Données de secours (MP3 libres de droits pour tester)
     // Sources: Pixabay, mélodies libres.

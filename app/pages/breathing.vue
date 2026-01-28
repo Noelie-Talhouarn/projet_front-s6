@@ -7,6 +7,9 @@ const instruction = ref('Prêt ?')
 const currentPhase = ref<'inhale' | 'hold' | 'exhale'>('inhale')
 const elapsedTime = ref(0) 
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string 
+
 let breathingInterval: NodeJS.Timeout | null = null
 let timerInterval: NodeJS.Timeout | null = null
 let cycleTimeout: NodeJS.Timeout | null = null
@@ -48,7 +51,7 @@ const finishSession = async () => {
       
       if (token.value) {
         console.log("🏁 Fin de session cohérence, temps écouté:", seconds, 's')
-        await $fetch('/api/meditations/session', {
+        await $fetch(`${apiBase}/api/meditations/session`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token.value}`

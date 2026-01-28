@@ -4,10 +4,13 @@ import { ref, onMounted } from 'vue'
 const games = ref<Array<{ title: string, type: string, description: string, difficulty: string, link: string }>>([])
 const isLoading = ref(true)
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase as string
+
 async function fetchGames() {
     try {
         const token = useCookie('auth_token')
-        const data = await $fetch<any[]>('/api/games', {
+        const data = await $fetch<any[]>(`${apiBase}/api/games`, {
             headers: token.value ? { Authorization: `Bearer ${token.value}` } : {}
         })
         

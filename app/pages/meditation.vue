@@ -123,20 +123,35 @@ function selectSession(session: Meditation) {
         <i class="fi fi-rr-arrow-small-left text-lg inline-block"></i> Retour au choix
       </button>
 
-      <!-- 1. Le Lecteur -->
-      <MeditationPlayer 
-        v-if="currentSession" 
-        :session="currentSession" 
-        :autoPlay="false"
-      />
+      <!-- Desktop Layout: Player (Left/Sticky) + List (Right) -->
+      <div class="lg:grid lg:grid-cols-12 lg:gap-10 items-start">
+        
+        <!-- Player Column -->
+        <div class="lg:col-span-7 xl:col-span-8 lg:sticky lg:top-24">
+          <MeditationPlayer 
+            v-if="currentSession" 
+            :session="currentSession" 
+            :autoPlay="false"
+          />
+        </div>
 
-      <!-- 2. La Liste -->
-      <MeditationList 
-        :sessions="sessions" 
-        :currentSessionId="currentSession?.id" 
-        :isLoading="isLoading"
-        @select="selectSession"
-      />
+        <!-- List Column -->
+        <div class="lg:col-span-5 xl:col-span-4 mt-6 lg:mt-0">
+          <div class="bg-night-800/30 rounded-[2rem] border border-white/5 p-6 backdrop-blur-sm">
+            <h2 class="text-lg font-zen text-white mb-6 flex items-center gap-2 border-b border-white/10 pb-4">
+              <i class="fi fi-rr-list text-pink-400"></i>
+              Ma Playlist
+            </h2>
+            <MeditationList 
+              :sessions="sessions" 
+              :currentSessionId="currentSession?.id" 
+              :isLoading="isLoading"
+              @select="selectSession"
+            />
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>

@@ -49,9 +49,8 @@ onMounted(async () => {
     cloudWords.value = remoteWords
   }
 
-  // 3. Vérifier si l'utilisateur a déjà contribué
-  // Si non (pas de flag 'ciel_has_contributed'), on affiche l'intro à chaque fois
-  if (!localStorage.getItem('ciel_has_contributed')) {
+  // 3. Afficher l'intro seulement si le ciel est vide (pas d'étoile)
+  if (stars.value.length === 0) {
     showInfoModal.value = true
   }
 })
@@ -140,28 +139,19 @@ async function addStar() {
   }
 
   try {
-    // 1. Envoi au backend
-    // Note: l'ID sera généré par le backend
     const savedStar = await addStarApi(starData)
     
     if (savedStar && savedStar.id) {
-        // Succès : on ajoute l'étoile retournée par le serveur
         stars.value.push({
             ...savedStar,
-            animationDelay: starData.animationDelay // On garde l'animation calculée front
+            animationDelay: starData.animationDelay
         })
-        
-        // L'utilisateur a contribué, on ne lui montrera plus l'intro auto
-        localStorage.setItem('ciel_has_contributed', 'true')
-        showInfoModal.value = false // On ferme l'intro si elle était ouverte derrière (peu probable mais propre)
-
+        showInfoModal.value = false 
     } else {
-        // Fallback optimiste (si l'API ne renvoie rien ou échoue silencieusement)
         stars.value.push({ ...starData, id: Date.now() })
     }
   } catch (e) {
     console.error("Erreur, mode hors ligne activé pour cette étoile")
-    // Fallback optimiste
     stars.value.push({ ...starData, id: Date.now() })
   } finally {
     isSending.value = false

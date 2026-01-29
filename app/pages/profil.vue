@@ -65,10 +65,68 @@ const showDeleteModal = ref(false)
 const deleteConfirmText = ref('')
 const isDeleting = ref(false)
 
+// Avatar
+const isUpdatingAvatar = ref(false)
+const fileInput = ref<HTMLInputElement | null>(null)
+
 onMounted(async () => {
   await loadUserProfile()
   await loadUserStats()
 })
+
+
+
+async function handleCustomUpload(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+  
+  // Validation de taille (2Mo)
+  if (file.size > 2 * 1024 * 1024) {
+    errorMessage.value = 'L\'image est trop lourde (max 2Mo)'
+    return
+  }
+
+  try {
+    const token = useCookie('auth_token')
+    if (!token.value) return
+
+    isUpdatingAvatar.value = true
+    
+    // 1. Upload vers Cloudinary
+    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/dc7mlyeq4/image/upload`
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', 'wip3jbf7')
+
+    const uploadRes = await $fetch<any>(cloudinaryUrl, {
+      method: 'POST',
+      body: formData
+    })
+
+    const imageUrl = uploadRes.secure_url
+
+    // 2. Enregistrement de l'URL dans MongoDB
+    await $fetch(`${apiBase}/api/users/avatar`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token.value}` },
+      body: { avatar: imageUrl }
+    })
+
+    user.value.avatar = imageUrl
+    successMessage.value = 'Votre photo de profil a été mise à jour ! ✨'
+    
+    setTimeout(() => {
+      successMessage.value = ''
+    }, 3000)
+  } catch (err: any) {
+    console.error('Erreur upload photo Cloudinary:', err)
+    errorMessage.value = 'Erreur lors de la mise à jour de la photo'
+  } finally {
+    isUpdatingAvatar.value = false
+    if (fileInput.value) fileInput.value.value = ''
+  }
+}
 
 async function loadUserProfile() {
   try {
@@ -413,11 +471,30 @@ useSeoMeta({
           
           <!-- Avatar et Nom -->
           <div class="flex flex-col md:flex-row items-center gap-6 mb-8">
-            <div class="relative group">
-              <div class="h-24 w-24 rounded-full bg-gradient-spark flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-spark/40 transition-all group-hover:scale-105">
-                {{ getInitials() }}
+            <div class="relative group cursor-pointer" @click="fileInput?.click()" title="Changer de photo">
+              <div class="h-24 w-24 rounded-full bg-night-800 border-2 border-white/10 overflow-hidden flex items-center justify-center shadow-lg shadow-spark/20 transition-all group-hover:scale-105 group-hover:border-spark/50">
+                <img v-if="user.avatar" :src="user.avatar" :alt="user.prenom" class="w-full h-full object-cover" />
+                <div v-else class="w-full h-full bg-gradient-spark flex items-center justify-center text-3xl font-bold text-white">
+                  {{ getInitials() }}
+                </div>
+                
+                <!-- Overlay de chargement -->
+                <div v-if="isUpdatingAvatar" class="absolute inset-0 bg-black/60 flex items-center justify-center">
+                  <div class="h-8 w-8 border-4 border-spark border-t-transparent rounded-full animate-spin"></div>
+                </div>
               </div>
-              <div class="absolute -bottom-2 -right-2 h-8 w-8 rounded-full bg-green-500 border-4 border-night-900 shadow-lg"></div>
+              <div class="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-night-800 border-2 border-white/20 flex items-center justify-center text-white shadow-lg group-hover:bg-spark transition-colors">
+                <i class="fi fi-rr-camera text-xs"></i>
+              </div>
+              
+              <!-- Input Fichier Caché -->
+              <input 
+                ref="fileInput"
+                type="file" 
+                class="hidden" 
+                accept="image/*"
+                @change="handleCustomUpload"
+              />
             </div>
 
             <div class="flex-1 text-center md:text-left">
@@ -445,6 +522,8 @@ useSeoMeta({
               </button>
             </div>
           </div>
+
+
 
           <!-- Formulaire d'édition -->
           <div v-if="isEditing" class="space-y-6 border-t border-white/10 pt-6 animate-fade-in-up">
@@ -828,9 +907,6 @@ useSeoMeta({
             </div>
           </div>
         </div>
-
-
-
       </template>
     </div>
 
@@ -866,41 +942,27 @@ useSeoMeta({
           </div>
         </div>
 
-        <div class="mb-6">
-          <label class="mb-2 block text-sm font-medium text-slate-300">
-            Pour confirmer, tapez <span class="font-bold text-red-400">SUPPRIMER</span>
-          </label>
-          <input
-            v-model="deleteConfirmText"
-            type="text"
-            placeholder="Tapez SUPPRIMER"
-            class="w-full rounded-lg border border-red-500/30 bg-night-800 px-4 py-3 text-white placeholder-slate-500 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
-            @keyup.enter="deleteAccount"
-          />
-        </div>
-
         <div class="flex gap-3">
           <MyButton
             @click="closeDeleteModal"
             variant="outline"
             size="medium"
-            class="flex-1"
+            class="flex-1 text-slate-300 border-white/20 hover:bg-white/5"
             :disabled="isDeleting"
           >
-            Annuler
+            Non, annuler
           </MyButton>
-          <MyButton
+          <button
             @click="deleteAccount"
-            size="medium"
-            class="flex-1 bg-red-500 hover:bg-red-600 text-white"
-            :disabled="isDeleting || deleteConfirmText !== 'SUPPRIMER'"
+            class="flex-1 h-10 px-4 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition-colors flex items-center justify-center gap-2"
+            :disabled="isDeleting"
           >
             <span v-if="isDeleting" class="flex items-center gap-2">
               <span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
               Suppression...
             </span>
-            <span v-else>Supprimer définitivement</span>
-          </MyButton>
+            <span v-else>Oui, supprimer mon compte</span>
+          </button>
         </div>
       </div>
     </div>

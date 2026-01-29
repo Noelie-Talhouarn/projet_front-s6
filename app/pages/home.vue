@@ -167,27 +167,37 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="px-6 pb-20 pt-10 max-w-6xl mx-auto">
+  <div class="px-6 pb-20 pt-10 max-w-6xl mx-auto flex flex-col">
     
-    <!-- Hero / Content Grid -->
+    <!-- 1. BONJOUR (Always First) -->
+    <header class="mb-12 animate-fade-in-up text-center lg:text-left transition-all shrink-0">
+        <h1 class="text-3xl md:text-4xl font-zen tracking-wide text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
+        <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
+    </header>
+
+    <!-- Grid Container -->
     <div class="lg:grid lg:grid-cols-12 lg:gap-10 items-start">
       
-      <!-- Top Header (Full Width Desktop) -->
-      <section class="lg:col-span-12 mb-12 animate-fade-in-up">
-         <header class="mb-8">
-             <h1 class="text-3xl md:text-4xl font-zen tracking-wide text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
-             <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
-         </header>
-      </section>
+      <!-- Content Column -->
+      <div class="lg:col-span-8 flex flex-col space-y-8">
+        
+        <!-- 2. STREAK (Mobile Only here) -->
+        <div class="lg:hidden animate-fade-in-up" style="animation-delay: 0.1s">
+            <StreakCard :streak="currentStreak" />
+        </div>
 
-      <!-- Main Section: Quote & Cards (Left on Desktop) -->
-      <div class="lg:col-span-8 space-y-8">
-        <section class="animate-fade-in-up">
+        <!-- 3. CITATION -->
+        <section class="animate-fade-in-up" style="animation-delay: 0.2s">
           <DailyQuote />
         </section>
 
-        <!-- Navigation Rapide (Dashboard Dynamique) -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up transition-all duration-500">
+        <!-- 4. EMOTION (Mobile Only here) -->
+        <div class="lg:hidden animate-fade-in-up mt-4" style="animation-delay: 0.3s">
+            <MoodTracker :initial-mood="currentMood" :is-loading="isSavingMood" @select="handleMoodChange" />
+        </div>
+
+        <!-- 5. CARDS (Navigation Rapide) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up transition-all duration-500" style="animation-delay: 0.4s">
             <DashboardCard 
                 v-for="(card, index) in orderedCards"
                 :key="card.id"
@@ -203,8 +213,8 @@ useSeoMeta({
         </section>
       </div>
 
-      <!-- Sidebar Section: Streak & Mood (Right on Desktop) -->
-      <aside class="lg:col-span-4 space-y-8 mt-12 lg:mt-0 lg:sticky lg:top-24">
+      <!-- DESKTOP SIDEBAR (Streak & Mood together on the right) -->
+      <aside class="hidden lg:flex lg:col-span-4 flex-col gap-8 lg:sticky lg:top-24 animate-fade-in-up" style="animation-delay: 0.2s">
          <StreakCard :streak="currentStreak" />
          <MoodTracker :initial-mood="currentMood" :is-loading="isSavingMood" @select="handleMoodChange" />
 
@@ -216,7 +226,7 @@ useSeoMeta({
               </NuxtLink>
          </div>
       </aside>
-
     </div>
+
   </div>
 </template>

@@ -97,23 +97,14 @@ useSeoMeta({
         </div>
 
         <!-- Section Citations -->
-        <div v-if="activeTab === 'quotes'" class="space-y-6 max-w-2xl mx-auto">
+        <div v-if="activeTab === 'quotes'" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <template v-if="favorites.quotes.length > 0">
-                <div 
+                <QuoteCard 
                     v-for="quote in favorites.quotes" 
                     :key="quote.citation"
-                    class="relative p-8 rounded-3xl border border-white/10 bg-night-800/50 backdrop-blur-sm group hover:border-pink-500/30 transition-all"
-                >
-                    <div class="absolute top-6 right-6">
-                         <FavoriteButton type="quote" :item="quote" />
-                    </div>
-                    <blockquote class="text-xl font-medium text-white leading-relaxed italic pr-10 mb-4">
-                        "{{ quote.citation }}"
-                    </blockquote>
-                    <cite class="text-pink-400 font-bold not-italic tracking-wider uppercase text-xs">
-                        — {{ quote.auteur }}
-                    </cite>
-                </div>
+                    :quote="quote"
+                    class="h-full"
+                />
             </template>
             <div v-else class="text-center py-20 bg-white/5 rounded-3xl border border-dashed border-white/10">
                 <i class="fi fi-rr-quote-right text-3xl text-white/20 mb-4 block"></i>

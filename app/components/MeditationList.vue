@@ -100,7 +100,8 @@ const filteredSessions = computed(() => {
       </button>
 
       <!-- États vides -->
-      <div v-if="isLoading" class="text-center py-10 text-slate-500 text-xs animate-pulse">
+      <div v-if="isLoading" class="flex flex-col items-center justify-center py-10 text-slate-500 text-xs">
+        <div class="h-6 w-6 border-2 border-slate-700 border-t-slate-400 rounded-full animate-spin mb-3"></div>
         Chargement de vos vibrations...
       </div>
       

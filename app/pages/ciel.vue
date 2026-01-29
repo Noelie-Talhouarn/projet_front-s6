@@ -25,6 +25,7 @@ const showInfoModal = ref(false)
 const selectedIntensity = ref<'small' | 'medium' | 'large'>('medium')
 const selectedDate = ref(new Date().toISOString().split('T')[0])
 const clickCoordinates = ref({ x: 0, y: 0 })
+const isSending = ref(false)
 
 // Récupération de l'API
 const { fetchStars, addStarApi, removeStarApi, fetchCloudWords } = useStars()
@@ -124,8 +125,9 @@ function handleSkyClick(event: MouseEvent) {
 }
 
 async function addStar() {
-  if (!newMessage.value.trim()) return
+  if (!newMessage.value.trim() || isSending.value) return
 
+  isSending.value = true
   // Données de la nouvelle étoile
   const starData = {
     x: clickCoordinates.value.x,
@@ -161,6 +163,8 @@ async function addStar() {
     console.error("Erreur, mode hors ligne activé pour cette étoile")
     // Fallback optimiste
     stars.value.push({ ...starData, id: Date.now() })
+  } finally {
+    isSending.value = false
   }
   
   showModal.value = false
@@ -293,10 +297,11 @@ async function deleteStar(id: number) {
           <button @click="showModal = false" class="flex-1 py-2 text-xs text-slate-400 hover:text-white transition-colors">Annuler</button>
           <button 
             @click="addStar" 
-            class="flex-1 py-2 bg-white text-black rounded-lg text-xs font-bold hover:bg-indigo-100 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]"
-            :disabled="!newMessage"
+            class="flex-1 py-2 bg-white text-black rounded-lg text-xs font-bold hover:bg-indigo-100 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] flex items-center justify-center gap-2"
+            :disabled="!newMessage || isSending"
           >
-            Allumer
+            <div v-if="isSending" class="h-3 w-3 border-2 border-black/20 border-t-black rounded-full animate-spin"></div>
+            {{ isSending ? 'Création...' : 'Allumer' }}
           </button>
         </div>
       </div>

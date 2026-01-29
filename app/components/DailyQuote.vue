@@ -18,54 +18,27 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full max-w-2xl mx-auto p-1">
+  <div class="relative w-full max-w-2xl mx-auto">
     
-    <!-- Effet de bordure dégradée -->
-    <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-spark/50 via-spark-pink/50 to-spark/50 blur opacity-75"></div>
-    
-    <div class="relative flex flex-col gap-1 rounded-2xl bg-night-900/80 backdrop-blur-xl border border-white/10 p-2 text-center shadow-2xl">
-      
-      <div class="flex justify-center relative">
-        <span class="text-3xl">❝</span>
-        
-        <!-- Like Button -->
-        <div class="absolute right-0 top-0">
-          <FavoriteButton 
-            v-if="displayQuote"
-            type="quote"
-            :item="displayQuote"
-          />
-        </div>
-      </div>
-
-      <!-- Chargement -->
-      <div v-if="pending" class="flex justify-center py-4">
-        <div class="h-6 w-6 animate-spin rounded-full border-2 border-spark border-t-transparent"></div>
-      </div>
-
-      <!-- Erreur -->
-      <div v-else-if="error" class="text-red-400 text-sm">
-        Impossible de charger la citation inspirante du jour.
-        <br>
-        <MyButton @click="refresh" class="">Réessayer</MyButton>
-      </div>
-
-      <!-- Citation -->
-      <div v-else-if="displayQuote" class="flex flex-col gap-4">
-        <blockquote class="text-xl md:text-2xl font-medium text-white leading-relaxed font-serif italic">
-          {{ displayQuote.citation }}
-        </blockquote>
-        
-        <cite class="text-spark-light font-bold not-italic tracking-wider uppercase text-sm">
-          — {{ displayQuote.auteur }}
-        </cite>
-      </div>
-
-      <div class="flex justify-center">
-        <span class="text-3xl rotate-180">❝</span>
-      </div>
-
+    <!-- Chargement -->
+    <div v-if="pending" class="flex flex-col items-center justify-center py-12 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+      <div class="h-8 w-8 animate-spin rounded-full border-2 border-spark border-t-transparent mb-4"></div>
+      <p class="text-xs uppercase tracking-widest text-slate-500">Inspiration en cours...</p>
     </div>
+
+    <!-- Erreur -->
+    <div v-else-if="error" class="text-center p-8 rounded-2xl bg-red-500/5 border border-red-500/20">
+      <p class="text-red-400 text-sm mb-4">Impossible de charger la citation du jour.</p>
+      <MyButton @click="refresh" size="small" variant="outline">Réessayer</MyButton>
+    </div>
+
+    <!-- Citation -->
+    <QuoteCard 
+      v-else-if="displayQuote" 
+      :quote="displayQuote" 
+      class="animate-fade-in-up"
+    />
+
   </div>
 </template>
 

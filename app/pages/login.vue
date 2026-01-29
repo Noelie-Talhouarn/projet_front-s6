@@ -15,12 +15,13 @@ const apiBase = config.public.apiBase as string // On récupère l'adresse de Re
 const email = ref('')
 const mot_de_passe = ref('')
 const errorMessage = ref('')
+const isLoading = ref(false)
 
 async function onSubmit () {
   errorMessage.value = ''
+  isLoading.value = true
 
   try {
-    // Utilisation de baseURL pour pointer vers api-letincelle...
     const response = await $fetch<{ token: string }>(`${apiBase}/api/users/login`, {
       method: 'POST',
       body: {
@@ -35,6 +36,8 @@ async function onSubmit () {
 
   } catch (err: any) {
     errorMessage.value = err.data?.message || 'Email ou mot de passe incorrect ❌'
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
@@ -82,9 +85,15 @@ async function onSubmit () {
 
         <!-- Actions -->
         <div class="mt-4 flex flex-col gap-4">
-          <MyButton size="large" type="submit" class="w-full group">
-            Se connecter
-            <span class="ml-2 transition-transform group-hover:translate-x-1">➜</span>
+          <MyButton size="large" type="submit" class="w-full group flex items-center justify-center gap-2" :disabled="isLoading">
+            <template v-if="!isLoading">
+                Se connecter
+                <span class="ml-2 transition-transform group-hover:translate-x-1">➜</span>
+            </template>
+            <template v-else>
+                <div class="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Connexion...
+            </template>
           </MyButton>
           
           <p class="text-center text-sm text-slate-400">

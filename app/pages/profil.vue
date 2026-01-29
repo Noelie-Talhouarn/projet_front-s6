@@ -22,6 +22,7 @@ const editForm = ref({
 // Messages
 const errorMessage = ref('')
 const successMessage = ref('')
+const isSaving = ref(false)
 
 // Statistiques
 // Statistiques
@@ -182,6 +183,7 @@ async function saveProfile() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
+    isSaving.value = true
     await $fetch(`${apiBase}/api/users/profile`, {
       method: 'PUT',
       headers: {
@@ -203,6 +205,8 @@ async function saveProfile() {
   } catch (err: any) {
     console.error('Erreur lors de la mise à jour:', err)
     errorMessage.value = err.data?.message || 'Erreur lors de la mise à jour'
+  } finally {
+    isSaving.value = false
   }
 }
 
@@ -473,12 +477,18 @@ useSeoMeta({
             />
 
             <div class="flex gap-3 justify-end">
-              <MyButton @click="cancelEditing" variant="outline" size="medium">
+              <MyButton @click="cancelEditing" variant="outline" size="medium" :disabled="isSaving">
                 Annuler
               </MyButton>
-              <MyButton @click="saveProfile" variant="pink" size="medium">
-                <span class="mr-2">💾</span>
-                Enregistrer
+              <MyButton @click="saveProfile" variant="pink" size="medium" :disabled="isSaving" class="flex items-center gap-2">
+                <template v-if="!isSaving">
+                  <span class="mr-1">💾</span>
+                  Enregistrer
+                </template>
+                <template v-else>
+                  <div class="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  Enregistrement...
+                </template>
               </MyButton>
             </div>
           </div>

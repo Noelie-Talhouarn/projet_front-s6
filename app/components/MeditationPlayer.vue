@@ -15,6 +15,9 @@ const emit = defineEmits<{
   (e: 'ended'): void
 }>()
 
+const { isMeditationFavorite, toggleMeditationFavorite, fetchFavorites } = useFavorites()
+
+
 // État local du lecteur
 const audioPlayer = ref<HTMLAudioElement | null>(null)
 const isPlaying = ref(false)
@@ -111,6 +114,7 @@ function loadSession() {
 }
 
 onMounted(() => {
+  fetchFavorites()
   loadSession()
 })
 
@@ -262,7 +266,13 @@ function formatTime(seconds: number) {
     <!-- Interface -->
     <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
       
-      <h2 class="text-2xl font-bold text-white mb-1 drop-shadow-lg">{{ session.title }}</h2>
+      <h2 class="text-2xl font-bold text-white mb-1 drop-shadow-lg flex items-center gap-3">
+        {{ session.title }}
+        <FavoriteButton 
+          type="meditation"
+          :item="session.id"
+        />
+      </h2>
       <p class="text-sm text-white/70 mb-8 font-light uppercase tracking-widest">{{ session.category }}</p>
 
       <!-- Boutons de contrôle -->

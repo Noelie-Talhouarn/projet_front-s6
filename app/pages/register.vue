@@ -19,13 +19,14 @@ const email = ref('')
 const mot_de_passe = ref('')
 const errorMessage = ref('')
 const successMessage = ref('')
+const isLoading = ref(false)
 
 async function onSubmit () {
   errorMessage.value = ''
   successMessage.value = ''
+  isLoading.value = true
 
   try {
-    // On ajoute baseURL pour forcer l'appel vers Render
     await $fetch(`${apiBase}/api/users/register`, {
       method: 'POST',
       body: {
@@ -38,7 +39,6 @@ async function onSubmit () {
 
     successMessage.value = 'Compte créé avec succès 🎉 Connexion en cours...'
 
-    // Connexion automatique avec baseURL aussi
     const loginResponse = await $fetch<{ token: string }>(`${apiBase}/api/users/login`, {
       method: 'POST',
       body: {
@@ -53,6 +53,8 @@ async function onSubmit () {
 
   } catch (err: any) {
     errorMessage.value = err.data?.message || 'Erreur lors de l’inscription ❌'
+  } finally {
+    isLoading.value = false
   }
 }
 </script>
@@ -118,9 +120,15 @@ async function onSubmit () {
 
         <!-- Actions -->
         <div class="mt-4 flex flex-col gap-4">
-          <MyButton variant="pink" size="large" class="w-full group" type="submit">
-            S'inscrire
-            <span class="ml-2 transition-transform group-hover:translate-x-1">✨</span>
+          <MyButton variant="pink" size="large" class="w-full group flex items-center justify-center gap-2" type="submit" :disabled="isLoading">
+            <template v-if="!isLoading">
+                S'inscrire
+                <span class="ml-2 transition-transform group-hover:translate-x-1">✨</span>
+            </template>
+            <template v-else>
+                <div class="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Inscription...
+            </template>
           </MyButton>
           
           <p class="text-center text-sm text-slate-400">

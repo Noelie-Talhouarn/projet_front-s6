@@ -37,14 +37,14 @@ async function handleToggle() {
     v-if="token"
     @click.stop="handleToggle" 
     :disabled="loading"
-    class="p-2 transition-all duration-300 active:scale-90 group/fav"
+    class="p-2 transition-all duration-300 active:scale-95 group/fav"
     :title="isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'"
   >
     <i 
-      class="fi text-2xl transition-all duration-300" 
+      class="fi text-2xl transition-all duration-300 inline-block" 
       :class="[
         isFavorite ? 'fi-sr-heart text-pink-500 scale-110' : 'fi-rr-heart text-white/40 group-hover/fav:text-pink-400',
-        loading ? 'opacity-50 animate-pulse' : ''
+        loading ? 'opacity-40' : ''
       ]"
     ></i>
   </button>
@@ -52,6 +52,8 @@ async function handleToggle() {
 
 <style scoped>
 .fi-sr-heart {
-    filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.3));
+    /* Rose vibrant assorti à l'identité visuelle */
+    color: #ec4899 !important; 
+    filter: drop-shadow(0 0 5px rgba(236, 72, 153, 0.4));
 }
 </style>

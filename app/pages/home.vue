@@ -40,6 +40,7 @@ onMounted(async () => {
 
 // Etat de l'humeur
 const currentMood = ref<string | null>(null)
+const isSavingMood = ref(false)
 
 // Définition des cartes
 const rawCards = [
@@ -106,6 +107,7 @@ async function handleMoodChange(moodId: string | null) {
 
     // Sauvegarde en base
     if (cookie.value) {
+        isSavingMood.value = true
         try {
             await $fetch(`${apiBase}/api/users/emotion`, {
                 method: 'POST',
@@ -118,6 +120,8 @@ async function handleMoodChange(moodId: string | null) {
             console.log('Emotion sauvegardée:', moodId)
         } catch (e) {
             console.error('Erreur sauvegarde emotion', e)
+        } finally {
+            isSavingMood.value = false
         }
     }
 }
@@ -202,7 +206,7 @@ useSeoMeta({
       <!-- Sidebar Section: Streak & Mood (Right on Desktop) -->
       <aside class="lg:col-span-4 space-y-8 mt-12 lg:mt-0 lg:sticky lg:top-24">
          <StreakCard :streak="currentStreak" />
-         <MoodTracker :initial-mood="currentMood" @select="handleMoodChange" />
+         <MoodTracker :initial-mood="currentMood" :is-loading="isSavingMood" @select="handleMoodChange" />
 
          <!-- Accès Profil Rapide -->
          <div class="text-center lg:text-left pt-4">

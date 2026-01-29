@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-    initialMood?: string | null
+    initialMood?: string | null,
+    isLoading?: boolean
 }>()
 
 const emit = defineEmits(['select'])
@@ -56,7 +57,10 @@ function selectMood(id: string) {
   <div class="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/[0.07]">
     <div class="animate-fade-in-up">
         <h3 v-if="!selectedMood" class="text-lg font-zen tracking-wide text-white mb-4 text-center">Comment vous sentez-vous maintenant ?</h3>
-        <h3 v-else class="text-lg font-zen tracking-wide text-white mb-4 text-center">Votre intention : <span class="text-spark-light">{{ moods.find(m => m.id === selectedMood)?.label }}</span></h3>
+        <h3 v-else class="text-lg font-zen tracking-wide text-white mb-4 text-center flex items-center justify-center gap-2">
+            Votre intention : <span class="text-spark-light">{{ moods.find(m => m.id === selectedMood)?.label }}</span>
+            <div v-if="isLoading" class="h-4 w-4 border-2 border-spark-light/30 border-t-spark-light rounded-full animate-spin inline-block"></div>
+        </h3>
         
         <div class="grid grid-cols-4 gap-2 md:flex md:justify-center md:gap-4">
             <button 

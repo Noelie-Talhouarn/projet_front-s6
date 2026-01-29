@@ -2,36 +2,16 @@
   <footer class="bg-gradient-to-br from-night-900 to-night-800 text-white border-t border-night-700">
     <div class="mx-auto px-6 py-3 lg:py-16">
       <!-- Contenu principal du footer -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 mb-12">
+      <div class="flex items-center justify-center mb-12">
         <!-- Section Marque -->
-        <div class="footer-section animate-fade-in-up md:col-span-2" style="animation-delay: 0.1s">
-          <div class="flex items-center gap-2 mb-4">
+        <div class="footer-section animate-fade-in-up text-center" style="animation-delay: 0.1s">
+          <div class="flex items-center justify-center gap-2 mb-4">
             <i class="fi fi-rr-sparkles text-2xl text-spark"></i>
             <MyTitle as="h3" size="medium">L'Étincelle</MyTitle>
           </div>
-          <p class="text-slate-400 text-sm italic leading-relaxed max-w-sm mb-6">
+          <p class="text-slate-400 text-sm italic leading-relaxed max-w-md mx-auto">
             Votre sanctuaire numérique conçu pour cultiver le calme, explorer la créativité et reconnecter avec l'essentiel.
           </p>
-        </div>
-
-        <!-- Section Navigation -->
-        <div class="footer-section animate-fade-in-up" style="animation-delay: 0.2s">
-            <h4 class="text-white font-zen text-sm uppercase tracking-widest mb-6 px-1">Navigation</h4>
-            <ul class="space-y-4">
-                <li><NuxtLink to="/home" class="footer-link px-1">Accueil</NuxtLink></li>
-                <li><NuxtLink to="/meditation" class="footer-link px-1">Méditation</NuxtLink></li>
-                <li><NuxtLink to="/games" class="footer-link px-1">Espace Jeux</NuxtLink></li>
-            </ul>
-        </div>
-
-        <!-- Section Support -->
-        <div class="footer-section animate-fade-in-up" style="animation-delay: 0.3s">
-            <h4 class="text-white font-zen text-sm uppercase tracking-widest mb-6 px-1">Support</h4>
-            <ul class="space-y-4">
-                <li><NuxtLink to="/about" class="footer-link px-1">À propos</NuxtLink></li>
-                <li><NuxtLink to="/contact" class="footer-link px-1">Contact</NuxtLink></li>
-                <li><NuxtLink to="/favoris" class="footer-link px-1">Mes Favoris</NuxtLink></li>
-            </ul>
         </div>
       </div>
 

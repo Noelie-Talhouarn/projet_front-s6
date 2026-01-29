@@ -13,6 +13,8 @@ const emit = defineEmits<{
 
 // Catégories
 // Catégories
+const { isMeditationFavorite } = useFavorites()
+
 const { fetchCategories } = useMeditations()
 const categories = ref<{ id: string, label: string }[]>([])
 
@@ -20,10 +22,20 @@ onMounted(async () => {
   categories.value = await fetchCategories()
 })
 const selectedCategory = ref('all')
+const showOnlyFavorites = ref(false)
 
 const filteredSessions = computed(() => {
-  if (selectedCategory.value === 'all') return props.sessions
-  return props.sessions.filter(s => s.category === selectedCategory.value)
+  let filtered = props.sessions
+  
+  if (showOnlyFavorites.value) {
+    filtered = filtered.filter(s => isMeditationFavorite(s.id))
+  }
+  
+  if (selectedCategory.value !== 'all') {
+    filtered = filtered.filter(s => s.category === selectedCategory.value)
+  }
+  
+  return filtered
 })
 </script>
 
@@ -31,6 +43,20 @@ const filteredSessions = computed(() => {
   <div>
     <!-- Filtres -->
     <div class="flex gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar animate-fade-in-up" style="animation-delay: 0.15s">
+      <!-- Filtre Favoris -->
+      <button 
+        @click="showOnlyFavorites = !showOnlyFavorites"
+        class="whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all border flex items-center gap-2"
+        :class="showOnlyFavorites 
+          ? 'bg-pink-500 text-white border-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.3)]' 
+          : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10'"
+      >
+        <i :class="showOnlyFavorites ? 'fi fi-sr-heart' : 'fi fi-rr-heart'"></i>
+        Favoris
+      </button>
+
+      <div class="w-[1px] h-4 bg-white/10 self-center mx-1 shrink-0"></div>
+
       <button 
         v-for="cat in categories" 
         :key="cat.id"
@@ -55,7 +81,7 @@ const filteredSessions = computed(() => {
       >
         <!-- Mini Cover -->
         <div class="w-12 h-12 rounded-lg bg-cover bg-center shrink-0 mr-4 opacity-80 group-hover:opacity-100 transition-opacity" 
-             :style="{ backgroundImage: `url(${session.imageUrl || 'https://images.unsplash.com/photo-1519681393797-a1205ee31c33?q=80&w=1000'})` }">
+             :style="{ backgroundImage: `url(${session.imageUrl})` }">
             <!-- Petit indicateur si c'est la piste en cours (Optionnel) -->
              <div v-if="currentSessionId === session.id" class="w-full h-full flex items-center justify-center bg-black/30 rounded-lg">
                 <div class="w-2 h-2 bg-white rounded-full"></div>
@@ -79,8 +105,15 @@ const filteredSessions = computed(() => {
       </div>
       
       <div v-else-if="filteredSessions.length === 0" class="text-center py-10">
-        <p class="text-slate-500 text-xs uppercase tracking-widest mb-4">Aucune séance trouvée</p>
-        <button @click="selectedCategory = 'all'" class="text-indigo-400 text-xs hover:text-white underline">Voir tout</button>
+        <template v-if="showOnlyFavorites">
+            <i class="fi fi-rr-heart text-white/20 text-3xl mb-4 block"></i>
+            <p class="text-slate-500 text-xs uppercase tracking-widest mb-4">Aucun favori pour le moment</p>
+            <button @click="showOnlyFavorites = false" class="text-pink-400 text-xs hover:text-white underline">Parcourir les séances</button>
+        </template>
+        <template v-else>
+            <p class="text-slate-500 text-xs uppercase tracking-widest mb-4">Aucune séance trouvée</p>
+            <button @click="selectedCategory = 'all'" class="text-indigo-400 text-xs hover:text-white underline">Voir tout</button>
+        </template>
       </div>
     </div>
   </div>

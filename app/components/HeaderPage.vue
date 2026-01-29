@@ -19,6 +19,9 @@
     </div>
     
     <div v-else class="flex items-center gap-4">
+      <NuxtLink to="/favoris" class="p-2 rounded-full hover:bg-white/10 transition-colors text-pink-400" title="Mes favoris">
+        <i class="fi fi-rr-heart text-xl"></i>
+      </NuxtLink>
       <MyButton 
         variant="default"
         size="small"

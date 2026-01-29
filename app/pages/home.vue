@@ -112,6 +112,9 @@ async function handleMoodChange(moodId: string | null) {
                 headers: { Authorization: `Bearer ${cookie.value}` },
                 body: { emotion: moodId }
             })
+            if (moodId) {
+                localStorage.setItem('last_emotion_date', new Date().toDateString())
+            }
             console.log('Emotion sauvegardée:', moodId)
         } catch (e) {
             console.error('Erreur sauvegarde emotion', e)
@@ -124,13 +127,21 @@ onMounted(async () => {
     // ... chargements précédents (inchangés) ...
     // On peut initialiser currentMood si le user est déjà là ou après le fetch
     if (user.value?.emotion) {
-        currentMood.value = user.value.emotion
+        const lastDate = localStorage.getItem('last_emotion_date')
+        const today = new Date().toDateString()
+        if (lastDate === today) {
+            currentMood.value = user.value.emotion
+        }
     }
     
     // Watcher pour mettre à jour si le user arrive plus tard
     watch(() => user.value, (u) => {
         if (u?.emotion && !currentMood.value) {
-            currentMood.value = u.emotion
+            const lastDate = localStorage.getItem('last_emotion_date')
+            const today = new Date().toDateString()
+            if (lastDate === today) {
+                currentMood.value = u.emotion
+            }
         }
     })
 })

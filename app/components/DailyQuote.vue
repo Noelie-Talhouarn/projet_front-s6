@@ -9,6 +9,12 @@ const { data: quote, pending, error, refresh } = await useFetch<{ citation: stri
 const displayQuote = computed(() => {
   return quote.value
 })
+
+const { fetchFavorites } = useFavorites()
+
+onMounted(() => {
+    fetchFavorites()
+})
 </script>
 
 <template>
@@ -19,9 +25,17 @@ const displayQuote = computed(() => {
     
     <div class="relative flex flex-col gap-1 rounded-2xl bg-night-900/80 backdrop-blur-xl border border-white/10 p-2 text-center shadow-2xl">
       
-      <!-- Titre décoratif -->
-      <div class="flex justify-center">
+      <div class="flex justify-center relative">
         <span class="text-3xl">❝</span>
+        
+        <!-- Like Button -->
+        <div class="absolute right-0 top-0">
+          <FavoriteButton 
+            v-if="displayQuote"
+            type="quote"
+            :item="displayQuote"
+          />
+        </div>
       </div>
 
       <!-- Chargement -->
@@ -54,3 +68,4 @@ const displayQuote = computed(() => {
     </div>
   </div>
 </template>
+

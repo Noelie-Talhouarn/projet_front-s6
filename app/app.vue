@@ -4,7 +4,7 @@
 
 <template>
   <main class="main">
-    
+    <CustomCursor />
     <div>
       <NuxtLayout>
         <NuxtPage />

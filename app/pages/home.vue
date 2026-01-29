@@ -163,49 +163,56 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="px-6 pb-20 pt-10 max-w-5xl mx-auto">
+  <div class="px-6 pb-20 pt-10 max-w-6xl mx-auto">
     
-    <!-- Hero / Citation du jour -->
-    <section class="mb-12 animate-fade-in-up">
-       <header class="mb-8">
-           <h1 class="text-3xl font-zen tracking-wide text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
-           <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
-       </header>
+    <!-- Hero / Content Grid -->
+    <div class="lg:grid lg:grid-cols-12 lg:gap-10 items-start">
+      
+      <!-- Top Header (Full Width Desktop) -->
+      <section class="lg:col-span-12 mb-12 animate-fade-in-up">
+         <header class="mb-8">
+             <h1 class="text-3xl md:text-4xl font-zen tracking-wide text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
+             <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
+         </header>
+      </section>
 
-       <!-- Streak Compact -->
-       <StreakCard :streak="currentStreak" class="mb-6" />
+      <!-- Main Section: Quote & Cards (Left on Desktop) -->
+      <div class="lg:col-span-8 space-y-8">
+        <section class="animate-fade-in-up">
+          <DailyQuote />
+        </section>
 
-       <DailyQuote class="mb-8" />
+        <!-- Navigation Rapide (Dashboard Dynamique) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up transition-all duration-500">
+            <DashboardCard 
+                v-for="(card, index) in orderedCards"
+                :key="card.id"
+                :to="card.to"
+                :title="card.title"
+                :desc="card.desc"
+                :icon="card.icon"
+                :color="card.color"
+                :bg="card.bg"
+                :gradient="card.gradient"
+                :is-featured="!!(currentMood && index === 0)"
+            />
+        </section>
+      </div>
 
-       <!-- Météo Intérieure -->
-       <MoodTracker class="mb-8" :initial-mood="currentMood" @select="handleMoodChange" />
-    </section>
+      <!-- Sidebar Section: Streak & Mood (Right on Desktop) -->
+      <aside class="lg:col-span-4 space-y-8 mt-12 lg:mt-0 lg:sticky lg:top-24">
+         <StreakCard :streak="currentStreak" />
+         <MoodTracker :initial-mood="currentMood" @select="handleMoodChange" />
 
-    <!-- Navigation Rapide (Dashboard Dynamique) -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up transition-all duration-500" style="animation-delay: 0.1s">
-        
-        <DashboardCard 
-            v-for="(card, index) in orderedCards"
-            :key="card.id"
-            :to="card.to"
-            :title="card.title"
-            :desc="card.desc"
-            :icon="card.icon"
-            :color="card.color"
-            :bg="card.bg"
-            :gradient="card.gradient"
-            :is-featured="!!(currentMood && index === 0)"
-        />
+         <!-- Accès Profil Rapide -->
+         <div class="text-center lg:text-left pt-4">
+              <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors group">
+                 <span>Gérer mon profil</span>
+                 <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </NuxtLink>
+         </div>
+      </aside>
 
-    </section>
-
-    <!-- Accès Profil Rapide -->
-    <section class="mt-12 text-center animate-fade-in-up" style="animation-delay: 0.2s">
-         <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors">
-            <span>Gérer mon profil</span>
-            <span>→</span>
-         </NuxtLink>
-    </section>
-
+    </div>
   </div>
 </template>

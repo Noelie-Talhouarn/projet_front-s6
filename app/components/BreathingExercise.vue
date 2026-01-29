@@ -115,11 +115,11 @@ onBeforeUnmount(() => {
       </h2>
 
       <!-- Visualization Container -->
-      <div class="relative flex items-center justify-center h-80 w-96">
+      <div class="relative flex items-center justify-center h-80 w-96 md:h-[450px] md:w-[450px]">
         
         <!-- Outer Glow (Ripple effect 1) -->
         <div 
-          class="absolute h-80 w-80 rounded-full border border-spark/20 bg-spark/5 transition-all ease-in-out will-change-transform"
+          class="absolute h-80 w-80 md:h-[400px] md:w-[400px] rounded-full border border-spark/20 bg-spark/5 transition-all ease-in-out will-change-transform"
           :class="{
             'scale-100 opacity-100 duration-[5000ms]': currentPhase === 'inhale' && isRunning,
             'scale-50 opacity-50 duration-[5000ms]': currentPhase === 'exhale' && isRunning,

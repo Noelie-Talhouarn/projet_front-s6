@@ -9,15 +9,9 @@ useSeoMeta({
 
 // --- TYPES ---
 type Piece = {
-  id: number
-  content: string // Texte ou URL d'image background
-  x: number
-  y: number
-  targetX: number // Position correcte (relative à la zone de drop)
-  targetY: number // Position correcte
-  isPlaced: boolean
-  width: number
-  height: number
+  id: number // Index correct
+  content: string
+  order: number // Position actuelle dans la liste (0, 1, 2...)
 }
 
 type LevelData = {
@@ -42,16 +36,18 @@ function generateLevelConfig(levelIndex: number): LevelData {
 // --- STATE ---
 const isLoading = ref(false)
 const currentLevelIdx = ref(0)
+const isCompleted = ref(false)
 const pieces = ref<Piece[]>([])
 const containerRef = ref<HTMLElement | null>(null)
-const isCompleted = ref(false)
-const isDragging = ref(false)
-const draggedPieceId = ref<number | null>(null)
-// Le mot en cours de jeu
-const currentWord = ref('')
 
-// Offset pour le drag (souris par rapport au coin de la pièce)
-const dragOffset = ref({ x: 0, y: 0 })
+const draggedPieceIdx = ref<number | null>(null)
+const dragX = ref(0)
+const startX = ref(0)
+const initialOrder = ref<number[]>([])
+
+const currentWord = ref('')
+const PIECE_WIDTH = 100
+const GAP = 12
 
 // --- API ---
 const { fetchCloudWords } = useStars()
@@ -93,8 +89,6 @@ async function saveProgress(newLevel: number) {
 
 // 1. Initialiser le niveau
 async function initLevel() {
-  isCompleted.value = false
-  pieces.value = []
   isCompleted.value = false
   pieces.value = []
   
@@ -152,113 +146,79 @@ async function initLevel() {
      }
   }
 
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      const targetX = c * pieceW
-      const targetY = r * pieceH
-      
-      // Position initiale aléatoire dans la zone "brouillon" (en bas)
-      const randomX = Math.random() * (containerW - pieceW)
-      const randomY = 120 + Math.random() * 150 
+  const contentLen = content.length
+  const lettersPerPiece = Math.ceil(contentLen / cols)
+  const temp: Piece[] = []
 
-      pieces.value.push({
-        id: idCounter++,
-        content: (textParts[c + r*cols] || ''),
-        x: randomX,
-        y: randomY,
-        targetX,
-        targetY,
-        isPlaced: false,
-        width: pieceW,
-        height: pieceH,
-      })
-    }
-  }
-}
-
-// 2. Drag & Drop Logic (Touch & Mouse)
-function startDrag(e: MouseEvent | TouchEvent, piece: Piece) {
-  if (piece.isPlaced) return
-  
-  isDragging.value = true
-  draggedPieceId.value = piece.id
-  
-  // Get pointer pos
-  // Get pointer pos
-  let clientX, clientY
-  const touches = (e as TouchEvent).touches
-  if (touches && touches.length > 0) {
-      clientX = touches[0]!.clientX
-      clientY = touches[0]!.clientY
-  } else {
-      clientX = (e as MouseEvent).clientX
-      clientY = (e as MouseEvent).clientY
-  }
-
-  // Calculer l'offset pour que la pièce ne saute pas sous le doigt
-  // Nécessite de connaître la pos absolue de la pièce dans le DOM, 
-  // ici on simplifie en manipulant les coords relatives au conteneur parent
-  // On va recréer un mouvement relatif simple
-  
-  // Hack simple : on stocke la pos souris initiale
-  dragOffset.value = { x: clientX, y: clientY }
-}
-
-function onDrag(e: MouseEvent | TouchEvent) {
-  if (!isDragging.value || draggedPieceId.value === null) return
-  
-  let clientX, clientY
-  const touches = (e as TouchEvent).touches
-  if (touches && touches.length > 0) {
-      clientX = touches[0]!.clientX
-      clientY = touches[0]!.clientY
-  } else {
-      clientX = (e as MouseEvent).clientX
-      clientY = (e as MouseEvent).clientY
-  }
-
-  const deltaX = clientX - dragOffset.value.x
-  const deltaY = clientY - dragOffset.value.y
-  
-  const piece = pieces.value.find(p => p.id === draggedPieceId.value)
-  if (piece) {
-    piece.x += deltaX
-    piece.y += deltaY
-  }
-
-  dragOffset.value = { x: clientX, y: clientY }
-}
-
-function endDrag() {
-  if (!isDragging.value || draggedPieceId.value === null) return
-  
-  const piece = pieces.value.find(p => p.id === draggedPieceId.value)
-  if (piece) {
-    // Check magnetisme
-    const dist = Math.sqrt(Math.pow(piece.x - piece.targetX, 2) + Math.pow(piece.y - piece.targetY, 2))
-    
-    if (dist < 40) { // Seuil de "snap"
-      piece.x = piece.targetX
-      piece.y = piece.targetY
-      piece.isPlaced = true
-      // Petit feedback sonore ?
+  for (let i = 0; i < cols; i++) {
+    const start = i * lettersPerPiece
+    const end = Math.min(start + lettersPerPiece, contentLen)
+    const textPart = content.slice(start, end)
+    if (textPart) {
+      temp.push({ id: i, content: textPart, order: i })
     }
   }
 
-  isDragging.value = false
-  draggedPieceId.value = null
+  // Mélanger l'ordre initial
+  const shuffled = [...Array(temp.length).keys()].sort(() => Math.random() - 0.5)
+  pieces.value = temp.map((p, i) => ({ ...p, order: shuffled[i]! }))
+}
+
+// 2. Logique de Drag Sortable
+function onPointerDown(e: PointerEvent, index: number) {
+  if (isCompleted.value) return
+  draggedPieceIdx.value = index
+  startX.value = e.clientX
+  dragX.value = 0
+  initialOrder.value = pieces.value.map(p => p.order)
+  
+  // Capturer le pointeur pour continuer à tracker même si on sort de la pièce
+  const target = e.currentTarget as HTMLElement
+  target.setPointerCapture(e.pointerId)
+}
+
+function onPointerMove(e: PointerEvent) {
+  if (draggedPieceIdx.value === null) return
+  
+  const deltaX = e.clientX - startX.value
+  dragX.value = deltaX
+
+  // Calculer le décalage d'index (combien de places on a bougé)
+  const offset = Math.round(deltaX / (PIECE_WIDTH + GAP))
+  const draggedPiece = pieces.value[draggedPieceIdx.value]!
+  const newOrder = Math.max(0, Math.min(pieces.value.length - 1, initialOrder.value[draggedPieceIdx.value]! + offset))
+
+  if (draggedPiece.order !== newOrder) {
+    // Shifter les autres pièces
+    const oldOrder = draggedPiece.order
+    pieces.value.forEach((p, i) => {
+      if (i === draggedPieceIdx.value) {
+        p.order = newOrder
+      } else {
+        if (oldOrder < newOrder && p.order <= newOrder && p.order > oldOrder) {
+          p.order--
+        } else if (oldOrder > newOrder && p.order >= newOrder && p.order < oldOrder) {
+          p.order++
+        }
+      }
+    })
+  }
+}
+
+function onPointerUp(e: PointerEvent) {
+  if (draggedPieceIdx.value === null) return
+  draggedPieceIdx.value = null
+  dragX.value = 0
   checkWin()
 }
 
 function checkWin() {
-  // Eviter de sauvegarder plusieurs fois
-  if (isCompleted.value) return
-
-  if (pieces.value.every(p => p.isPlaced)) {
-    isCompleted.value = true
-    // Sauvegarder le déblocage du niveau suivant
-    // Ex: Finir niv 1 (idx 0) -> Débloque niv 2 -> on envoie 2
-    saveProgress(currentLevelIdx.value + 2)
+  const isCorrect = pieces.value.every(p => p.id === p.order)
+  if (isCorrect) {
+    setTimeout(() => {
+      isCompleted.value = true
+      saveProgress(currentLevelIdx.value + 2)
+    }, 500)
   }
 }
 
@@ -270,105 +230,193 @@ function nextLevel() {
 
 
 onMounted(async () => {
-  // Charger la progression avant de commencer
   await loadProgress()
-
-  // Petit délai pour assurer que le conteneur est rendu
   setTimeout(initLevel, 100)
-  
-  // Global listeners pour le drag (pour ne pas perdre la pièce si on sort de la div)
-  window.addEventListener('mousemove', onDrag)
-  window.addEventListener('mouseup', endDrag)
-  window.addEventListener('touchmove', onDrag, { passive: false })
-  window.addEventListener('touchend', endDrag)
 })
 
 </script>
 
 <template>
   <div 
-    class="min-h-screen bg-night-900 flex flex-col items-center pt-8 pb-32 px-4 overflow-hidden select-none"
+    class="bg-night-950 flex flex-col items-center pt-12 pb-32 px-4 overflow-hidden relative"
     @touchmove.prevent
-  > <!-- @touchmove.prevent block le scroll natif pour mieux jouer -->
+  >
+    <!-- Background Decorations -->
+    <div class="absolute top-1/4 -left-20 w-80 h-80 bg-spark/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-glow/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-    <header class="mb-8 text-center animate-fade-in-up">
-       <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Puzzle Zen</span>
-       <h1 class="text-2xl font-bold font-zen tracking-wide text-white mt-2">Niveau {{ currentLevelIdx + 1 }}</h1>
+    <!-- En-tête -->
+    <header class="relative z-10 mb-8 text-center animate-fade-in-down">
+       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 group cursor-default">
+         <i class="fi fi-rr-puzzle-piece text-spark-light group-hover:rotate-12 transition-transform"></i>
+         <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">Voyage Poétique</span>
+       </div>
+       <h1 class="text-3xl md:text-4xl font-zen font-black tracking-tight text-white drop-shadow-sm">
+         Niveau <span class="bg-clip-text text-transparent bg-gradient-spark">{{ currentLevelIdx + 1 }}</span>
+       </h1>
+       
+       <!-- Consigne remontée -->
+       <div class="mt-6 flex flex-col items-center">
+         <p class="text-slate-500 text-[10px] tracking-[0.3em] font-bold max-w-xs leading-loose uppercase">
+           Glissez les fragments pour rétablir l'ordre.
+         </p>
+         <div class="w-8 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mt-4"></div>
+       </div>
     </header>
 
-    <!-- Zone de Jeu -->
-    <div 
-      ref="containerRef"
-      class="relative w-full max-w-sm h-[500px] border-2 border-dashed border-white/10 rounded-xl bg-night-800/50"
-    >
-        <!-- Grille cible (Feedback visuel des emplacements) -->
+    <!-- Zone de Jeu : Fil de Lumière -->
+    <div class="relative z-10 w-full max-w-5xl px-4 flex justify-center py-4 animate-fade-in-up">
+      <!-- Container du Fil -->
+      <div 
+        class="relative flex items-center justify-center bg-night-900/40 rounded-3xl border border-white/10 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.05)]"
+        :style="{ 
+          width: '100%',
+          maxWidth: (pieces.length * (PIECE_WIDTH + GAP) + 120) + 'px',
+          height: '180px'
+        }"
+      >
+        <!-- Le "Fil" Magique -->
+        <div class="absolute h-[1px] inset-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        <div class="absolute h-[6px] inset-x-20 bg-spark/10 blur-xl rounded-full"></div>
+
+        <!-- Socles de guidage (Slots visibles en fond) -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="flex gap-[12px]">
+            <div 
+              v-for="i in pieces.length" :key="'slot-'+i"
+              class="border-2 border-dashed border-white/5 bg-white/[0.02] rounded-2xl"
+              :style="{ width: PIECE_WIDTH + 'px', height: '100px' }"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Les Pièces (Perles) -->
         <div 
-            v-for="piece in pieces" 
-            :key="'target-'+piece.id"
-            class="absolute border border-white/5 bg-white/5 flex items-center justify-center text-white/10 font-black text-2xl"
-            :style="{
-                left: piece.targetX + 'px',
-                top: piece.targetY + 'px',
-                width: piece.width + 'px',
-                height: piece.height + 'px'
-            }"
+          v-for="(piece, idx) in pieces" 
+          :key="piece.id"
+          class="absolute touch-none select-none transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
+          :class="[
+            draggedPieceIdx === idx ? 'z-50 duration-0 scale-105' : 'z-10',
+            isCompleted ? 'pointer-events-none' : ''
+          ]"
+          :style="{
+            width: PIECE_WIDTH + 'px',
+            height: '100px',
+            transform: `translateX(${(piece.order - (pieces.length-1)/2) * (PIECE_WIDTH + GAP) + (draggedPieceIdx === idx ? dragX : 0)}px)`,
+          }"
+          @pointerdown="onPointerDown($event, idx)"
+          @pointermove="onPointerMove"
+          @pointerup="onPointerUp"
+          @pointercancel="onPointerUp"
         >
-          <!-- Optionnel : Afficher l'ombre du texte ou de l'image -->
-        </div>
-
-        <!-- État chargement (Invocation API) -->
-        <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center z-20">
-            <div class="text-spark-light animate-pulse text-sm tracking-widest uppercase">Invocation du mot...</div>
-        </div>
-
-        <!-- Pièces Mobiles -->
-        <div 
-            v-for="piece in pieces" 
-            :key="piece.id"
-            class="absolute cursor-grab active:cursor-grabbing shadow-xl transition-transform active:scale-110 flex items-center justify-center overflow-hidden"
+          <!-- Corps de la Perle (Visibilité boostée) -->
+          <div 
+            class="w-full h-full rounded-2xl border-2 flex flex-col items-center justify-center transition-all duration-300 relative group overflow-hidden shadow-2xl"
             :class="[
-                piece.isPlaced ? 'z-0 transition-all duration-500 ease-out border-none' : 'z-10 bg-night-700 border border-spark/50 rounded-lg',
+              draggedPieceIdx === idx 
+                ? 'bg-night-700 border-glow shadow-[0_20px_40px_rgba(252,211,77,0.3)] scale-110' 
+                : (piece.id === piece.order 
+                    ? 'bg-night-800 border-spark shadow-[0_10px_25px_rgba(217,70,239,0.25)]' 
+                    : 'bg-night-800 border-white/20 hover:border-white/40 shadow-lg')
             ]"
-            :style="{
-                transform: `translate(${piece.x}px, ${piece.y}px)`,
-                width: piece.width + 'px',
-                height: piece.height + 'px',
-            }"
-            @mousedown="startDrag($event, piece)"
-            @touchstart.passive="startDrag($event, piece)"
-        >
-            <span class="text-spark-light font-black text-2xl drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-                {{ piece.content }}
+          >
+            <!-- Overlay léger pour le relief -->
+            <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+
+            <!-- Lueur de réussite (Spotlight) -->
+            <div 
+              v-if="piece.id === piece.order" 
+              class="absolute inset-0 bg-gradient-to-tr from-spark/30 via-transparent to-transparent animate-pulse"
+            ></div>
+
+            <span 
+              class="text-3xl md:text-4xl font-zen font-black tracking-widest uppercase transition-all duration-500"
+              :class="[
+                piece.id === piece.order 
+                  ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] scale-105' 
+                  : 'text-slate-200 opacity-90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]'
+              ]"
+            >
+              {{ piece.content }}
             </span>
             
-            <!-- Highlight si Placé -->
-            <div v-if="piece.isPlaced" class="absolute inset-0 bg-spark/10 animate-pulse"></div>
-        </div>
-        
-        <!-- Overlay Victoire -->
-        <div 
-            v-if="isCompleted"
-            class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-night-900/90 backdrop-blur-sm animate-fade-in"
-        >
-             <i class="fi fi-rr-sparkles text-6xl mb-4 text-spark-light animate-bounce"></i>
-             <h2 class="text-3xl font-bold font-zen tracking-widest text-transparent bg-clip-text bg-gradient-spark mb-6 uppercase">{{ currentWord }}</h2>
-             <MyButton variant="pink" size="medium" @click="nextLevel">
-                Continuer
-             </MyButton>
-        </div>
+            <!-- Indicateur de position Correcte -->
+            <div 
+              class="absolute bottom-3 flex gap-1"
+            >
+              <div 
+                v-for="i in 3" :key="i"
+                class="w-1 h-1 rounded-full transition-all duration-500"
+                :class="piece.id === piece.order ? 'bg-glow shadow-[0_0_8px_theme(colors.glow.DEFAULT)] scale-125' : 'bg-white/5'"
+              ></div>
+            </div>
 
+            <!-- Overlay d'interaction -->
+            <div v-if="draggedPieceIdx !== idx" class="absolute inset-0 bg-white/0 group-hover:bg-white/[0.02] transition-colors"></div>
+          </div>
+        </div>
+      </div>
     </div>
+        
+    <!-- Footer poétique supprimé car déplacé en haut -->
 
-    <p class="mt-8 text-center text-slate-500 text-xs max-w-xs leading-relaxed">
-        Assemblez les fragments pour rétablir la lumière.
-        <br>Laissez les pièces s'aimanter à leur juste place.
-    </p>
+    <!-- Overlay Victoire (Design Affiné & Inter) -->
+    <Transition name="fade">
+      <div 
+        v-if="isCompleted"
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-night-950/95 backdrop-blur-2xl px-6"
+      >
+          <!-- Cercles de fond subtils -->
+          <div class="absolute w-80 h-80 border border-spark/5 rounded-full animate-[spin_12s_linear_infinite]"></div>
+          <div class="absolute w-96 h-96 border border-glow/5 rounded-full animate-[spin_18s_linear_infinite_reverse]"></div>
 
+          <div class="relative z-10 flex flex-col items-center max-w-sm w-full">
+            <div class="text-center space-y-3 mb-10">
+              <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] font-sans">Harmonie Retrouvée</p>
+              <h2 class="text-4xl md:text-5xl font-sans font-black text-white tracking-tight uppercase">
+                {{ currentWord }}
+              </h2>
+            </div>
+            
+            <MyButton 
+              variant="pink" 
+              size="medium" 
+              @click="nextLevel" 
+              class="w-full font-sans font-bold tracking-widest uppercase"
+            >
+              Niveau Suivant
+            </MyButton>
+          </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <style scoped>
-/* Empêcher la sélection de texte accidentelle */
+/* Animations de transition */
+.piece-move-enter-active,
+.piece-move-leave-active {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.piece-move-enter-from {
+  opacity: 0;
+  transform: translateY(100px) scale(0.5);
+}
+.piece-move-leave-to {
+  opacity: 0;
+  transform: translateY(100px) scale(0.5);
+}
+
+.piece-fade-enter-active,
+.piece-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.piece-fade-enter-from,
+.piece-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
 * {
     user-select: none;
     -webkit-user-drag: none;

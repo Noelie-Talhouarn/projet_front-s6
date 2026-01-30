@@ -32,7 +32,7 @@ useSeoMeta({
   <div class="px-6 pb-20 pt-10 max-w-5xl mx-auto">
     
     <header class="mb-12 animate-fade-in-up text-center">
-        <div class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-pink-500/10 text-pink-500 text-3xl mb-4">
+        <div class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#D645EC]/10 text-[#D645EC] text-3xl mb-4">
              <i class="fi fi-sr-heart"></i>
         </div>
         <h1 class="text-3xl font-zen tracking-wide text-white mb-2">Ma Collection</h1>

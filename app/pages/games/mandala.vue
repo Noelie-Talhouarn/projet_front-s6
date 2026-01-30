@@ -302,9 +302,13 @@ onMounted(async () => {
                 :key="poly.id"
                 :points="poly.points"
                 :fill="poly.color"
-                stroke="rgba(255,255,255,0.1)"
-                stroke-width="1"
-                :class="['transition-colors duration-75', poly.color === 'transparent' ? 'hover:fill-white/10' : '']"
+                stroke="rgba(255,255,255,0.3)"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+                :class="[
+                    'transition-all duration-75', 
+                    poly.color === 'transparent' ? 'fill-white/[0.03] hover:fill-white/10' : 'hover:brightness-110'
+                ]"
                 @pointerdown="handlePolygonClick(poly.id)"
             />
         </svg>

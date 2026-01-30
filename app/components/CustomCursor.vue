@@ -16,7 +16,7 @@ let nextSparkleId = 0
 const createSparkle = (cx: number, cy: number, isBurst = false) => {
   const id = nextSparkleId++
   const size = Math.random() * 4 + 2
-  const colors = ['#ffffff', '#c084fc', '#ec4899', '#f97316']
+  const colors = ['#ffffff', '#fcd34d', '#d946ef', '#a855f7']
   const color = colors[Math.floor(Math.random() * colors.length)] || '#fff'
   
   // Vélocité aléatoire
@@ -151,7 +151,7 @@ onUnmounted(() => {
           top: `${dotY}px`,
           width: isPointer ? '80px' : '50px',
           height: isPointer ? '80px' : '50px',
-          background: isPointer ? 'radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, transparent 70%)' : 'radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%)'
+          background: isPointer ? 'radial-gradient(circle, rgba(217, 70, 239, 0.4) 0%, transparent 70%)' : 'radial-gradient(circle, rgba(252, 211, 77, 0.2) 0%, transparent 70%)'
         }"
       ></div>
 

@@ -5,9 +5,8 @@
       <div class="flex items-center justify-center mb-12">
         <!-- Section Marque -->
         <div class="footer-section animate-fade-in-up text-center" style="animation-delay: 0.1s">
-          <div class="flex items-center justify-center gap-2 mb-4">
-            <i class="fi fi-rr-sparkles text-2xl text-spark"></i>
-            <MyTitle as="h3" size="medium">L'Étincelle</MyTitle>
+          <div class="flex flex-col items-center justify-center gap-4 mb-6">
+            <IconLogoEtincelle class="h-8 w-auto" />
           </div>
           <p class="text-slate-400 text-sm italic leading-relaxed max-w-md mx-auto">
             Votre sanctuaire numérique conçu pour cultiver le calme, explorer la créativité et reconnecter avec l'essentiel.

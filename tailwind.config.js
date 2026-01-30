@@ -10,33 +10,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Fond "Nuit Profonde"
+                // Fond "Crépuscule d'Améthyste"
                 night: {
-                    50: '#eef2ff',
-                    100: '#e0e7ff',
-                    200: '#c7d2fe',
-                    300: '#a5b4fc',
-                    400: '#818cf8',
-                    500: '#6366f1',
-                    600: '#4f46e5',
-                    700: '#302b63', // Violet sombre
-                    800: '#24243e', // Bleu gris foncé
-                    900: '#0f0c29', // Noir profond
-                    950: '#050414',
-                },
-                // Accent "Étincelle" (Violet/Rose)
-                spark: {
-                    light: '#c084fc',
-                    DEFAULT: '#7c3aed',
-                    pink: '#ec4899',
-                },
-                // Accent "Lueur" (Orange/Ambre)
-                glow: {
-                    light: '#fbbf24',
-                    DEFAULT: '#f59e0b',
-                    orange: '#f97316',
-                },
-                primary: {
                     50: '#f5f3ff',
                     100: '#ede9fe',
                     200: '#ddd6fe',
@@ -44,9 +19,34 @@ export default {
                     400: '#a78bfa',
                     500: '#8b5cf6',
                     600: '#7c3aed',
-                    700: '#6d28d9',
-                    800: '#5b21b6',
-                    900: '#4c1d95',
+                    700: '#4c1d95', // Violet royal
+                    800: '#2d1b4e', // Prune profond
+                    900: '#1a0e2e', // Noir améthyste
+                    950: '#0f0721',
+                },
+                // Accent "Étincelle" (Magenta/Lavande)
+                spark: {
+                    light: '#f0abfc',
+                    DEFAULT: '#d946ef',
+                    pink: '#f472b6',
+                },
+                // Accent "Lueur" (Or/Champagne)
+                glow: {
+                    light: '#fef3c7',
+                    DEFAULT: '#fcd34d',
+                    orange: '#fbbf24',
+                },
+                primary: {
+                    50: '#faf5ff',
+                    100: '#f3e8ff',
+                    200: '#e9d5ff',
+                    300: '#d8b4fe',
+                    400: '#c084fc',
+                    500: '#a855f7',
+                    600: '#9333ea',
+                    700: '#7e22ce',
+                    800: '#6b21a8',
+                    900: '#581c87',
                 },
                 dark: {
                     50: '#f8fafc',
@@ -64,11 +64,11 @@ export default {
             },
             backgroundImage: {
                 // Fond global
-                'gradient-night': 'linear-gradient(to bottom right, #0f0c29, #302b63, #24243e)',
+                'gradient-night': 'linear-gradient(to bottom right, #1a0e2e, #2d1b4e, #0f0721)',
                 // Accents
-                'gradient-spark': 'linear-gradient(to right, #7c3aed, #ec4899)', // Violet -> Pink
-                'gradient-glow': 'linear-gradient(to right, #c084fc, #ec4899, #f97316)', // Violet -> Pink -> Orange
-                'gradient-btn': 'linear-gradient(to right, #6366f1, #ec4899)', // Indigo -> Pink
+                'gradient-spark': 'linear-gradient(to right, #d946ef, #a855f7)', // Magenta -> Violet
+                'gradient-glow': 'linear-gradient(to right, #fcd34d, #d946ef, #f472b6)', // Or -> Magenta -> Rose
+                'gradient-btn': 'linear-gradient(to right, #7e22ce, #d946ef)', // Violet royal -> Magenta
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],

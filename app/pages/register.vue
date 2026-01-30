@@ -55,10 +55,10 @@ async function onSubmit () {
 
     // 1. Upload vers Cloudinary seulement au moment de l'inscription
     if (selectedFile.value) {
-      const cloudinaryUrl = `https://api.cloudinary.com/v1_1/dc7mlyeq4/image/upload`
+      const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${config.public.cloudinaryCloudName}/image/upload`
       const formData = new FormData()
       formData.append('file', selectedFile.value)
-      formData.append('upload_preset', 'wip3jbf7')
+      formData.append('upload_preset', config.public.cloudinaryUploadPreset as string)
 
       const uploadRes = await $fetch<any>(cloudinaryUrl, {
         method: 'POST',

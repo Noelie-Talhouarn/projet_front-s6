@@ -14,6 +14,10 @@ useSeoMeta({
   ogTitle: 'Le Ciel Étoilé - L\'Étincelle',
 })
 
+definePageMeta({
+  layout: false
+})
+
 // État
 const stars = ref<Star[]>([])
 const cloudWords = ref<string[]>([...DEFAULT_WORDS])
@@ -69,7 +73,7 @@ const wordCloud = computed(() => {
     const col = slotIndex % cols
     const row = Math.floor(slotIndex / cols)
     const gridX = 10 + (col * cellW * 0.8) 
-    const gridY = 25 + (row * cellH * 0.6)
+    const gridY = 40 + (row * cellH * 0.5)
     const jitterSeed = i * 99.7
     const jitterX = Math.sin(jitterSeed) * (cellW * 0.3)
     const jitterY = Math.cos(jitterSeed) * (cellH * 0.3)
@@ -101,7 +105,7 @@ function handleSkyClick(event: MouseEvent) {
   
   clickCoordinates.value = {
     x: Math.max(5, Math.min(95, ((event.clientX - rect.left) / rect.width) * 100)),
-    y: Math.max(10, Math.min(90, ((event.clientY - rect.top) / rect.height) * 100))
+    y: Math.max(35, Math.min(90, ((event.clientY - rect.top) / rect.height) * 100))
   }
 
   newMessage.value = ''
@@ -151,13 +155,17 @@ async function deleteStar(id: number) {
 </script>
 
 <template>
-  <div class="relative min-h-screen w-full overflow-hidden bg-night-950 cursor-crosshair center-content" @click="handleSkyClick">
+  <div class="h-[100dvh] w-full overflow-hidden bg-night-950 relative text-slate-200">
+    <HeaderPage />
+    <ToolBar />
+
+    <div class="relative h-full w-full cursor-crosshair center-content" @click="handleSkyClick">
     
     <!-- Lueur subtile en fond -->
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-spark/10 blur-[150px] rounded-full pointer-events-none"></div>
 
     <!-- Titre -->
-    <div class="absolute top-10 left-0 right-0 text-center pointer-events-none z-10 animate-fade-in px-4">
+    <div class="absolute top-24 left-0 right-0 text-center pointer-events-none z-10 animate-fade-in px-4">
       <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block">Mémoire</span>
       <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Ciel Intérieur</h1>
       <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
@@ -172,7 +180,7 @@ async function deleteStar(id: number) {
     <!-- Info Button -->
     <button 
       @click.stop="showInfoModal = true"
-      class="absolute top-8 right-8 z-40 text-slate-400 hover:text-white transition-all p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:border-white/20"
+      class="absolute top-24 right-8 z-40 text-slate-400 hover:text-white transition-all p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:border-white/20"
       title="À propos du Ciel"
     >
       <i class="fi fi-rr-info text-xl"></i>
@@ -356,6 +364,7 @@ async function deleteStar(id: number) {
       </div>
     </div>
 
+    </div>
   </div>
 </template>
 

@@ -4,117 +4,114 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'L\'Étincelle - Réenchantez votre quotidien',
-  description: 'Votre sanctuaire numérique pour explorer le calme, cultiver la créativité et reconnecter avec soi-même.',
-  ogTitle: 'L\'Étincelle - Réenchantez votre quotidien',
-  ogDescription: 'Votre sanctuaire numérique pour explorer le calme, cultiver la créativité et reconnecter avec soi-même.',
+  title: 'L\'Étincelle - Votre Sanctuaire de Bien-être numérique',
+  description: 'Un voyage au cœur de la sérénité. Méditation, cohérence cardiaque et ciel étoilé de gratitude.',
+  ogTitle: 'L\'Étincelle - Votre Sanctuaire de Bien-être numérique',
+  ogDescription: 'Un voyage au cœur de la sérénité. Méditation, cohérence cardiaque et ciel étoilé de gratitude.',
 })
 </script>
 
 <template>
-  <div class="relative min-h-screen flex flex-col items-center justify-center p-6 text-center z-10">
-      
-      <!-- Logo / Icone -->
-      <div class="mb-8 animate-fade-in-up">
-          <div class="w-16 h-16 mx-auto bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-2xl rotate-45 blur-xl opacity-75 absolute top-0 left-1/2 -translate-x-1/2"></div>
-          <div class="relative w-12 h-12 mx-auto border-2 border-white/20 rounded-xl rotate-45 flex items-center justify-center backdrop-blur-sm">
-             <div class="w-6 h-6 bg-white/60 rounded-full shadow-[0_0_15px_white]"></div>
-          </div>
-      </div>
+  <div class="relative min-h-screen z-10 overflow-x-hidden overflow-y-auto pt-24 pb-12">
+    <!-- Fond poétique avec lueurs -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-[-10%] left-[-5%] h-[600px] w-[600px] rounded-full bg-violet-600/10 blur-[120px]"></div>
+      <div class="absolute bottom-[10%] right-[-5%] h-[700px] w-[700px] rounded-full bg-spark/10 blur-[150px]"></div>
+    </div>
 
-      <!-- Titre Principal -->
-      <!-- Titre Principal -->
-      <h1 class="text-5xl md:text-7xl font-zen tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 mb-6 animate-fade-in-up" style="animation-delay: 0.1s">
-          L'Étincelle
-      </h1>
+    <div class="relative z-10 max-w-6xl mx-auto px-6">
+      <!-- Section Hero -->
+      <section class="flex flex-col items-center text-center mb-32 pt-12 animate-fade-in-up">
+        <!-- Logo Principal -->
+        <div class="relative mb-14 group cursor-default">
+          <div class="absolute inset-0 scale-[2] bg-spark/20 blur-3xl rounded-full group-hover:bg-spark/30 transition-all duration-700"></div>
+          <IconLogoEtincelle class="relative h-14 md:h-20 w-auto animate-pulse-slow" />
+        </div>
+        
+        <p class="text-xl md:text-2xl text-slate-400 font-light max-w-3xl leading-relaxed mb-12">
+          Réenchantez votre quotidien numérique. Un sanctuaire poétique pour <span class="text-white">cultiver la paix</span> et <span class="text-white">libérer votre créativité</span>.
+        </p>
 
-      <!-- Slogan / Pitch -->
-      <p class="text-lg md:text-xl text-slate-400 font-light max-w-2xl leading-relaxed mb-12 animate-fade-in-up" style="animation-delay: 0.2s">
-          Votre sanctuaire numérique pour l'apaisement et la régénération.<br>
-          <span class="text-indigo-300">Méditation</span> • <span class="text-purple-300">Créativité</span> • <span class="text-pink-300">Sérénité</span>
-      </p>
-
-      <!-- Actions -->
-      <div class="flex flex-col md:flex-row gap-4 w-full max-w-sm animate-fade-in-up" style="animation-delay: 0.3s">
-          <NuxtLink 
-              to="/login" 
-              class="flex-1 py-3 px-6 rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 hover:border-white/30 transition-all duration-300 flex items-center justify-center gap-2 group"
+        <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+          <MyButton 
+            href="/register" 
+            variant="pink" 
+            size="large"
+            class="!rounded-2xl shadow-xl hover:shadow-spark/30 px-10"
           >
-              <span>Se connecter</span>
-          </NuxtLink>
-
-          <NuxtLink 
-              to="/register" 
-              class="flex-1 py-3 px-6 rounded-xl bg-white text-black font-bold hover:bg-indigo-50 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex items-center justify-center gap-2"
+            Commencer
+          </MyButton>
+          <MyButton 
+            href="/login" 
+            variant="outline" 
+            size="large"
+            class="!rounded-2xl backdrop-blur-xl px-10"
           >
-              <span>Commencer</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </NuxtLink>
-      </div>
+            Se connecter
+          </MyButton>
+        </div>
+      </section>
 
-      <!-- Manifeste & Piliers -->
-      <div class="mt-24 max-w-4xl text-left w-full animate-fade-in-up" style="animation-delay: 0.4s">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              
-              <!-- Philosophie -->
-              <div>
-                  <h2 class="text-3xl text-white font-zen tracking-wide mb-6">Réenchanter le Monde</h2>
-                  <p class="text-slate-400 font-light leading-relaxed mb-4">
-                      Nous transformons la consommation passive du numérique en une expérience de <span class="text-indigo-300">pleine conscience</span>. 
-                  </p>
-                  <p class="text-slate-400 font-light leading-relaxed">
-                      Au lieu de créer du stress, L'Étincelle propose un sanctuaire qui utilise la technologie pour vous reconnecter à votre propre créativité et douceur.
-                  </p>
-              </div>
-
-              <!-- Piliers Cards -->
-              <div class="space-y-4">
-                  <!-- Lueur du jour -->
-                  <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
-                      <div class="flex items-center gap-3 mb-2">
-                          <i class="fi fi-rr-sun text-2xl text-amber-300"></i>
-                          <h3 class="text-xl text-white font-zen tracking-wide">La Lueur du Jour</h3>
-                      </div>
-                      <p class="text-sm text-slate-400 font-light">
-                          Un rendez-vous quotidien avec une citation inspirante pour nourrir votre esprit dès la connexion.
-                      </p>
-                  </div>
-
-                  <!-- Le Souffle -->
-                  <div class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
-                      <div class="flex items-center gap-3 mb-2">
-                          <i class="fi fi-rr-wind text-2xl text-sky-300"></i>
-                          <h3 class="text-xl text-white font-zen tracking-wide">Le Souffle</h3>
-                      </div>
-                      <p class="text-sm text-slate-400 font-light">
-                          Un rituel de cohérence cardiaque intégré pour ramener votre attention au moment présent.
-                      </p>
-                  </div>
-              </div>
-
+      <!-- Section Concept (Grille Poétique) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+        <!-- Méditation -->
+        <div class="group relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-white/[0.03] p-10 backdrop-blur-3xl transition-all duration-700 hover:border-emerald-400/20 hover:bg-white/[0.05] animate-fade-in-up" style="animation-delay: 0.2s">
+          <div class="mb-8 h-16 w-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform duration-500">
+            <i class="fi fi-rr-spa text-3xl"></i>
           </div>
-      </div>
+          <h3 class="text-2xl font-zen text-white mb-4">Le Souffle Vital</h3>
+          <p class="text-slate-400 leading-relaxed font-light">
+            Pratiquez la cohérence cardiaque et la méditation guidée. Un retour immédiat à l'instant présent, où que vous soyez.
+          </p>
+        </div>
 
-      <!-- Footer discret -->
-      <div class="mt-20 text-[10px] text-slate-600 uppercase tracking-widest animate-fade-in" style="animation-delay: 0.6s">
-          © 2026 L'Étincelle • v1.0
-      </div>
+        <!-- Ciel Étoilé -->
+        <div class="group relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-white/[0.03] p-10 backdrop-blur-3xl transition-all duration-700 hover:border-indigo-400/20 hover:bg-white/[0.05] animate-fade-in-up" style="animation-delay: 0.3s">
+          <div class="mb-8 h-16 w-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform duration-500">
+            <i class="fi fi-rr-moon-stars text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-zen text-white mb-4">La Voie Lactée</h3>
+          <p class="text-slate-400 leading-relaxed font-light">
+            Confiez vos gratitudes au ciel. Chaque souvenir devient une étoile, créant une constellation unique de vos moments précieux.
+          </p>
+        </div>
 
+        <!-- Jeux Zen -->
+        <div class="group relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-white/[0.03] p-10 backdrop-blur-3xl transition-all duration-700 hover:border-spark/20 hover:bg-white/[0.05] animate-fade-in-up" style="animation-delay: 0.4s">
+          <div class="mb-8 h-16 w-16 rounded-2xl bg-spark/10 flex items-center justify-center text-spark-light group-hover:scale-110 transition-transform duration-500">
+            <i class="fi fi-rr-magic-wand text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-zen text-white mb-4">Éveil Créatif</h3>
+          <p class="text-slate-400 leading-relaxed font-light">
+            Réveillez votre artiste intérieur à travers des mandalas sonores et des jeux de mots poétiques sans pression de performance.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section Manifeste (Texte Centré) -->
+      <section class="max-w-3xl mx-auto text-center mb-32 animate-fade-in-up" style="animation-delay: 0.5s">
+        <h2 class="text-3xl font-zen text-white mb-8 tracking-wider">Pourquoi L'Étincelle ?</h2>
+        <p class="text-xl text-slate-400 leading-relaxed font-light mb-8 italic">
+          "Dans le bruit incessant du numérique, nous avons besoin d'un espace où le temps ralentit, où chaque pixel est une invitation à la paix."
+        </p>
+        <div class="w-16 h-1 bg-gradient-to-r from-spark to-indigo-500 mx-auto rounded-full"></div>
+      </section>
+
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* Animations Custom si pas déjà dans global CSS */
 @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in-up {
-    animation: fade-in-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    opacity: 0; 
+  animation: fade-in-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
 }
 .animate-fade-in {
-    animation: fade-in-up 1s ease-out forwards;
-    opacity: 0;
+  animation: fade-in-up 1.5s ease-out forwards;
+  opacity: 0;
 }
 </style>

@@ -10,13 +10,19 @@ export default defineNuxtConfig({
     public: {
       // Cette clé sera remplacée par la valeur définie dans Vercel (NUXT_PUBLIC_API_BASE)
       // En local, elle utilisera http://localhost:3002
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3002',
+      apiBase: '',
+      // J'ai vidé cette valeur pour forcer l'utilisation du proxy local (/api)
+      // Cela évite les erreurs CORS. Si besoin d'une URL absolue, utilisez NUXT_PUBLIC_API_BASE.
       cloudinaryCloudName: process.env.NUXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'dc7mlyeq4',
       cloudinaryUploadPreset: process.env.NUXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || 'wip3jbf7'
     }
   },
 
-  // On retire les routeRules/proxy pour éviter les erreurs 404 sur Vercel
+  routeRules: {
+    '/api/**': {
+      proxy: (process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3002') + '/api/**'
+    }
+  },
 
   app: {
     head: {

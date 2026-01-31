@@ -1,2 +1,10 @@
-/* Les polices sont gérées via Typekit (dans nuxt.config.ts) et Tailwind */
-/* Ce fichier peut servir pour d'autres imports CSS globaux si besoin */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* On définit une taille de base globale pour le body */
+@layer base {
+    body {
+        @apply text-base antialiased;
+    }
+}

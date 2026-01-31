@@ -439,14 +439,18 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen p-4 pb-24 md:pb-8">
-    <div class="mx-auto max-w-4xl space-y-6">
+  <div class="p-4 pb-24 md:pb-20 pt-8 md:pt-16">
+    <div class="mx-auto max-w-6xl space-y-8 md:space-y-12">
       
       <!-- Header -->
-      <div class="text-center mb-8 animate-fade-in-up">
-        <MyTitle as="h1" size="large">Mon Profil</MyTitle>
-        <p class="text-slate-400 mt-2">Gérez vos informations personnelles et vos préférences</p>
-      </div>
+      <header class="mb-12 md:mb-16 animate-fade-in-up text-center">
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block">Réglages</span>
+        <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Mon Profil</h1>
+        <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
+          <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
+          <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">Gérez vos informations et préférences</p>
+        </div>
+      </header>
 
       <!-- Messages -->
       <div v-if="errorMessage" class="rounded-lg border border-red-500/50 bg-red-500/10 p-4 text-center text-sm font-medium text-red-400 animate-fade-in-up">
@@ -467,7 +471,7 @@ useSeoMeta({
 
       <template v-else>
         <!-- Carte Profil Principal -->
-        <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up">
+        <div class="rounded-2xl border-[1.5px] border-[#D645EC]/30 bg-night-900/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up">
           
           <!-- Avatar et Nom -->
           <div class="flex flex-col md:flex-row items-center gap-6 mb-8">
@@ -577,7 +581,7 @@ useSeoMeta({
         <div class="space-y-4 animate-fade-in-up" style="animation-delay: 0.1s">
           
           <!-- Méditation -->
-          <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-glow/50 transition-all">
+          <div class="rounded-xl border-[1.5px] border-[#D645EC]/25 bg-night-900/80 p-6 backdrop-blur-xl hover:border-[#D645EC]/50 transition-all shadow-xl shadow-black/20">
             <div class="flex items-center gap-3 mb-4">
               <i class="fi fi-rr-spa text-4xl text-purple-300 inline-block"></i>
               <h3 class="text-xl font-zen tracking-wide text-white">Méditation</h3>
@@ -595,7 +599,7 @@ useSeoMeta({
           </div>
 
           <!-- Cohérence Cardiaque -->
-          <div class="rounded-xl border border-white/10 bg-night-900/50 p-6 backdrop-blur-xl hover:border-spark-pink/50 transition-all">
+          <div class="rounded-xl border-[1.5px] border-[#D645EC]/25 bg-night-900/80 p-6 backdrop-blur-xl hover:border-[#D645EC]/50 transition-all shadow-xl shadow-black/20">
             <div class="flex items-center gap-3 mb-4">
               <i class="fi fi-rr-heart text-4xl text-pink-300 inline-block"></i>
               <h3 class="text-xl font-zen tracking-wide text-white">Cohérence Cardiaque</h3>
@@ -615,13 +619,13 @@ useSeoMeta({
           <!-- Grille des autres stats -->
           <div class="grid grid-cols-2 gap-4">
             
-            <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-amber-400/50 transition-all hover:scale-105">
+            <div class="rounded-xl border-[1.5px] border-[#D645EC]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D645EC]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
               <i class="fi fi-rr-star text-3xl mb-2 text-amber-400 inline-block"></i>
               <div class="text-2xl font-bold text-amber-400 mb-1">{{ stats.stars_count || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Étoiles Créées</div>
             </div>
 
-            <div class="rounded-xl border border-white/10 bg-night-900/50 p-4 backdrop-blur-xl hover:border-blue-400/50 transition-all hover:scale-105">
+            <div class="rounded-xl border-[1.5px] border-[#D645EC]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D645EC]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
               <i class="fi fi-rr-calendar text-3xl mb-2 text-blue-400 inline-block"></i>
               <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.days_active || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Jours Actifs</div>
@@ -630,7 +634,7 @@ useSeoMeta({
         </div>
 
         <!-- Badges Dynamiques -->
-        <div class="rounded-2xl border border-white/10 bg-night-900/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.3s">
+        <div class="rounded-2xl border-[1.5px] border-[#D645EC]/30 bg-night-900/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.3s">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
               <i class="fi fi-rr-trophy text-2xl inline-block"></i>
@@ -667,7 +671,7 @@ useSeoMeta({
                    <i :class="getBadgeIcon(badge, 'star')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
-                  <p class="text-sm font-semibold text-white">{{ badge?.name }}</p>
+                  <p class="text-sm font-medium text-white">{{ badge?.name }}</p>
                   <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
                   <p class="text-xs text-yellow-400 mt-1">⭐ Étoiles</p>
                 </div>
@@ -685,7 +689,7 @@ useSeoMeta({
                    <i :class="getBadgeIcon(badge, 'spa')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
-                  <p class="text-sm font-semibold text-white">{{ badge?.name }}</p>
+                  <p class="text-sm font-medium text-white">{{ badge?.name }}</p>
                   <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
                   <p class="text-xs text-purple-400 mt-1">🧘‍♀️ Méditation</p>
                 </div>
@@ -703,7 +707,7 @@ useSeoMeta({
                    <i :class="getBadgeIcon(badge, 'heart')" class="fi inline-block"></i>
                 </div>
                 <div class="text-center">
-                  <p class="text-sm font-semibold text-white">{{ badge?.name }}</p>
+                  <p class="text-sm font-medium text-white">{{ badge?.name }}</p>
                   <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
                   <p class="text-xs text-blue-400 mt-1">🌬️ Cohérence</p>
                 </div>
@@ -723,7 +727,7 @@ useSeoMeta({
                 <div class="flex items-center gap-3 mb-3">
                   <div class="text-3xl opacity-50"><i :class="getBadgeIcon(stats.badges.next.stars, 'star')" class="fi inline-block"></i></div>
                   <div class="flex-1">
-                    <p class="text-sm font-semibold text-white">{{ stats.badges.next.stars.name }}</p>
+                    <p class="text-sm font-medium text-white">{{ stats.badges.next.stars.name }}</p>
                     <p class="text-xs text-white/60">{{ stats.badges.next.stars.description }}</p>
                   </div>
                 </div>
@@ -752,7 +756,7 @@ useSeoMeta({
                 <div class="flex items-center gap-3 mb-3">
                   <div class="text-3xl opacity-50"><i :class="getBadgeIcon(stats.badges.next.meditation, 'spa')" class="fi inline-block"></i></div>
                   <div class="flex-1">
-                    <p class="text-sm font-semibold text-white">{{ stats.badges.next.meditation.name }}</p>
+                    <p class="text-sm font-medium text-white">{{ stats.badges.next.meditation.name }}</p>
                     <p class="text-xs text-white/60">{{ stats.badges.next.meditation.description }}</p>
                   </div>
                 </div>
@@ -781,7 +785,7 @@ useSeoMeta({
                 <div class="flex items-center gap-3 mb-3">
                   <div class="text-3xl opacity-50"><i :class="getBadgeIcon(stats.badges.next.coherence, 'heart')" class="fi inline-block"></i></div>
                   <div class="flex-1">
-                    <p class="text-sm font-semibold text-white">{{ stats.badges.next.coherence.name }}</p>
+                    <p class="text-sm font-medium text-white">{{ stats.badges.next.coherence.name }}</p>
                     <p class="text-xs text-white/60">{{ stats.badges.next.coherence.description }}</p>
                   </div>
                 </div>
@@ -810,7 +814,7 @@ useSeoMeta({
             
             <!-- Badges Étoiles -->
             <div class="mb-6">
-              <h5 class="text-sm font-semibold text-yellow-400 mb-3 flex items-center gap-2">
+              <h5 class="text-sm font-medium text-yellow-400 mb-3 flex items-center gap-2">
                 <i class="fi fi-rr-star inline-block"></i> Badges Étoiles
               </h5>
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -826,7 +830,7 @@ useSeoMeta({
                   <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
                     <i :class="getBadgeIcon(badge, 'star')" class="fi inline-block"></i>
                   </div>
-                  <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
+                  <p class="text-xs font-medium text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
                     {{ badge.name }}
                   </p>
                   <div v-if="!stats.badges?.unlocked?.find(u => u.id === badge.id) && badge.progress !== undefined" class="w-full mt-2">
@@ -843,7 +847,7 @@ useSeoMeta({
 
             <!-- Badges Méditation -->
             <div class="mb-6">
-              <h5 class="text-sm font-semibold text-purple-400 mb-3 flex items-center gap-2">
+              <h5 class="text-sm font-medium text-purple-400 mb-3 flex items-center gap-2">
                 <i class="fi fi-rr-spa inline-block"></i> Badges Méditation
               </h5>
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -858,7 +862,7 @@ useSeoMeta({
                   <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
                     <i :class="getBadgeIcon(badge, 'spa')" class="fi inline-block"></i>
                   </div>
-                  <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
+                  <p class="text-xs font-medium text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
                     {{ badge.name }}
                   </p>
                   <div v-if="!stats.badges?.unlocked?.find(u => u.id === badge.id) && badge.progress !== undefined" class="w-full mt-2">
@@ -875,7 +879,7 @@ useSeoMeta({
 
             <!-- Badges Cohérence Cardiaque -->
             <div>
-              <h5 class="text-sm font-semibold text-blue-400 mb-3 flex items-center gap-2">
+              <h5 class="text-sm font-medium text-blue-400 mb-3 flex items-center gap-2">
                 <i class="fi fi-rr-heart inline-block"></i> Badges Cohérence Cardiaque
               </h5>
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -890,7 +894,7 @@ useSeoMeta({
                   <div class="text-4xl mb-2" :class="!stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'grayscale' : ''">
                     <i :class="getBadgeIcon(badge, 'heart')" class="fi inline-block"></i>
                   </div>
-                  <p class="text-xs font-semibold text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
+                  <p class="text-xs font-medium text-center" :class="stats.badges?.unlocked?.find(u => u.id === badge.id) ? 'text-white' : 'text-white/60'">
                     {{ badge.name }}
                   </p>
                   <div v-if="!stats.badges?.unlocked?.find(u => u.id === badge.id) && badge.progress !== undefined" class="w-full mt-2">
@@ -917,9 +921,9 @@ useSeoMeta({
           <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20 text-3xl">
              <i class="fi fi-rr-exclamation text-3xl text-red-400 inline-block"></i>
           </div>
-          <h3 class="mb-2 text-2xl font-bold text-white">Supprimer votre compte ?</h3>
+          <h3 class="mb-2 text-2xl font-medium text-white">Supprimer votre compte ?</h3>
           <p class="text-slate-400">
-            Cette action est <span class="font-bold text-red-400">irréversible</span>. Toutes vos données seront définitivement supprimées :
+            Cette action est <span class="font-medium text-red-400">irréversible</span>. Toutes vos données seront définitivement supprimées :
           </p>
         </div>
 

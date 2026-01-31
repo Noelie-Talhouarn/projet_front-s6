@@ -14,11 +14,11 @@ defineProps<{
 <template>
     <NuxtLink 
         :to="to" 
-        class="group relative p-6 rounded-2xl bg-night-800 border border-white/5 transition-all overflow-hidden flex flex-col justify-center"
+        class="group relative p-6 rounded-2xl bg-night-900/60 border-[1.5px] border-[#D645EC]/20 transition-all duration-300 overflow-hidden flex flex-col justify-center shadow-xl shadow-black/20 hover:bg-night-900/80 hover:border-[#D645EC]/40"
         :class="[
             bg,
             // Si mis en avant, on agrandit la carte
-            isFeatured ? 'md:col-span-3 md:py-10 border-white/20 bg-white/[0.03]' : ''
+            isFeatured ? 'md:col-span-3 md:py-8 border-[#D645EC]/30 bg-white/[0.05]' : ''
         ]"
     >
         <div class="absolute inset-0 bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-100 transition-opacity" :class="gradient"></div>
@@ -27,16 +27,16 @@ defineProps<{
             <i :class="['fi text-4xl opacity-80 group-hover:scale-110 transition-transform duration-500 flex-shrink-0', icon, color, isFeatured ? 'text-5xl' : '']"></i>
             
             <div>
-                <h3 class="text-xl font-bold font-zen tracking-wide text-white mb-2 flex items-center gap-2">
+                <h3 class="text-xl font-medium font-zen tracking-wide text-white mb-2 flex items-center gap-2">
                     {{ title }}
                     <span v-if="isFeatured" class="text-xs bg-white/10 text-white px-2 py-0.5 rounded-full font-sans tracking-normal font-normal">Recommandé pour vous</span>
                 </h3>
-                <p class="text-sm text-slate-400">{{ desc }}</p>
+                <p class="text-base text-slate-400">{{ desc }}</p>
             </div>
             
             <!-- Bouton d'action visible uniquement sur la carte mise en avant -->
             <div v-if="isFeatured" class="ml-auto hidden md:block">
-                <span class="px-4 py-2 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-slate-200 transition-colors">Commencer</span>
+                <span class="px-4 py-2 bg-white text-black rounded-full text-xs font-medium uppercase tracking-widest hover:bg-slate-200 transition-colors">Commencer</span>
             </div>
         </div>
     </NuxtLink>

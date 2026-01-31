@@ -26,7 +26,7 @@ onMounted(async () => {
 
     // 2. Stats pour le streak (spécifique à cette page for now)
     if (token.value) {
-      const statsResponse = await $fetch<any>(`${apiBase}/api/users/stats`, {
+      const statsResponse = await $fetch<any>('/api/users/stats', {
         headers: {
           Authorization: `Bearer ${token.value}`
         }
@@ -170,16 +170,22 @@ useSeoMeta({
   <div class="px-6 pb-20 pt-10 max-w-6xl mx-auto flex flex-col">
     
     <!-- 1. BONJOUR (Always First) -->
-    <header class="mb-12 animate-fade-in-up text-center lg:text-left transition-all shrink-0">
-        <h1 class="text-3xl md:text-4xl font-zen tracking-wide text-white mb-2">Bienvenue {{ user?.prenom || 'Voyageur' }} dans votre espace,</h1>
-        <p class="text-slate-400">Prenez un instant pour vous reconnecter.</p>
+    <header class="mb-12 md:mb-16 animate-fade-in-up text-center transition-all shrink-0">
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block">Sanctuaire</span>
+        <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Mon Espace</h1>
+        <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
+            <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
+            <p class="text-sm text-slate-400 tracking-widest uppercase mt-4 max-w-2xl mx-auto leading-relaxed">
+                Bienvenue <span class="text-white">{{ user?.prenom || 'Voyageur' }}</span>, prenez un instant pour vous reconnecter
+            </p>
+        </div>
     </header>
 
     <!-- Grid Container -->
     <div class="lg:grid lg:grid-cols-12 lg:gap-10 items-start">
       
       <!-- Content Column -->
-      <div class="lg:col-span-8 flex flex-col space-y-8">
+      <div class="lg:col-span-8 flex flex-col space-y-12 md:space-y-16">
         
         <!-- 2. STREAK (Mobile Only here) -->
         <div class="lg:hidden animate-fade-in-up" style="animation-delay: 0.1s">
@@ -220,7 +226,7 @@ useSeoMeta({
 
          <!-- Accès Profil Rapide -->
          <div class="text-center lg:text-left pt-4">
-              <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors group">
+              <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-slate-500 hover:text-white transition-colors group">
                  <span>Gérer mon profil</span>
                  <span class="group-hover:translate-x-1 transition-transform">→</span>
               </NuxtLink>

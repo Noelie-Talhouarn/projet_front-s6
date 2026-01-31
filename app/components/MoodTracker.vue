@@ -54,12 +54,12 @@ function selectMood(id: string) {
 </script>
 
 <template>
-  <div class="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-sm transition-all hover:bg-white/[0.07]">
+  <div class="rounded-2xl bg-white/[0.03] border-[1.5px] border-[#D645EC]/20 p-6 backdrop-blur-md transition-all hover:bg-white/[0.05] shadow-xl shadow-black/20">
     <div class="animate-fade-in-up">
         <h3 v-if="!selectedMood" class="text-lg font-zen tracking-wide text-white mb-4 text-center">Comment vous sentez-vous maintenant ?</h3>
         <h3 v-else class="text-lg font-zen tracking-wide text-white mb-4 text-center flex items-center justify-center gap-2">
-            Votre intention : <span class="text-spark-light">{{ moods.find(m => m.id === selectedMood)?.label }}</span>
-            <div v-if="isLoading" class="h-4 w-4 border-2 border-spark-light/30 border-t-spark-light rounded-full animate-spin inline-block"></div>
+            Votre intention : <span class="text-spark-light font-bold">{{ moods.find(m => m.id === selectedMood)?.label }}</span>
+            <div v-if="isLoading" class="h-4 w-4 border-[1.5px] border-spark-light/30 border-t-spark-light rounded-full animate-spin inline-block"></div>
         </h3>
         
         <div class="grid grid-cols-4 gap-2 md:flex md:justify-center md:gap-4">
@@ -70,12 +70,12 @@ function selectMood(id: string) {
                 class="group flex flex-col items-center justify-center w-full md:w-20 h-20 rounded-xl border transition-all duration-300"
                 :class="[
                     selectedMood 
-                        ? (selectedMood === mood.id ? 'bg-white/20 border-white scale-110 shadow-[0_0_15px_rgba(255,255,255,0.2)]' : 'bg-transparent border-transparent opacity-40 scale-90')
-                        : 'bg-night-800 border-white/5 hover:border-white/20 hover:scale-105'
+                        ? (selectedMood === mood.id ? 'bg-white/20 border-white scale-110 shadow-[0_0_20px_rgba(255,255,255,0.2)]' : 'bg-transparent border-transparent opacity-40 scale-90')
+                        : 'bg-night-800/80 border-white/10 hover:border-white/30 hover:bg-night-700/80 hover:scale-105'
                 ]"
             >
                 <i :class="['fi text-2xl mb-2 transition-transform', mood.icon, mood.color, selectedMood === mood.id ? 'scale-110' : '']"></i>
-                <span class="text-[10px] uppercase tracking-wider group-hover:text-white" :class="selectedMood === mood.id ? 'text-white font-bold' : 'text-slate-400'">{{ mood.label }}</span>
+                <span class="text-sm uppercase tracking-wider group-hover:text-white" :class="selectedMood === mood.id ? 'text-white font-bold' : 'text-slate-400'">{{ mood.label }}</span>
             </button>
         </div>
     </div>

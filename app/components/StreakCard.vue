@@ -40,10 +40,10 @@ const message = computed(() => getMessage())
 
 <template>
   <div 
-    class="relative overflow-hidden rounded-lg border transition-all duration-300 hover:scale-[1.02]"
+    class="relative overflow-hidden rounded-lg border-[1.5px] transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-black/10"
     :class="streak > 0 
-      ? 'bg-gradient-to-r from-orange-500/5 to-red-500/5 border-orange-400/20 hover:border-orange-400/40' 
-      : 'bg-white/[0.02] border-white/5 hover:border-white/10'"
+      ? 'bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 hover:border-orange-400/50' 
+      : 'bg-white/[0.05] border-[#D645EC]/20 hover:border-[#D645EC]/40'"
   >
     <!-- Glow effect subtil -->
     <div 
@@ -67,16 +67,16 @@ const message = computed(() => getMessage())
       <div class="flex-1 min-w-0">
         <div class="flex items-baseline gap-2">
           <span 
-            class="font-semibold text-sm"
+            class="font-semibold text-base"
             :class="streak > 0 ? 'text-orange-400' : 'text-white/40'"
           >
             {{ streak > 0 ? `${streak} jour${streak > 1 ? 's' : ''}` : 'Aucune série' }}
           </span>
-          <span class="text-xs text-white/60 truncate">
+          <span class="text-sm text-white/60 truncate">
             {{ message.main }}
           </span>
         </div>
-        <p class="text-[10px] text-white/40 mt-0.5">
+        <p class="text-xs text-white/40 mt-0.5">
           {{ message.sub }}
         </p>
       </div>

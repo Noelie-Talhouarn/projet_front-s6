@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-gradient-to-br from-night-900 to-night-800 text-white border-t border-night-700">
-    <div class="mx-auto px-6 py-3 lg:py-16">
+    <div class="mx-auto px-6 py-3 lg:py-12">
       <!-- Contenu principal du footer -->
       <div class="flex items-center justify-center mb-12">
         <!-- Section Marque -->

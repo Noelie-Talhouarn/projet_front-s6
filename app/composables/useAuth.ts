@@ -17,7 +17,7 @@ export const useAuth = () => {
         }
 
         try {
-            const response = await $fetch<User>(`${apiBase}/api/users/profile`, {
+            const response = await $fetch<User>('/api/users/profile', {
                 headers: {
                     Authorization: `Bearer ${token.value}`
                 }

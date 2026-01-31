@@ -68,7 +68,7 @@ async function onSubmit () {
     }
 
     // 2. Inscription avec l'URL finale
-    await $fetch(`${apiBase}/api/users/register`, {
+    await $fetch('/api/users/register', {
       method: 'POST',
       body: {
         prenom: prenom.value,
@@ -81,7 +81,7 @@ async function onSubmit () {
 
     successMessage.value = 'Compte créé avec succès 🎉 Connexion en cours...'
 
-    const loginResponse = await $fetch<{ token: string }>(`${apiBase}/api/users/login`, {
+    const loginResponse = await $fetch<{ token: string }>('/api/users/login', {
       method: 'POST',
       body: {
         email: email.value,
@@ -129,7 +129,7 @@ async function onSubmit () {
             <img v-if="avatarPreview" :src="avatarPreview" class="h-full w-full object-cover" />
             <div v-else class="flex flex-col items-center justify-center text-slate-500 group-hover:text-slate-300">
               <i class="fi fi-rr-camera text-2xl"></i>
-              <span class="text-[10px] mt-1 uppercase font-bold tracking-tighter">Photo</span>
+              <span class="text-xs mt-1 uppercase font-bold tracking-tighter">Photo</span>
             </div>
             
             <!-- Loading Overlay (pendant l'inscription) -->
@@ -137,7 +137,7 @@ async function onSubmit () {
               <div class="h-6 w-6 border-2 border-spark border-t-transparent rounded-full animate-spin"></div>
             </div>
           </div>
-          <p class="text-[11px] text-slate-500 italic">Photo de profil (optionnel)</p>
+          <p class="text-xs text-slate-500 italic">Photo de profil (optionnel)</p>
           <input 
             ref="fileInput"
             type="file" 

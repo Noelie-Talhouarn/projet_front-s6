@@ -81,18 +81,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-night-900 pt-24 px-6 pb-32 relative overflow-hidden">
+  <div class="bg-night-900 pt-8 px-6 pb-32 relative overflow-hidden">
       
       <!-- Background Elements -->
       <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-900/20 to-transparent pointer-events-none"></div>
       <div class="absolute top-20 right-10 w-64 h-64 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
 
-      <header class="mb-16 text-center animate-fade-in-up relative z-10">
-          <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block font-sans">Exploration</span>
-          <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 tracking-wider font-zen">Espace de Jeu</h1>
-          <p class="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-              Des expériences interactives conçues pour apaiser votre esprit et éveiller votre créativité.
-          </p>
+      <header class="mb-12 md:mb-16 text-center animate-fade-in-up relative z-10">
+          <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block">Exploration</span>
+          <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Espace Créatif</h1>
+          <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
+              <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
+              <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">
+                  Éveillez votre créativité & nourrissez votre esprit
+              </p>
+          </div>
       </header>
 
       <div v-if="isLoading" class="flex justify-center mt-20">
@@ -102,7 +105,7 @@ onMounted(() => {
           </div>
       </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto relative z-10">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto relative z-10">
           <DashboardCard 
             v-for="(game, index) in games" 
             :key="game.title"

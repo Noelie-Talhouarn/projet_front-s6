@@ -23,7 +23,7 @@ onMounted(() => {
     <!-- Chargement -->
     <div v-if="pending" class="flex flex-col items-center justify-center py-12 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
       <div class="h-8 w-8 animate-spin rounded-full border-2 border-spark border-t-transparent mb-4"></div>
-      <p class="text-xs uppercase tracking-widest text-slate-500">Inspiration en cours...</p>
+      <p class="text-sm uppercase tracking-widest text-slate-500">Inspiration en cours...</p>
     </div>
 
     <!-- Erreur -->

@@ -79,6 +79,8 @@ export default {
                 'fade-in-down': 'fadeInDown 0.6s ease-out',
                 'slide-up': 'slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             },
+            fontSize: {
+            },
             keyframes: {
                 fadeInUp: {
                     '0%': { opacity: '0', transform: 'translateY(30px)' },
@@ -95,5 +97,12 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        function ({ addBase }) {
+            addBase({
+                'html': { fontSize: '16px' },
+                'body': { fontSize: '16px', lineHeight: '1.5' },
+            })
+        }
+    ],
 }

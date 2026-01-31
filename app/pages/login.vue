@@ -22,7 +22,7 @@ async function onSubmit () {
   isLoading.value = true
 
   try {
-    const response = await $fetch<{ token: string }>(`${apiBase}/api/users/login`, {
+    const response = await $fetch<{ token: string }>('/api/users/login', {
       method: 'POST',
       body: {
         email: email.value,
@@ -79,7 +79,9 @@ async function onSubmit () {
             required 
           />
           <div class="text-right">
-            <a href="#" class="text-xs text-slate-400 hover:text-spark-light transition-colors">Mot de passe oublié ?</a>
+            <NuxtLink to="/forgot-password" class="text-xs text-slate-400 hover:text-spark-light transition-colors">
+              Mot de passe oublié ?
+            </NuxtLink>
           </div>
         </div>
 

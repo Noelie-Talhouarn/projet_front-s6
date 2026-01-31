@@ -67,42 +67,43 @@ function selectSession(session: Meditation) {
   <div class="bg-night-900 pb-32 pt-8 px-6 overflow-x-hidden transition-colors duration-1000">
     
     <!-- En-tête -->
-    <header class="mb-6 animate-fade-in-up">
-      <div class="flex items-center gap-3 mb-2">
-        <i class="fi fi-rr-spa text-3xl inline-block mt-1"></i>
-        <MyTitle as="h1" size="medium">Méditation</MyTitle>
+    <header class="mb-12 md:mb-16 animate-fade-in-up text-center">
+      <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block">Sérénité</span>
+      <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Méditation</h1>
+      <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
+        <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
+        <p class="text-sm text-slate-400 tracking-widest uppercase mt-4 max-w-2xl mx-auto">Votre collection personnelle de sérénité</p>
       </div>
-      <p class="text-slate-400 text-sm">Votre collection personnelle de sérénité</p>
     </header>
 
     <!-- MENU SELECTION -->
-    <div v-if="viewMode === 'menu'" class="grid gap-6 md:grid-cols-2 mt-8 animate-fade-in-up max-w-4xl mx-auto">
+    <div v-if="viewMode === 'menu'" class="grid gap-6 md:grid-cols-2 mt-8 animate-fade-in-up max-w-5xl mx-auto">
       
       <!-- Carte : Méditation -->
       <button 
         @click="viewMode = 'player'"
-        class="group relative flex flex-col items-center justify-center gap-4 rounded-3xl border border-white/10 bg-night-800/50 p-12 text-center shadow-lg transition-all hover:scale-105 hover:bg-night-800 hover:shadow-spark/20"
+        class="group relative flex flex-col items-center justify-center gap-4 md:gap-6 rounded-[2.5rem] border-[1.5px] border-white/20 bg-night-900/80 p-10 md:p-12 text-center shadow-xl transition-all duration-500 hover:scale-[1.02] hover:bg-night-800 hover:shadow-spark/20"
       >
-        <div class="flex h-20 w-20 items-center justify-center rounded-full bg-indigo-500/20 text-4xl group-hover:bg-indigo-500/30 transition-colors">
+        <div class="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-indigo-500/20 text-3xl md:text-4xl group-hover:bg-indigo-500/30 transition-all duration-500 group-hover:rotate-12">
           <i class="fi fi-rr-spa inline-block"></i>
         </div>
         <div>
-          <h3 class="text-xl font-zen tracking-wide text-white mb-2">Méditation Guidée</h3>
-          <p class="text-slate-400 text-sm">Explorez notre bibliothèque de séances apaisantes pour l'esprit.</p>
+          <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Méditation Guidée</h3>
+          <p class="text-slate-400 text-sm md:text-base leading-relaxed">Explorez notre bibliothèque de séances apaisantes pour l'esprit.</p>
         </div>
       </button>
 
       <!-- Carte : Souffle -->
       <button 
         @click="viewMode = 'breathing'"
-        class="group relative flex flex-col items-center justify-center gap-4 rounded-3xl border border-white/10 bg-night-800/50 p-12 text-center shadow-lg transition-all hover:scale-105 hover:bg-night-800 hover:shadow-pink-500/20"
+        class="group relative flex flex-col items-center justify-center gap-4 md:gap-6 rounded-[2.5rem] border-[1.5px] border-white/20 bg-night-900/80 p-10 md:p-12 text-center shadow-xl transition-all duration-500 hover:scale-[1.02] hover:bg-night-800 hover:shadow-pink-500/20"
       >
-        <div class="flex h-20 w-20 items-center justify-center rounded-full bg-pink-500/20 text-4xl group-hover:bg-pink-500/30 transition-colors">
+        <div class="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-pink-500/20 text-3xl md:text-4xl group-hover:bg-pink-500/30 transition-all duration-500 group-hover:-rotate-12">
           <i class="fi fi-rr-wind inline-block"></i>
         </div>
         <div>
-          <h3 class="text-xl font-zen tracking-wide text-white mb-2">Respiration</h3>
-          <p class="text-slate-400 text-sm">Cohérence cardiaque pour calmer votre rythme intérieur.</p>
+          <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Respiration</h3>
+          <p class="text-slate-400 text-sm md:text-base leading-relaxed">Cohérence cardiaque pour calmer votre rythme intérieur.</p>
         </div>
       </button>
 
@@ -110,7 +111,7 @@ function selectSession(session: Meditation) {
 
     <!-- CONTENU RESPIRATION -->
     <div v-else-if="viewMode === 'breathing'" class="animate-fade-in-up">
-      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-white">
+      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-base text-slate-400 transition-colors hover:text-white">
         <i class="fi fi-rr-arrow-small-left text-lg inline-block"></i> Retour au choix
       </button>
 
@@ -119,7 +120,7 @@ function selectSession(session: Meditation) {
 
     <!-- CONTENU MEDITATION -->
     <div v-else-if="viewMode === 'player'" class="animate-fade-in-up">
-      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-white">
+      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-base text-slate-400 transition-colors hover:text-white">
         <i class="fi fi-rr-arrow-small-left text-lg inline-block"></i> Retour au choix
       </button>
 
@@ -137,7 +138,7 @@ function selectSession(session: Meditation) {
 
         <!-- List Column -->
         <div class="lg:col-span-5 xl:col-span-4 mt-6 lg:mt-0">
-          <div class="bg-night-800/30 rounded-[2rem] border border-white/5 p-6 backdrop-blur-sm">
+          <div class="bg-night-900/60 rounded-[2rem] border-[1.5px] border-white/15 p-6 backdrop-blur-md shadow-2xl shadow-black/20">
             <h2 class="text-lg font-zen text-white mb-6 flex items-center gap-2 border-b border-white/10 pb-4">
               <i class="fi fi-rr-list text-pink-400"></i>
               Ma Playlist

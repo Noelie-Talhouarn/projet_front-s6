@@ -3,7 +3,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     const token = useCookie('auth_token')
 
     // 2. Liste des pages accessibles à tout le monde (Public)
-    const publicPages = ['/', '/login', '/register']
+    const publicPages = ['/', '/login', '/register', '/forgot-password', '/reset-password']
 
     // Normalisation du chemin (pour éviter les soucis avec les slashs finaux)
     const path = to.path

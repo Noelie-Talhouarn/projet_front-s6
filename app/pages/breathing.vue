@@ -106,17 +106,24 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="flex  flex-col items-center justify-center p-6 text-center">
+  <div class="px-6 pb-20 pt-10 max-w-5xl mx-auto flex flex-col items-center">
     
+    <header class="mb-12 md:mb-16 animate-fade-in-up text-center">
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block">Énergie</span>
+        <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Le Souffle</h1>
+        <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
+            <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
+            <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">Cohérence cardiaque & apaisement</p>
+        </div>
+    </header>
+
     <!-- INTRODUCTION -->
-    <div v-if="showIntro" class="animate-fade-in-up max-w-lg space-y-8 rounded-3xl border border-white/10 bg-night-900/50 p-10 shadow-2xl backdrop-blur-xl">
-      <div class="inline-flex h-20 w-20 items-center justify-center rounded-full bg-gradient-spark shadow-lg shadow-spark/30">
-        <span class="text-4xl">🌬️</span>
+    <div v-if="showIntro" class="animate-fade-in-up w-full max-w-lg space-y-8 rounded-[2.5rem] border border-white/10 bg-night-900/50 p-10 md:p-12 shadow-2xl backdrop-blur-xl">
+      <div class="flex justify-center">
+        <div class="inline-flex h-20 w-20 items-center justify-center rounded-full bg-gradient-spark shadow-lg shadow-spark/30 animate-pulse">
+            <span class="text-4xl">🌬️</span>
+        </div>
       </div>
-      
-      <MyTitle as="h1" size="medium">
-        Pause Respiration
-      </MyTitle>
       
       <p class="text-lg leading-relaxed text-slate-300">
         Prenez quelques instants pour reconnecter avec votre souffle. 
@@ -176,7 +183,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="flex flex-col items-center gap-4">
-        <div class="text-2xl font-mono font-bold text-slate-400 tracking-wider">
+        <div class="text-2xl font-mono font-medium text-slate-400 tracking-wider">
           {{ formattedTime }}
         </div>
         

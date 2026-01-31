@@ -12,7 +12,7 @@ function handleClickAndHover () {
   emit('ClickAndHover')
 }
 
-const baseClasses = 'inline-flex items-center justify-center rounded-full font-bold transition-all duration-300 active:scale-95 text-center cursor-pointer'
+const baseClasses = 'inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 active:scale-95 text-center cursor-pointer'
 
 const variantClasses = {
   default: 'bg-night-800 text-white border-2 border-spark hover:bg-night-700 hover:border-spark-light',
@@ -22,8 +22,8 @@ const variantClasses = {
 }
 
 const sizeClasses = {
-  small: 'px-3 py-1 text-xs',
-  default: 'px-5 py-2 text-sm',
+  small: 'px-3 py-1 text-sm',
+  default: 'px-5 py-2 text-base',
   medium: 'px-8 py-3 text-base',
   large: 'px-12 py-4 text-lg'
 }
@@ -37,7 +37,7 @@ const sizeClasses = {
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
   >
-    <slot/>
+    <slot />
   </NuxtLink>
   
   <button
@@ -46,6 +46,6 @@ const sizeClasses = {
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
   >
-    <slot/>
+    <slot />
   </button>
 </template>

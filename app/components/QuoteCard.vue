@@ -30,7 +30,7 @@ const props = defineProps<{
           {{ quote.citation }}
         </blockquote>
         
-        <cite class="text-spark-light font-bold not-italic tracking-wider uppercase text-sm">
+        <cite class="text-spark-light font-medium not-italic tracking-wider uppercase text-base">
           — {{ quote.auteur }}
         </cite>
       </div>

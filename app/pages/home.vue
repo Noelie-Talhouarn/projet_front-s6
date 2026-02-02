@@ -56,7 +56,7 @@ const rawCards = [
     },
     { 
         id: 'breathing',
-        to: '/breathing', 
+        to: '/meditation?mode=breathing', 
         title: 'Respiration', 
         desc: 'Cohérence cardiaque et exercices de souffle.', 
         icon: 'fi-rr-wind', 

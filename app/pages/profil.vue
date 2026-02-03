@@ -9,7 +9,6 @@ const user = ref({
 })
 
 const config = useRuntimeConfig()
-const apiBase = config.public.apiBase as string
 
 // Mode édition
 const isEditing = ref(false)
@@ -107,7 +106,7 @@ async function handleCustomUpload(event: Event) {
     const imageUrl = uploadRes.secure_url
 
     // 2. Enregistrement de l'URL dans MongoDB
-    await $fetch(`${apiBase}/api/users/avatar`, {
+    await $fetch('/api/users/avatar', {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${token.value}` },
       body: { avatar: imageUrl }
@@ -136,7 +135,7 @@ async function loadUserProfile() {
       return
     }
 
-    const response = await $fetch<any>(`${apiBase}/api/users/profile`, {
+    const response = await $fetch<any>('/api/users/profile', {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -162,13 +161,13 @@ async function loadUserStats() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    const response = await $fetch<any>(`${apiBase}/api/users/stats`, {
+    const response = await $fetch<any>('/api/users/stats', {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
     })
 
-    console.log('📊 Stats reçues:', response)
+    // Log removed
 
     stats.value = {
         // Globales (en secondes)
@@ -193,7 +192,7 @@ async function loadUserStats() {
         badges: response.badges || null
     }
     
-    console.log('✅ Stats chargées:', stats.value)
+    // Log removed
   } catch (err) {
     console.error('Erreur lors du chargement des statistiques:', err)
   }
@@ -242,7 +241,7 @@ async function saveProfile() {
     if (!token.value) return
 
     isSaving.value = true
-    await $fetch(`${apiBase}/api/users/profile`, {
+    await $fetch('/api/users/profile', {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token.value}`
@@ -273,7 +272,7 @@ async function updatePreferences() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    await $fetch(`${apiBase}/api/users/preferences`, {
+    await $fetch('/api/users/preferences', {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token.value}`
@@ -348,7 +347,7 @@ async function deleteAccount() {
     const token = useCookie('auth_token')
     if (!token.value) return
 
-    await $fetch(`${apiBase}/api/users/account`, {
+    await $fetch('/api/users/account', {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token.value}`

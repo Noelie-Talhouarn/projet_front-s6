@@ -9,9 +9,6 @@ useSeoMeta({
   ogTitle: 'Connexion - L\'Étincelle',
 })
 
-const config = useRuntimeConfig()
-const apiBase = config.public.apiBase as string // On récupère l'adresse de Render
-
 const email = ref('')
 const mot_de_passe = ref('')
 const errorMessage = ref('')

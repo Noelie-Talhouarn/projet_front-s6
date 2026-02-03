@@ -54,13 +54,12 @@ const { fetchCloudWords } = useStars()
 const token = useCookie('auth_token')
 
 const config = useRuntimeConfig()
-const apiBase = config.public.apiBase as string
 
 // Gestion de la progression
 async function loadProgress() {
   if (!token.value) return
   try {
-     const data = await $fetch<{ level: number }>(`${apiBase}/api/users/puzzle`, {
+     const data = await $fetch<{ level: number }>('/api/users/puzzle', {
         headers: { Authorization: `Bearer ${token.value}` }
      })
      // Si l'utilisateur est niveau 3, cela veut dire qu'il joue le niveau 3 -> index 2
@@ -68,20 +67,20 @@ async function loadProgress() {
         currentLevelIdx.value = data.level - 1
      }
   } catch (e) {
-     console.error("Erreur chargement progression", e)
+     // Log removed
   }
 }
 
 async function saveProgress(newLevel: number) {
   if (!token.value) return
   try {
-     await $fetch(`${apiBase}/api/users/puzzle`, {
+     await $fetch('/api/users/puzzle', {
         method: 'POST',
         body: { level: newLevel },
         headers: { Authorization: `Bearer ${token.value}` }
      })
   } catch (e) {
-      console.error("Erreur sauvegarde progression", e)
+      // Log removed
   }
 }
 

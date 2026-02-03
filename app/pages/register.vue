@@ -11,7 +11,6 @@ useSeoMeta({
 
 // On récupère l'URL de Render configurée dans nuxt.config.ts
 const config = useRuntimeConfig()
-const apiBase = config.public.apiBase as string
 
 const prenom = ref('')
 const nom = ref('')

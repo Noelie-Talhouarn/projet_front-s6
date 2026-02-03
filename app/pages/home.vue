@@ -11,7 +11,6 @@ definePageMeta({
 const { user, fetchUser } = useAuth()
 const cookie = useCookie('auth_token')
 const config = useRuntimeConfig()
-const apiBase = config.public.apiBase as string
 
 // Streak
 const currentStreak = ref(0)
@@ -109,7 +108,7 @@ async function handleMoodChange(moodId: string | null) {
     if (cookie.value) {
         isSavingMood.value = true
         try {
-            await $fetch(`${apiBase}/api/users/emotion`, {
+            await $fetch('/api/users/emotion', {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${cookie.value}` },
                 body: { emotion: moodId }
@@ -117,7 +116,7 @@ async function handleMoodChange(moodId: string | null) {
             if (moodId) {
                 localStorage.setItem('last_emotion_date', new Date().toDateString())
             }
-            console.log('Emotion sauvegardée:', moodId)
+            // Log removed
         } catch (e) {
             console.error('Erreur sauvegarde emotion', e)
         } finally {

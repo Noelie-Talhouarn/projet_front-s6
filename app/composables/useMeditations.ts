@@ -9,10 +9,10 @@ export const useMeditations = () => {
         {
             id: 'demo1',
             title: 'Pluie Apaisante',
-            description: 'Le son de la pluie pour s\'endormir.',
+            description: 'Le son de la pluie pour se relaxer.',
             // Lien de test fiable (bruit blanc/nature)
             audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-            category: 'sommeil',
+            category: 'nature',
             duration: '06:12',
             imageUrl: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=1000&auto=format&fit=crop'
         },
@@ -89,14 +89,12 @@ export const useMeditations = () => {
             // Fallback
             return [
                 { id: 'all', label: 'Tout' },
-                { id: 'sommeil', label: 'Sommeil' },
                 { id: 'nature', label: 'Nature' },
                 { id: 'musique', label: 'Musique' },
             ]
         } catch (e) {
             return [
                 { id: 'all', label: 'Tout' },
-                { id: 'sommeil', label: 'Sommeil' },
                 { id: 'nature', label: 'Nature' },
                 { id: 'musique', label: 'Musique' },
             ]

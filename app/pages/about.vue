@@ -44,8 +44,8 @@ useSeoMeta({
         <!-- Abstract Visual -->
         <div class="absolute inset-0 bg-gradient-radial from-spark/20 to-transparent opacity-50 group-hover:opacity-70 transition-opacity duration-1000"></div>
         <div class="w-32 h-32 rounded-full bg-gradient-spark blur-[50px] animate-pulse"></div>
-        <div class="absolute z-10 text-center space-y-2">
-            <span class="text-5xl">🧘‍♀️</span>
+        <div class="absolute z-10 text-center space-y-4">
+            <i class="fi fi-rr-spa text-5xl text-white/40 block"></i>
             <p class="text-sm font-medium uppercase tracking-widest text-white/50">Ralentir • Respirer • Créer</p>
         </div>
       </div>

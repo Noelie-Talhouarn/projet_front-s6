@@ -10,7 +10,7 @@ const props = defineProps<{
     <!-- Effet de bordure dégradée (Design d'avant, bien vibrant) -->
     <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-spark/50 via-spark-pink/50 to-spark/50 blur opacity-75 transition-opacity group-hover:opacity-100"></div>
     
-    <div class="relative flex flex-col gap-1 rounded-2xl bg-night-900/80 backdrop-blur-xl border border-white/10 p-4 text-center shadow-2xl">
+    <div class="relative flex flex-col gap-1 rounded-2xl bg-night-800/90 backdrop-blur-xl border border-white/20 p-4 text-center shadow-2xl">
       
       <div class="flex justify-center relative">
         <span class="text-3xl text-white/20">❝</span>

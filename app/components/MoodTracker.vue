@@ -54,7 +54,7 @@ function selectMood(id: string) {
 </script>
 
 <template>
-  <div class="rounded-2xl bg-white/[0.03] border-[1.5px] border-[#D645EC]/20 p-6 backdrop-blur-md transition-all hover:bg-white/[0.05] shadow-xl shadow-black/20">
+  <div class="rounded-2xl bg-night-800/90 border-[1.5px] border-[#D946EF]/40 p-6 backdrop-blur-md transition-all hover:bg-night-700/90 shadow-xl shadow-black/40">
     <div class="animate-fade-in-up">
         <h3 v-if="!selectedMood" class="text-lg font-zen tracking-wide text-white mb-4 text-center">Comment vous sentez-vous maintenant ?</h3>
         <h3 v-else class="text-lg font-zen tracking-wide text-white mb-4 text-center flex items-center justify-center gap-2">

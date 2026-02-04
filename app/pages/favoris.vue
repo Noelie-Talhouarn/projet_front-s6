@@ -82,8 +82,8 @@ useSeoMeta({
                         <h3 class="text-xl font-bold text-white mb-2">{{ session.title }}</h3>
                         <p class="text-slate-400 text-base line-clamp-2 mb-6">{{ session.description }}</p>
                         <div class="mt-auto flex justify-between items-center">
-                            <NuxtLink :to="`/meditation?mode=player&id=${session.id}`" class="text-sm font-medium text-white group-hover:text-pink-400 transition-colors">
-                                Écouter →
+                            <NuxtLink :to="`/meditation?mode=player&id=${session.id}`" class="text-sm font-medium text-white group-hover:text-pink-400 transition-colors flex items-center gap-2">
+                                Écouter <i class="fi fi-rr-arrow-right text-[10px]"></i>
                             </NuxtLink>
                         </div>
                     </div>

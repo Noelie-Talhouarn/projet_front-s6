@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const apiBase = config.public.apiBase as string
-
-// Correction URL : /api/quotes/daily
-const { data: quote, pending, error, refresh } = await useFetch<{ citation: string, auteur: string }>(`${apiBase}/api/quotes/daily`)
+const { data: quote, pending, error, refresh } = await useFetch<{ citation: string, auteur: string }>('/api/quotes/daily')
 
 // Le backend renvoie directement l'objet { citation, auteur }, pas besoin de chercher dans un tableau
 const displayQuote = computed(() => {

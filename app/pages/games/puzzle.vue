@@ -237,7 +237,7 @@ onMounted(async () => {
 
 <template>
   <div 
-    class="bg-night-950 flex flex-col items-center pt-12 pb-32 px-4 overflow-hidden relative"
+    class="bg-night-900 flex flex-col items-center pt-12 pb-32 px-4 overflow-hidden relative"
     @touchmove.prevent
   >
     <!-- Background Decorations -->

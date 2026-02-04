@@ -14,11 +14,11 @@ defineProps<{
 <template>
     <NuxtLink 
         :to="to" 
-        class="group relative p-6 rounded-2xl bg-night-900/60 border-[1.5px] border-[#D645EC]/20 transition-all duration-300 overflow-hidden flex flex-col justify-center shadow-xl shadow-black/20 hover:bg-night-900/80 hover:border-[#D645EC]/40"
+        class="group relative p-6 rounded-2xl bg-night-800/90 border-[1.5px] border-[#D946EF]/40 transition-all duration-300 overflow-hidden flex flex-col justify-center shadow-xl shadow-black/40 hover:bg-night-700/90 hover:border-[#D946EF]/60"
         :class="[
             bg,
             // Si mis en avant, on agrandit la carte
-            isFeatured ? 'md:col-span-3 md:py-8 border-[#D645EC]/30 bg-white/[0.05]' : ''
+            isFeatured ? 'md:col-span-3 md:py-8 border-[#D946EF]/30 bg-white/[0.05]' : ''
         ]"
     >
         <div class="absolute inset-0 bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-100 transition-opacity" :class="gradient"></div>

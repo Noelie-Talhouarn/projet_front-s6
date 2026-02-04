@@ -19,6 +19,16 @@ definePageMeta({
 })
 
 // État
+interface WordCloudItem {
+  text: string
+  x: number
+  y: number
+  size: string
+  opacity: number
+  rotation: number
+  delay: string
+}
+
 const stars = ref<Star[]>([])
 const cloudWords = ref<string[]>([...DEFAULT_WORDS])
 const showModal = ref(false)
@@ -55,7 +65,7 @@ function closeInfoModal() {
 }
 
 const wordCloud = computed(() => {
-  const wordCount = Math.floor(stars.value.length / 3)
+  const wordCount = Math.min(50, Math.floor(stars.value.length / 3))
   if (wordCount === 0) return []
 
   const cols = 6
@@ -63,12 +73,14 @@ const wordCloud = computed(() => {
   const totalSlots = cols * rows
   const cellW = 90 / cols
   const cellH = 80 / rows
-  const wordsToShow = []
+  const wordsToShow: WordCloudItem[] = []
 
   const availableWords = cloudWords.value
 
   for (let i = 0; i < wordCount; i++) {
-    const wordText = availableWords[i % availableWords.length] || 'Lumière'
+    const wordText = (availableWords && availableWords.length > 0) 
+      ? availableWords[i % availableWords.length] 
+      : 'Lumière'
     const slotIndex = (i * 17) % totalSlots
     const col = slotIndex % cols
     const row = Math.floor(slotIndex / cols)
@@ -79,10 +91,10 @@ const wordCloud = computed(() => {
     const jitterY = Math.cos(jitterSeed) * (cellH * 0.3)
     
     wordsToShow.push({
-      text: wordText,
+      text: wordText as string,
       x: gridX + (cellW / 2) + jitterX,
       y: gridY + (cellH / 2) + jitterY,
-      size: ['text-xs', 'text-sm'][i % 2],
+      size: (['text-xs', 'text-sm'][i % 2]) as string,
       opacity: 0.6 + (Math.sin(i) * 0.4),
       rotation: (Math.sin(i * 12) * 10),
       delay: '0s'
@@ -93,6 +105,9 @@ const wordCloud = computed(() => {
 })
 
 function handleSkyClick(event: MouseEvent) {
+  // Empêcher d'ouvrir la modale d'ajout si une modale est déjà ouverte
+  if (showModal.value || showInfoModal.value) return
+
   if (
     (event.target as HTMLElement).closest('.star-trigger') || 
     (event.target as HTMLElement).closest('.modal-content')
@@ -159,7 +174,7 @@ async function deleteStar(id: number) {
     <HeaderPage />
     <ToolBar />
 
-    <div class="relative h-full w-full cursor-crosshair center-content" @click="handleSkyClick">
+    <div class="relative h-full w-full cursor-crosshair" @click="handleSkyClick">
     
     <!-- Lueur subtile en fond -->
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-spark/10 blur-[150px] rounded-full pointer-events-none"></div>
@@ -316,49 +331,46 @@ async function deleteStar(id: number) {
       <p class="text-sm tracking-[0.1em] uppercase text-slate-500">Cliquez pour allumer une nouvelle lueur</p>
     </div>
 
-    <!-- Info Modal -->
     <div 
       v-if="showInfoModal" 
-      class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md animate-fade-in"
+      class="modal-content fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md animate-fade-in"
       @click.self="closeInfoModal"
     >
-      <div class="bg-night-900 border border-spark/30 p-10 rounded-[2.5rem] max-w-md text-center shadow-[0_0_50px_rgba(214,69,236,0.2)] relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-4">
+      <div class="bg-night-900 border border-spark/30 p-8 rounded-[2rem] max-w-sm text-center shadow-[0_0_50px_rgba(214,69,236,0.2)] relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-2">
             <button 
               @click="closeInfoModal"
               class="text-slate-500 hover:text-white transition-colors p-2"
             >
-              <i class="fi fi-rr-cross-small text-2xl"></i>
+              <i class="fi fi-rr-cross-small text-xl"></i>
             </button>
         </div>
 
-        <div class="mb-6 inline-flex p-4 rounded-3xl bg-spark/10 text-spark-light">
-            <i class="fi fi-rr-stars text-4xl"></i>
+        <div class="mb-4 inline-flex p-3 rounded-2xl bg-spark/10 text-spark-light">
+            <i class="fi fi-rr-stars text-3xl"></i>
         </div>
-        <h2 class="text-2xl font-zen text-white mb-4 uppercase tracking-wider">Le Ciel Intérieur</h2>
-        <p class="text-slate-300 text-base leading-relaxed mb-6">
-          Ce ciel est votre <strong>sanctuaire personnel</strong> de gratitude. Chaque étoile représente un moment précieux que vous seul(e) pouvez voir.
+        <h2 class="text-xl font-zen text-white mb-3 uppercase tracking-wider">Le Ciel Intérieur</h2>
+        <p class="text-slate-300 text-sm leading-relaxed mb-5">
+          Ce ciel est votre <strong>sanctuaire personnel</strong> de gratitude. Chaque étoile représente un moment précieux.
         </p>
-        <div class="bg-spark/5 border border-spark/20 rounded-2xl p-4 mb-6">
-            <p class="text-spark-light text-sm font-medium flex items-start gap-2">
-                <i class="fi fi-rr-sparkles mt-1 shrink-0"></i>
-                <span>Tous les 3 souvenirs déposés, un nouveau mot de lumière apparaît dans votre ciel pour guider vos pensées.</span>
+        <div class="bg-spark/5 border border-spark/20 rounded-xl p-3 mb-5 text-left">
+            <p class="text-spark-light text-[11px] font-medium flex items-start gap-2">
+                <i class="fi fi-rr-sparkles mt-0.5 shrink-0"></i>
+                <span>Tous les 3 souvenirs, un nouveau mot de lumière apparaît.</span>
             </p>
         </div>
-        <div class="space-y-4 text-left mb-8">
-            <div class="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/5">
-                <i class="fi fi-rr-mouse-pointer text-spark-light mt-1"></i>
-                <p class="text-sm text-slate-400 leading-snug">Cliquez n'importe où dans le ciel noir pour créer un nouveau souvenir.</p>
+        <div class="space-y-3 text-left mb-6">
+            <div class="flex items-start gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                <p class="text-[11px] text-slate-400 leading-snug">Cliquez pour créer un souvenir.</p>
             </div>
-            <div class="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/5">
-                <i class="fi fi-rr-eye text-spark-light mt-1"></i>
-                <p class="text-sm text-slate-400 leading-snug">Survolez une étoile pour redécouvrir l'instant qu'elle protège.</p>
+            <div class="flex items-start gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                <p class="text-[11px] text-slate-400 leading-snug">Cliquer sur une étoile pour redécouvrir l'instant.</p>
             </div>
         </div>
 
         <button 
           @click="closeInfoModal"
-          class="w-full py-4 bg-white text-black rounded-2xl text-sm font-bold uppercase tracking-widest hover:bg-slate-100 transition-all shadow-xl active:scale-95"
+          class="w-full py-3 bg-white text-black rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-slate-100 transition-all active:scale-95"
         >
           Commencer mon voyage
         </button>

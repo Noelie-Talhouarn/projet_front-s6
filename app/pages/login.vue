@@ -32,7 +32,7 @@ async function onSubmit () {
     navigateTo('/home')
 
   } catch (err: any) {
-    errorMessage.value = err.data?.message || 'Email ou mot de passe incorrect ❌'
+    errorMessage.value = err.data?.message || 'Email ou mot de passe incorrect'
   } finally {
     isLoading.value = false
   }
@@ -87,7 +87,7 @@ async function onSubmit () {
           <MyButton size="large" type="submit" class="w-full group flex items-center justify-center gap-2" :disabled="isLoading">
             <template v-if="!isLoading">
                 Se connecter
-                <span class="ml-2 transition-transform group-hover:translate-x-1">➜</span>
+                <i class="fi fi-rr-arrow-right ml-2 transition-transform group-hover:translate-x-1 text-[10px]"></i>
             </template>
             <template v-else>
                 <div class="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

@@ -282,9 +282,9 @@ onMounted(async () => {
       </div>
       
       <h1 class="mt-4 text-2xl font-bold font-zen tracking-wide text-white">
-        <span v-if="patternStyle === 'crystal'">💎 Cristal</span>
-        <span v-else-if="patternStyle === 'pixel'">🧱 Pavés</span>
-        <span v-else>🧶 Tissage</span>
+        <span v-if="patternStyle === 'crystal'"><i class="fi fi-rr-gem mr-2"></i>Cristal</span>
+        <span v-else-if="patternStyle === 'pixel'"><i class="fi fi-rr-apps mr-2"></i>Pavés</span>
+        <span v-else><i class="fi fi-rr-interlace mr-2"></i>Tissage</span>
       </h1>
     </header>
 
@@ -317,7 +317,9 @@ onMounted(async () => {
             v-if="isCompleted"
             class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-night-900/80 backdrop-blur-sm animate-fade-in"
         >
-            <div class="text-6xl mb-4 animate-bounce">🏆</div>
+            <div class="text-6xl mb-4 animate-bounce text-yellow-400">
+                <i class="fi fi-sr-trophy"></i>
+            </div>
             <h2 class="text-3xl font-bold font-zen tracking-wide text-white mb-2">Magnifique !</h2>
             <p class="text-slate-300 mb-8">Niveau {{ level }} complété</p>
             
@@ -356,20 +358,23 @@ onMounted(async () => {
                 class="w-10 h-10 rounded-full border-2 border-white/10 flex items-center justify-center bg-night-800 hover:bg-night-700 transition-[colors,transform]"
                 title="Gomme"
             >
-                🧼
+                <i class="fi fi-rr-eraser"></i>
             </button>
             <button 
                 @click="saveArt"
                 class="w-10 h-10 rounded-full border-2 border-white/10 flex items-center justify-center bg-night-800 hover:bg-night-700 transition-[colors,transform]"
                 title="Sauvegarder"
             >
-                💾
+                <i class="fi fi-rr-disk"></i>
             </button>
         </div>
         
         <div class="mt-6 flex flex-col items-center gap-2">
             <button @click="clearCanvas" class="text-xs text-red-500/50 hover:text-red-400 transition-colors">Recommencer ce niveau</button>
-            <button @click="resetProgression" class="text-[10px] text-slate-600 hover:text-red-500 transition-colors">💀 Réinitialiser toute ma progression</button>
+            <button @click="resetProgression" class="text-[10px] text-slate-600 hover:text-red-500 transition-colors flex items-center gap-1">
+                <i class="fi fi-rr-skull text-[8px]"></i>
+                Réinitialiser toute ma progression
+            </button>
         </div>
     </div>
   </div>

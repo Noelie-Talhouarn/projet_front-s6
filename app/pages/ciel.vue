@@ -155,7 +155,7 @@ async function deleteStar(id: number) {
 </script>
 
 <template>
-  <div class="h-[100dvh] w-full overflow-hidden bg-night-950 relative text-slate-200">
+  <div class="h-[100dvh] w-full overflow-hidden bg-night-900 relative text-slate-200">
     <HeaderPage />
     <ToolBar />
 
@@ -227,7 +227,7 @@ async function deleteStar(id: number) {
         </div>
 
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-64 scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 z-30 pointer-events-none group-hover:pointer-events-auto">
-          <div class="bg-night-900/90 backdrop-blur-xl border border-[#D645EC]/30 p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden">
+          <div class="bg-night-900/90 backdrop-blur-xl border border-[#D946EF]/30 p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden">
             <div class="absolute inset-0 bg-spark/5 pointer-events-none"></div>
             <p class="text-xs text-spark-light/60 mb-2 uppercase tracking-[0.2em] font-medium">{{ star.date }}</p>
             <p class="text-base text-slate-100 font-light italic leading-relaxed relative z-10">"{{ star.message }}"</p>
@@ -340,8 +340,9 @@ async function deleteStar(id: number) {
           Ce ciel est votre <strong>sanctuaire personnel</strong> de gratitude. Chaque étoile représente un moment précieux que vous seul(e) pouvez voir.
         </p>
         <div class="bg-spark/5 border border-spark/20 rounded-2xl p-4 mb-6">
-            <p class="text-spark-light text-sm font-medium">
-                ✨ Tous les 3 souvenirs déposés, un nouveau mot de lumière apparaît dans votre ciel pour guider vos pensées.
+            <p class="text-spark-light text-sm font-medium flex items-start gap-2">
+                <i class="fi fi-rr-sparkles mt-1 shrink-0"></i>
+                <span>Tous les 3 souvenirs déposés, un nouveau mot de lumière apparaît dans votre ciel pour guider vos pensées.</span>
             </p>
         </div>
         <div class="space-y-4 text-left mb-8">

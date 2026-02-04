@@ -2,9 +2,9 @@
 import { useMeditations } from '~/composables/useMeditations'
 
 useSeoMeta({
-  title: 'Méditation Guidée - L\'Étincelle',
-  description: 'Bibliothèque de sons et méditations pour le sommeil et la relaxation.',
-  ogTitle: 'Méditation Guidée - L\'Étincelle',
+  title: 'Méditation - L\'Étincelle',
+  description: 'Bibliothèque de sons et méditations pour la relaxation.',
+  ogTitle: 'Méditation - L\'Étincelle',
 })
 
 // Composables & État
@@ -88,7 +88,7 @@ function selectSession(session: Meditation) {
           <i class="fi fi-rr-spa inline-block"></i>
         </div>
         <div>
-          <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Méditation Guidée</h3>
+          <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Méditation</h3>
           <p class="text-slate-400 text-sm md:text-base leading-relaxed">Explorez notre bibliothèque de séances apaisantes pour l'esprit.</p>
         </div>
       </button>

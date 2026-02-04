@@ -19,10 +19,10 @@ export default {
                     400: '#a78bfa',
                     500: '#8b5cf6',
                     600: '#7c3aed',
-                    700: '#4c1d95', // Violet royal
-                    800: '#2d1b4e', // Prune profond
-                    900: '#1a0e2e', // Noir améthyste
-                    950: '#0f0721',
+                    700: '#4c1d95', // Violet royal sombre
+                    800: '#291947', // Violet Prune (pour les cartes/blocs)
+                    900: '#1a0e2e', // Noir Améthyste (Fond principal)
+                    950: '#130a21', // Version légèrement plus sombre pour le relief
                 },
                 // Accent "Étincelle" (Magenta/Lavande)
                 spark: {
@@ -64,7 +64,7 @@ export default {
             },
             backgroundImage: {
                 // Fond global
-                'gradient-night': 'linear-gradient(to bottom right, #1a0e2e, #2d1b4e, #0f0721)',
+                'gradient-night': 'linear-gradient(to bottom right, #1a0e2e, #291947, #130a21)',
                 // Accents
                 'gradient-spark': 'linear-gradient(to right, #d946ef, #a855f7)', // Magenta -> Violet
                 'gradient-glow': 'linear-gradient(to right, #fcd34d, #d946ef, #f472b6)', // Or -> Magenta -> Rose

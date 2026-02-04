@@ -113,7 +113,7 @@ async function handleCustomUpload(event: Event) {
     })
 
     user.value.avatar = imageUrl
-    successMessage.value = 'Votre photo de profil a été mise à jour ! ✨'
+    successMessage.value = 'Votre photo de profil a été mise à jour !'
     
     setTimeout(() => {
       successMessage.value = ''
@@ -253,7 +253,7 @@ async function saveProfile() {
     user.value.nom = editForm.value.nom
     user.value.email = editForm.value.email
 
-    successMessage.value = 'Profil mis à jour avec succès ✨'
+    successMessage.value = 'Profil mis à jour avec succès'
     isEditing.value = false
 
     setTimeout(() => {
@@ -280,7 +280,7 @@ async function updatePreferences() {
       body: preferences.value
     })
 
-    successMessage.value = 'Préférences enregistrées ✓'
+    successMessage.value = 'Préférences enregistrées'
     setTimeout(() => {
       successMessage.value = ''
     }, 2000)
@@ -470,7 +470,7 @@ useSeoMeta({
 
       <template v-else>
         <!-- Carte Profil Principal -->
-        <div class="rounded-2xl border-[1.5px] border-[#D645EC]/30 bg-night-900/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up">
+        <div class="rounded-2xl border-[1.5px] border-[#D946EF]/30 bg-night-900/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up">
           
           <!-- Avatar et Nom -->
           <div class="flex flex-col md:flex-row items-center gap-6 mb-8">
@@ -564,7 +564,7 @@ useSeoMeta({
               </MyButton>
               <MyButton @click="saveProfile" variant="pink" size="medium" :disabled="isSaving" class="flex items-center gap-2">
                 <template v-if="!isSaving">
-                  <span class="mr-1">💾</span>
+                  <i class="fi fi-rr-disk mr-1"></i>
                   Enregistrer
                 </template>
                 <template v-else>
@@ -580,7 +580,7 @@ useSeoMeta({
         <div class="space-y-4 animate-fade-in-up" style="animation-delay: 0.1s">
           
           <!-- Méditation -->
-          <div class="rounded-xl border-[1.5px] border-[#D645EC]/25 bg-night-900/80 p-6 backdrop-blur-xl hover:border-[#D645EC]/50 transition-all shadow-xl shadow-black/20">
+          <div class="rounded-xl border-[1.5px] border-[#D946EF]/25 bg-night-900/80 p-6 backdrop-blur-xl hover:border-[#D946EF]/50 transition-all shadow-xl shadow-black/20">
             <div class="flex items-center gap-3 mb-4">
               <i class="fi fi-rr-spa text-4xl text-purple-300 inline-block"></i>
               <h3 class="text-xl font-zen tracking-wide text-white">Méditation</h3>
@@ -598,7 +598,7 @@ useSeoMeta({
           </div>
 
           <!-- Cohérence Cardiaque -->
-          <div class="rounded-xl border-[1.5px] border-[#D645EC]/25 bg-night-900/80 p-6 backdrop-blur-xl hover:border-[#D645EC]/50 transition-all shadow-xl shadow-black/20">
+          <div class="rounded-xl border-[1.5px] border-[#D946EF]/25 bg-night-900/80 p-6 backdrop-blur-xl hover:border-[#D946EF]/50 transition-all shadow-xl shadow-black/20">
             <div class="flex items-center gap-3 mb-4">
               <i class="fi fi-rr-heart text-4xl text-pink-300 inline-block"></i>
               <h3 class="text-xl font-zen tracking-wide text-white">Cohérence Cardiaque</h3>
@@ -618,13 +618,13 @@ useSeoMeta({
           <!-- Grille des autres stats -->
           <div class="grid grid-cols-2 gap-4">
             
-            <div class="rounded-xl border-[1.5px] border-[#D645EC]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D645EC]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
+            <div class="rounded-xl border-[1.5px] border-[#D946EF]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D946EF]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
               <i class="fi fi-rr-star text-3xl mb-2 text-amber-400 inline-block"></i>
               <div class="text-2xl font-bold text-amber-400 mb-1">{{ stats.stars_count || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Étoiles Créées</div>
             </div>
 
-            <div class="rounded-xl border-[1.5px] border-[#D645EC]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D645EC]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
+            <div class="rounded-xl border-[1.5px] border-[#D946EF]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D946EF]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
               <i class="fi fi-rr-calendar text-3xl mb-2 text-blue-400 inline-block"></i>
               <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.days_active || 0 }}</div>
               <div class="text-xs text-slate-400 uppercase tracking-wider">Jours Actifs</div>
@@ -633,7 +633,7 @@ useSeoMeta({
         </div>
 
         <!-- Badges Dynamiques -->
-        <div class="rounded-2xl border-[1.5px] border-[#D645EC]/30 bg-night-900/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.3s">
+        <div class="rounded-2xl border-[1.5px] border-[#D946EF]/30 bg-night-900/80 p-6 md:p-8 shadow-2xl backdrop-blur-xl animate-fade-in-up" style="animation-delay: 0.3s">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
               <i class="fi fi-rr-trophy text-2xl inline-block"></i>
@@ -656,7 +656,10 @@ useSeoMeta({
 
           <!-- Badges débloqués récents (dernier de chaque catégorie) -->
           <div v-if="(stats.badges?.unlocked?.length || 0) > 0" class="mb-8">
-            <h4 class="text-lg font-zen tracking-wide text-white mb-4">🆕 Derniers badges débloqués</h4>
+            <h4 class="text-lg font-zen tracking-wide text-white mb-4 flex items-center gap-2">
+                <i class="fi fi-rr-star text-yellow-400"></i>
+                Derniers badges débloqués
+            </h4>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
               <!-- Dernier badge Étoiles -->
               <div 
@@ -672,7 +675,9 @@ useSeoMeta({
                 <div class="text-center">
                   <p class="text-sm font-medium text-white">{{ badge?.name }}</p>
                   <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
-                  <p class="text-xs text-yellow-400 mt-1">⭐ Étoiles</p>
+                  <p class="text-xs text-yellow-400 mt-1 flex items-center justify-center gap-1">
+                    <i class="fi fi-rr-star"></i> Étoiles
+                  </p>
                 </div>
               </div>
 
@@ -690,7 +695,9 @@ useSeoMeta({
                 <div class="text-center">
                   <p class="text-sm font-medium text-white">{{ badge?.name }}</p>
                   <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
-                  <p class="text-xs text-purple-400 mt-1">🧘‍♀️ Méditation</p>
+                  <p class="text-xs text-purple-400 mt-1 flex items-center justify-center gap-1">
+                    <i class="fi fi-rr-spa"></i> Méditation
+                  </p>
                 </div>
               </div>
 
@@ -708,7 +715,9 @@ useSeoMeta({
                 <div class="text-center">
                   <p class="text-sm font-medium text-white">{{ badge?.name }}</p>
                   <p class="text-xs text-white/60 mt-1">{{ badge?.description }}</p>
-                  <p class="text-xs text-blue-400 mt-1">🌬️ Cohérence</p>
+                  <p class="text-xs text-blue-400 mt-1 flex items-center justify-center gap-1">
+                    <i class="fi fi-rr-wind"></i> Cohérence
+                  </p>
                 </div>
               </div>
             </div>
@@ -716,7 +725,10 @@ useSeoMeta({
 
           <!-- Prochains badges à débloquer -->
           <div v-if="stats.badges?.next && (stats.badges.next.stars || stats.badges.next.meditation || stats.badges.next.coherence)" class="mb-8">
-            <h4 class="text-lg font-zen tracking-wide text-white mb-4">🎯 Prochains objectifs</h4>
+            <h4 class="text-lg font-zen tracking-wide text-white mb-4 flex items-center gap-2">
+                <i class="fi fi-rr-target text-pink-400"></i>
+                Prochains objectifs
+            </h4>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <!-- Prochain badge Étoiles -->
               <div 
@@ -809,7 +821,10 @@ useSeoMeta({
 
           <!-- Tous les badges par catégorie -->
           <div v-if="stats.badges?.unlocked || stats.badges?.locked">
-            <h4 class="text-lg font-zen tracking-wide text-white mb-4">📜 Tous les badges</h4>
+            <h4 class="text-lg font-zen tracking-wide text-white mb-4 flex items-center gap-2">
+                <i class="fi fi-rr-list text-indigo-400"></i>
+                Tous les badges
+            </h4>
             
             <!-- Badges Étoiles -->
             <div class="mb-6">
@@ -928,19 +943,19 @@ useSeoMeta({
 
         <div class="mb-6 space-y-2 rounded-lg bg-red-500/10 p-4 text-sm text-slate-300">
           <div class="flex items-center gap-2">
-            <span>✨</span>
+            <i class="fi fi-rr-star text-yellow-400"></i>
             <span>{{ stats.stars_count }} lueurs créées</span>
           </div>
           <div class="flex items-center gap-2">
-            <span>🌬️</span>
+            <i class="fi fi-rr-wind text-blue-400"></i>
             <span>{{ stats.breathing_sessions }} sessions de respiration</span>
           </div>
           <div class="flex items-center gap-2">
-            <span>🎮</span>
+            <i class="fi fi-rr-interlace text-pink-400"></i>
             <span>{{ stats.games_played }} jeux joués</span>
           </div>
           <div class="flex items-center gap-2">
-            <span>👤</span>
+            <i class="fi fi-rr-user text-indigo-400"></i>
             <span>Votre profil et toutes vos préférences</span>
           </div>
         </div>

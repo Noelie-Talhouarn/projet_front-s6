@@ -43,7 +43,7 @@ async function handleToggle() {
     <i 
       class="fi text-2xl transition-all duration-300 inline-block" 
       :class="[
-        isFavorite ? 'fi-sr-heart text-[#D645EC] scale-110' : 'fi-rr-heart text-white/40 group-hover/fav:text-pink-400',
+        isFavorite ? 'fi-sr-heart text-[#D946EF] scale-110' : 'fi-rr-heart text-white/40 group-hover/fav:text-pink-400',
         loading ? 'opacity-40' : ''
       ]"
     ></i>
@@ -53,7 +53,7 @@ async function handleToggle() {
 <style scoped>
 .fi-sr-heart {
     /* Nouveau rose améthyste vif */
-    color: #D645EC !important; 
+    color: #D946EF !important; 
     filter: drop-shadow(0 0 8px rgba(214, 69, 236, 0.4));
 }
 </style>

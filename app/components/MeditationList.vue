@@ -76,8 +76,8 @@ const filteredSessions = computed(() => {
         v-for="session in filteredSessions"
         :key="session.id"
         @click="emit('select', session)"
-        class="w-full flex items-center p-3 rounded-xl border border-white/5 bg-night-800 hover:bg-night-700 transition-all text-left group active:scale-98"
-        :class="{'ring-1 ring-indigo-500 bg-night-700': currentSessionId === session.id}"
+        class="w-full flex items-center p-3 rounded-xl border border-white/20 bg-night-800/90 hover:bg-night-700/90 transition-all text-left group active:scale-98 shadow-lg shadow-black/20"
+        :class="{'ring-2 ring-indigo-500 bg-night-700 border-indigo-500/50': currentSessionId === session.id}"
       >
         <!-- Mini Cover -->
         <div class="w-12 h-12 rounded-lg bg-cover bg-center shrink-0 mr-4 opacity-80 group-hover:opacity-100 transition-opacity" 

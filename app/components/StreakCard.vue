@@ -42,8 +42,8 @@ const message = computed(() => getMessage())
   <div 
     class="relative overflow-hidden rounded-lg border-[1.5px] transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-black/10"
     :class="streak > 0 
-      ? 'bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-400/30 hover:border-orange-400/50' 
-      : 'bg-white/[0.05] border-[#D645EC]/20 hover:border-[#D645EC]/40'"
+      ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-400/50 hover:border-orange-400/70 shadow-lg shadow-orange-500/10' 
+      : 'bg-night-800/90 border-[#D946EF]/40 hover:border-[#D946EF]/60'"
   >
     <!-- Glow effect subtil -->
     <div 

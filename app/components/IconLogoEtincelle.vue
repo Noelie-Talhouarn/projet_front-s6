@@ -25,7 +25,7 @@
 
 <style scoped>
 .logo-svg {
-  color: #D645EC;
+  color: #D946EF;
 }
 .cls-1 {
   stroke-width: .5px;

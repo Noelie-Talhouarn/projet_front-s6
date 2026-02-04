@@ -47,7 +47,7 @@ const rawCards = [
         id: 'meditation',
         to: '/meditation', 
         title: 'Méditation', 
-        desc: 'Explorez nos séances guidées pour retrouver le calme.', 
+        desc: 'Explorez nos séances apaisantes pour retrouver le calme.', 
         icon: 'fi-rr-spa', 
         color: 'text-indigo-300',
         bg: 'hover:border-indigo-500/30 hover:shadow-[0_0_20px_rgba(99,102,241,0.1)]',
@@ -227,7 +227,9 @@ useSeoMeta({
          <div class="text-center lg:text-left pt-4">
               <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-slate-500 hover:text-white transition-colors group">
                  <span>Gérer mon profil</span>
-                 <span class="group-hover:translate-x-1 transition-transform">→</span>
+                 <span class="group-hover:translate-x-1 transition-transform">
+                   <i class="fi fi-rr-arrow-right text-[10px]"></i>
+                 </span>
               </NuxtLink>
          </div>
       </aside>

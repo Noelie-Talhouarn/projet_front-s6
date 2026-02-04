@@ -26,7 +26,7 @@
     </div>
     
     <div v-else class="flex items-center gap-4">
-      <NuxtLink to="/favoris" class="p-2 rounded-full hover:bg-white/10 transition-colors text-[#D645EC]" title="Mes favoris">
+      <NuxtLink to="/favoris" class="p-2 rounded-full hover:bg-white/10 transition-colors text-[#D946EF]" title="Mes favoris">
         <i class="fi fi-rr-heart text-xl"></i>
       </NuxtLink>
       <NuxtLink to="/profil" class="hidden md:flex p-2 rounded-full hover:bg-white/10 transition-colors text-slate-400" title="Mon profil">

@@ -96,10 +96,10 @@ function selectSession(session: Meditation) {
       <!-- Carte : Souffle -->
       <button 
         @click="viewMode = 'breathing'"
-        class="group relative flex flex-col items-center justify-center gap-4 md:gap-6 rounded-[2.5rem] border-[1.5px] border-white/20 bg-night-900/80 p-10 md:p-12 text-center shadow-xl transition-all duration-500 hover:scale-[1.02] hover:bg-night-800 hover:shadow-pink-500/20"
+        class="group relative flex flex-col items-center justify-center gap-4 md:gap-6 rounded-[2.5rem] border-[1.5px] border-white/20 bg-night-900/80 p-10 md:p-12 text-center shadow-xl transition-all duration-500 hover:scale-[1.02] hover:bg-night-800 hover:shadow-spark/20"
       >
-        <div class="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-pink-500/20 text-3xl md:text-4xl group-hover:bg-pink-500/30 transition-all duration-500 group-hover:-rotate-12">
-          <i class="fi fi-rr-wind inline-block"></i>
+        <div class="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-spark/20 text-3xl md:text-4xl group-hover:bg-spark/30 transition-all duration-500 group-hover:-rotate-12">
+          <i class="fi fi-rr-wind inline-block text-spark"></i>
         </div>
         <div>
           <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Respiration</h3>
@@ -140,7 +140,7 @@ function selectSession(session: Meditation) {
         <div class="lg:col-span-5 xl:col-span-4 mt-6 lg:mt-0">
           <div class="bg-night-900/60 rounded-[2rem] border-[1.5px] border-white/15 p-6 backdrop-blur-md shadow-2xl shadow-black/20">
             <h2 class="text-lg font-zen text-white mb-6 flex items-center gap-2 border-b border-white/10 pb-4">
-              <i class="fi fi-rr-list text-pink-400"></i>
+              <i class="fi fi-rr-list text-spark"></i>
               Ma Playlist
             </h2>
             <MeditationList 

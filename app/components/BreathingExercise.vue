@@ -139,11 +139,11 @@ onBeforeUnmount(() => {
 
         <!-- Main Breathing Orb -->
         <div 
-          class="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-spark shadow-[0_0_50px_rgba(124,58,237,0.5)] transition-all ease-in-out will-change-transform"
+          class="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-spark shadow-[0_0_50px_rgba(217,70,239,0.5)] transition-all ease-in-out will-change-transform"
           :class="{
-            'scale-150 shadow-[0_0_100px_rgba(236,72,153,0.6)] duration-[5000ms]': currentPhase === 'inhale' && isRunning,
-            'scale-75 shadow-[0_0_30px_rgba(124,58,237,0.3)] duration-[5000ms]': currentPhase === 'exhale' && isRunning,
-            'scale-100 shadow-[0_0_40px_rgba(124,58,237,0.4)] duration-1000' : !isRunning
+            'scale-150 shadow-[0_0_100px_rgba(217,70,239,0.7)] duration-[5000ms]': currentPhase === 'inhale' && isRunning,
+            'scale-75 shadow-[0_0_30px_rgba(217,70,239,0.3)] duration-[5000ms]': currentPhase === 'exhale' && isRunning,
+            'scale-100 shadow-[0_0_40px_rgba(217,70,239,0.4)] duration-1000' : !isRunning
           }"
         >
           <i class="fi fi-rr-wind text-4xl filter drop-shadow-lg inline-block text-white"></i>
@@ -158,8 +158,8 @@ onBeforeUnmount(() => {
         
         <div class="flex gap-3">
           <MyButton 
-            :variant="isRunning ? 'default' : 'pink'" 
-            size="large" 
+            variant="default" 
+            size="default" 
             @click="toggleBreathing"
           >
             {{ isRunning ? 'Pause' : (elapsedTime > 0 ? 'Reprendre' : 'Commencer la séance') }}
@@ -167,8 +167,8 @@ onBeforeUnmount(() => {
 
           <MyButton 
             v-if="elapsedTime > 0"
-            variant="pink" 
-            size="large" 
+            variant="default" 
+            size="default" 
             @click="finishSession"
           >
             ✓ Terminer

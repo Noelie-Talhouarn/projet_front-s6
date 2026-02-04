@@ -49,9 +49,9 @@ const rawCards = [
         title: 'Méditation', 
         desc: 'Explorez nos séances apaisantes pour retrouver le calme.', 
         icon: 'fi-rr-spa', 
-        color: 'text-indigo-300',
-        bg: 'hover:border-indigo-500/30 hover:shadow-[0_0_20px_rgba(99,102,241,0.1)]',
-        gradient: 'from-indigo-500/10'
+        color: 'text-spark',
+        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,70,239,0.1)]',
+        gradient: 'from-spark/10'
     },
     { 
         id: 'breathing',
@@ -59,9 +59,9 @@ const rawCards = [
         title: 'Respiration', 
         desc: 'Cohérence cardiaque et exercices de souffle.', 
         icon: 'fi-rr-wind', 
-        color: 'text-sky-300', 
-        bg: 'hover:border-sky-500/30 hover:shadow-[0_0_20px_rgba(14,165,233,0.1)]',
-        gradient: 'from-sky-500/10'
+        color: 'text-spark', 
+        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,70,239,0.1)]',
+        gradient: 'from-spark/10'
     },
     { 
         id: 'games',
@@ -69,9 +69,9 @@ const rawCards = [
         title: 'Espace Créatif', 
         desc: 'Mandala, Puzzles et expériences interactives.', 
         icon: 'fi-rr-palette', 
-        color: 'text-pink-300', 
-        bg: 'hover:border-pink-500/30 hover:shadow-[0_0_20px_rgba(236,72,153,0.1)]',
-        gradient: 'from-pink-500/10'
+        color: 'text-spark', 
+        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,70,239,0.1)]',
+        gradient: 'from-spark/10'
     }
 ]
 

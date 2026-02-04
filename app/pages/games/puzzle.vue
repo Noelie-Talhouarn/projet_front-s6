@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 useSeoMeta({
   title: 'Puzzle Zen - L\'Étincelle',
@@ -46,8 +46,25 @@ const startX = ref(0)
 const initialOrder = ref<number[]>([])
 
 const currentWord = ref('')
-const PIECE_WIDTH = 100
-const GAP = 12
+const PIECE_WIDTH = ref(140)
+const GAP = ref(-20)
+
+function updateDimensions() {
+  if (process.client) {
+    const screenWidth = window.innerWidth
+    if (screenWidth < 480) {
+      PIECE_WIDTH.value = 90
+      GAP.value = -15
+    } else if (screenWidth < 1024) {
+      PIECE_WIDTH.value = 120
+      GAP.value = -20
+    } else {
+      PIECE_WIDTH.value = 160
+      GAP.value = -25
+    }
+  }
+}
+
 
 // --- API ---
 const { fetchCloudWords } = useStars()
@@ -137,6 +154,10 @@ async function initLevel() {
   if (levelData.type === 'word') {
      const len = content.length
      // Découpe un peu plus intelligente : répartir les lettres
+     // if (content.length > 0) { // This line was incomplete in the instruction, removing it.
+     // const len = content.length // Already defined above
+     // Pour les mots longs, on peut augmenter le nombre de pièces
+     const cols = len > 8 ? 4 : 3 // This redefines cols, which was already defined earlier based on levelIndex
      const lettersPerPiece = Math.ceil(len / cols)
      for (let i = 0; i < cols; i++) {
         const start = i * lettersPerPiece
@@ -158,9 +179,16 @@ async function initLevel() {
     }
   }
 
-  // Mélanger l'ordre initial
-  const shuffled = [...Array(temp.length).keys()].sort(() => Math.random() - 0.5)
-  pieces.value = temp.map((p, i) => ({ ...p, order: shuffled[i]! }))
+  // Mélanger l'ordre initial (Garanti non-résolu)
+  let shuffledIndexes = [...Array(temp.length).keys()];
+  let isSorted = true;
+  
+  while (isSorted && temp.length > 1) {
+    shuffledIndexes.sort(() => Math.random() - 0.5);
+    isSorted = shuffledIndexes.every((val, index) => val === index);
+  }
+  
+  pieces.value = temp.map((p, i) => ({ ...p, order: shuffledIndexes[i]! }))
 }
 
 // 2. Logique de Drag Sortable
@@ -180,10 +208,9 @@ function onPointerMove(e: PointerEvent) {
   if (draggedPieceIdx.value === null) return
   
   const deltaX = e.clientX - startX.value
-  dragX.value = deltaX
+  dragX.value = deltaX 
 
-  // Calculer le décalage d'index (combien de places on a bougé)
-  const offset = Math.round(deltaX / (PIECE_WIDTH + GAP))
+  const offset = Math.round(deltaX / (PIECE_WIDTH.value + GAP.value))
   const draggedPiece = pieces.value[draggedPieceIdx.value]!
   const newOrder = Math.max(0, Math.min(pieces.value.length - 1, initialOrder.value[draggedPieceIdx.value]! + offset))
 
@@ -229,8 +256,16 @@ function nextLevel() {
 
 
 onMounted(async () => {
+  updateDimensions()
+  window.addEventListener('resize', updateDimensions)
   await loadProgress()
   setTimeout(initLevel, 100)
+})
+
+onUnmounted(() => {
+  if (process.client) {
+    window.removeEventListener('resize', updateDimensions)
+  }
 })
 
 </script>
@@ -245,7 +280,14 @@ onMounted(async () => {
     <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-glow/5 blur-[120px] rounded-full pointer-events-none"></div>
 
     <!-- En-tête -->
-    <header class="relative z-10 mb-8 text-center animate-fade-in-down">
+    <header class="relative z-10 mb-8 text-center animate-fade-in-down w-full max-w-md mx-auto">
+       <NuxtLink 
+         to="/games" 
+         class="absolute -top-4 -left-2 p-3 text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
+       >
+         <i class="fi fi-rr-arrow-small-left text-3xl group-hover:-translate-x-1 transition-transform"></i>
+         <span class="text-xs font-bold uppercase tracking-widest hidden sm:inline">Quitter</span>
+       </NuxtLink>
        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 group cursor-default">
          <i class="fi fi-rr-puzzle-piece text-spark-light group-hover:rotate-12 transition-transform"></i>
          <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">Voyage Poétique</span>
@@ -263,44 +305,32 @@ onMounted(async () => {
        </div>
     </header>
 
-    <!-- Zone de Jeu : Fil de Lumière -->
-    <div class="relative z-10 w-full max-w-5xl px-4 flex justify-center py-4 animate-fade-in-up">
-      <!-- Container du Fil -->
+    <!-- Zone de Jeu : Éclats de Cristal -->
+    <div class="relative z-10 w-full max-w-5xl px-4 flex justify-center py-20 animate-fade-in-up">
+      <!-- Container -->
       <div 
-        class="relative flex items-center justify-center bg-night-900/40 rounded-3xl border border-white/10 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.05)]"
+        class="relative flex items-center justify-center bg-white/5 rounded-[2.5rem] border border-white/10 backdrop-blur-xl shadow-2xl"
         :style="{ 
           width: '100%',
-          maxWidth: (pieces.length * (PIECE_WIDTH + GAP) + 120) + 'px',
-          height: '180px'
+          maxWidth: (pieces.length * (PIECE_WIDTH + GAP) + 80) + 'px',
+          height: PIECE_WIDTH > 100 ? '200px' : '150px'
         }"
       >
-        <!-- Le "Fil" Magique -->
-        <div class="absolute h-[1px] inset-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-        <div class="absolute h-[6px] inset-x-20 bg-spark/10 blur-xl rounded-full"></div>
+        <!-- Lueur de fond -->
+        <div class="absolute inset-x-10 h-px bg-gradient-to-r from-transparent via-spark/40 to-transparent"></div>
 
-        <!-- Socles de guidage (Slots visibles en fond) -->
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div class="flex gap-[12px]">
-            <div 
-              v-for="i in pieces.length" :key="'slot-'+i"
-              class="border-2 border-dashed border-white/5 bg-white/[0.02] rounded-2xl"
-              :style="{ width: PIECE_WIDTH + 'px', height: '100px' }"
-            ></div>
-          </div>
-        </div>
-
-        <!-- Les Pièces (Perles) -->
+        <!-- Les Pièces (Vraies formes de puzzle emboîtables) -->
         <div 
           v-for="(piece, idx) in pieces" 
           :key="piece.id"
           class="absolute touch-none select-none transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
           :class="[
-            draggedPieceIdx === idx ? 'z-50 duration-0 scale-105' : 'z-10',
+            draggedPieceIdx === idx ? 'z-50 duration-0 scale-105 filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]' : 'z-10',
             isCompleted ? 'pointer-events-none' : ''
           ]"
           :style="{
             width: PIECE_WIDTH + 'px',
-            height: '100px',
+            height: PIECE_WIDTH + 'px',
             transform: `translateX(${(piece.order - (pieces.length-1)/2) * (PIECE_WIDTH + GAP) + (draggedPieceIdx === idx ? dragX : 0)}px)`,
           }"
           @pointerdown="onPointerDown($event, idx)"
@@ -308,50 +338,73 @@ onMounted(async () => {
           @pointerup="onPointerUp"
           @pointercancel="onPointerUp"
         >
-          <!-- Corps de la Perle (Visibilité boostée) -->
-          <div 
-            class="w-full h-full rounded-2xl border-2 flex flex-col items-center justify-center transition-all duration-300 relative group overflow-hidden shadow-2xl"
-            :class="[
-              draggedPieceIdx === idx 
-                ? 'bg-night-700 border-glow shadow-[0_20px_40px_rgba(252,211,77,0.3)] scale-110' 
-                : (piece.id === piece.order 
-                    ? 'bg-night-800 border-spark shadow-[0_10px_25px_rgba(217,70,239,0.25)]' 
-                    : 'bg-night-800 border-white/20 hover:border-white/40 shadow-lg')
-            ]"
-          >
-            <!-- Overlay léger pour le relief -->
-            <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
-
-            <!-- Lueur de réussite (Spotlight) -->
-            <div 
-              v-if="piece.id === piece.order" 
-              class="absolute inset-0 bg-gradient-to-tr from-spark/30 via-transparent to-transparent animate-pulse"
-            ></div>
-
-            <span 
-              class="text-3xl md:text-4xl font-zen font-black tracking-widest uppercase transition-all duration-500"
-              :class="[
-                piece.id === piece.order 
-                  ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)] scale-105' 
-                  : 'text-slate-200 opacity-90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]'
-              ]"
+          <div class="relative w-full h-full group">
+            <!-- Forme de Puzzle SVG -->
+            <svg 
+              viewBox="0 0 140 140" 
+              class="absolute inset-0 w-full h-full transition-all duration-500"
             >
-              {{ piece.content }}
-            </span>
-            
-            <!-- Indicateur de position Correcte -->
-            <div 
-              class="absolute bottom-3 flex gap-1"
-            >
-              <div 
-                v-for="i in 3" :key="i"
-                class="w-1 h-1 rounded-full transition-all duration-500"
-                :class="piece.id === piece.order ? 'bg-glow shadow-[0_0_8px_theme(colors.glow.DEFAULT)] scale-125' : 'bg-white/5'"
-              ></div>
+              <defs>
+                <linearGradient :id="'puzzle-grad-' + idx" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" :stop-color="piece.id === piece.order ? '#D946EF' : '#291947'" stop-opacity="0.95" />
+                  <stop offset="100%" :stop-color="piece.id === piece.order ? '#A21CAF' : '#1A0E2E'" stop-opacity="0.85" />
+                </linearGradient>
+                <filter :id="'glow-' + idx">
+                   <feGaussianBlur stdDeviation="3" result="blur" />
+                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+              
+              <!-- Ombre et Corps de la pièce -->
+              <path 
+                d="M 20,20 
+                   H 120 
+                   V 50
+                   A 20,20 0 1 1 120,90
+                   V 120 
+                   H 20
+                   V 90
+                   A 20,20 0 1 0 20,50
+                   V 20 Z" 
+                :fill="`url(#puzzle-grad-${idx})`"
+                :stroke="piece.id === piece.order ? '#FF7FF3' : 'rgba(255,255,255,0.15)'"
+                stroke-width="2"
+                class="transition-all duration-500"
+                :style="{
+                  fillOpacity: piece.id === piece.order ? 0.9 : 0.6,
+                  filter: piece.id === piece.order ? `url(#glow-${idx})` : 'none'
+                }"
+              />
+              
+              <!-- Reflet supérieur pour le volume -->
+              <path 
+                d="M 25,25 H 115 V 35 H 25 Z" 
+                fill="rgba(255,255,255,0.05)"
+              />
+            </svg>
+
+            <!-- Contenu (Texte centré dans le corps principal) -->
+            <div class="absolute inset-x-[20px] inset-y-0 flex flex-col items-center justify-center">
+              <span 
+                class="font-zen font-black tracking-widest uppercase transition-all duration-500"
+                :class="[
+                  piece.id === piece.order 
+                    ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] scale-110' 
+                    : 'text-slate-200/40',
+                  PIECE_WIDTH > 100 ? 'text-3xl md:text-4xl' : 'text-xl'
+                ]"
+              >
+                {{ piece.content }}
+              </span>
+
+              <!-- Petites étoiles de validation -->
+              <div v-if="piece.id === piece.order" class="flex gap-1 mt-2">
+                <div v-for="i in 3" :key="i" class="w-1 h-1 rounded-full bg-spark shadow-[0_0_8px_theme(colors.spark.DEFAULT)] animate-pulse"></div>
+              </div>
             </div>
 
             <!-- Overlay d'interaction -->
-            <div v-if="draggedPieceIdx !== idx" class="absolute inset-0 bg-white/0 group-hover:bg-white/[0.02] transition-colors"></div>
+            <div v-if="draggedPieceIdx !== idx" class="absolute inset-0 cursor-grab active:cursor-grabbing"></div>
           </div>
         </div>
       </div>
@@ -414,6 +467,15 @@ onMounted(async () => {
 .piece-fade-leave-to {
   opacity: 0;
   transform: scale(0.8);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
 * {

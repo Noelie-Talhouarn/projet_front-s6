@@ -12,13 +12,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="relative min-h-screen z-10 overflow-x-hidden overflow-y-auto pt-24 pb-12">
-    <!-- Fond poétique avec lueurs -->
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-[-10%] left-[-5%] h-[600px] w-[600px] rounded-full bg-violet-600/10 blur-[120px]"></div>
-      <div class="absolute bottom-[10%] right-[-5%] h-[700px] w-[700px] rounded-full bg-spark/10 blur-[150px]"></div>
-    </div>
-
+  <div class="relative min-h-screen z-10 overflow-x-hidden overflow-y-auto pt-24 pb-12 bg-[#1A0E2E]">
     <div class="relative z-10 max-w-6xl mx-auto px-6">
       <!-- Section Hero -->
       <section class="flex flex-col items-center text-center mb-32 pt-12 animate-fade-in-up">
@@ -35,9 +29,9 @@ useSeoMeta({
         <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
           <MyButton 
             href="/register" 
-            variant="pink" 
+            variant="default" 
             size="large"
-            class="!rounded-2xl shadow-xl hover:shadow-spark/30 px-10"
+            class="!rounded-2xl px-10"
           >
             Commencer
           </MyButton>

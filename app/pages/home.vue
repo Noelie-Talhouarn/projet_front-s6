@@ -45,7 +45,7 @@ const isSavingMood = ref(false)
 const rawCards = [
     { 
         id: 'meditation',
-        to: '/meditation', 
+        to: '/meditation?mode=player', 
         title: 'Méditation', 
         desc: 'Explorez nos séances apaisantes pour retrouver le calme.', 
         icon: 'fi-rr-spa', 

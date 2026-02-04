@@ -264,10 +264,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-night-900 flex flex-col items-center pt-8 pb-32 px-4 overflow-x-hidden">
+  <div class="min-h-screen bg-night-900 flex flex-col items-center pt-16 pb-32 px-4 overflow-x-hidden">
     
     <!-- En-tête -->
-    <header class="mb-6 text-center animate-fade-in-up w-full max-w-md">
+    <header class="mb-10 text-center animate-fade-in-up w-full max-w-md relative">
+      <NuxtLink 
+        to="/games" 
+        class="absolute -top-14 -left-4 p-3 text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
+      >
+        <i class="fi fi-rr-arrow-small-left text-3xl group-hover:-translate-x-1 transition-transform"></i>
+        <span class="text-xs font-bold uppercase tracking-widest hidden sm:inline">Quitter</span>
+      </NuxtLink>
       <div class="flex items-center justify-between mb-2">
           <div class="text-xs font-bold uppercase tracking-widest text-slate-500">Niveau {{ level }}</div>
           <div class="text-xs font-bold uppercase tracking-widest text-spark-light">{{ progress }}%</div>
@@ -317,9 +324,6 @@ onMounted(async () => {
             v-if="isCompleted"
             class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-night-900/80 backdrop-blur-sm animate-fade-in"
         >
-            <div class="text-6xl mb-4 animate-bounce text-yellow-400">
-                <i class="fi fi-sr-trophy"></i>
-            </div>
             <h2 class="text-3xl font-bold font-zen tracking-wide text-white mb-2">Magnifique !</h2>
             <p class="text-slate-300 mb-8">Niveau {{ level }} complété</p>
             

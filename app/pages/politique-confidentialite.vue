@@ -13,7 +13,7 @@ useSeoMeta({
 </script>
 
 <template>
-    <main class="min-h-screen bg-night-900 text-slate-300">
+    <main class="min-h-screen bg-night-900 text-white">
         <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
             <!-- Header -->
             <header class="mb-12 text-center animate-fade-in-up">
@@ -21,7 +21,7 @@ useSeoMeta({
                 <h1 class="text-3xl md:text-4xl font-zen text-white mb-2">
                     Politique de confidentialité
                 </h1>
-                <p class="mt-2 text-sm text-slate-400">
+                <p class="mt-2 text-sm text-white">
                     Dernière mise à jour : <span class="font-medium text-indigo-300">28 janvier 2026</span>
                 </p>
             </header>
@@ -29,7 +29,7 @@ useSeoMeta({
             <!-- Content -->
             <section class="bg-night-800/50 backdrop-blur-sm border border-white/5 rounded-2xl p-6 shadow-xl sm:p-10 space-y-10 animate-fade-in-up" style="animation-delay: 0.1s;">
                 <!-- Intro -->
-                <section class="space-y-3 text-sm leading-relaxed text-slate-300">
+                <section class="space-y-3 text-sm leading-relaxed text-white">
                     <p>
                         Bienvenue sur <span class="font-medium text-white">L'Étincelle</span>. La protection de vos données personnelles est au cœur de notre démarche de bien-être numérique.
                     </p>
@@ -52,7 +52,7 @@ useSeoMeta({
                             <h3 class="font-semibold text-white mb-2 flex items-center gap-2">
                                 <i class="fi fi-rr-edit text-indigo-400"></i> Données fournies par vous
                             </h3>
-                            <ul class="list-disc space-y-2 pl-6 text-sm text-slate-300">
+                            <ul class="list-disc space-y-2 pl-6 text-sm text-white">
                                 <li><strong>Compte :</strong> e-mail, pseudonyme, mot de passe (stocké de manière sécurisée).</li>
                                 <li><strong>Activité :</strong> vos étoiles dans le Ciel Intérieur, votre progression dans les jeux, vos statistiques de méditation.</li>
                             </ul>
@@ -62,7 +62,7 @@ useSeoMeta({
                             <h3 class="font-semibold text-white mb-2 flex items-center gap-2">
                                 <i class="fi fi-rr-laptop text-indigo-400"></i> Données techniques
                             </h3>
-                            <ul class="list-disc space-y-2 pl-6 text-sm text-slate-300">
+                            <ul class="list-disc space-y-2 pl-6 text-sm text-white">
                                 <li><strong>Cookies :</strong> Uniquement le cookie de session technique (`auth_token`) nécessaire à votre connexion.</li>
                                 <li><strong>Logs :</strong> Informations techniques standard (adresse IP, navigateur) collectées par nos hébergeurs pour la sécurité du service.</li>
                             </ul>
@@ -75,7 +75,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">02.</span> Utilisation des données
                     </h2>
-                    <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-300">
+                    <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-white">
                         <li>Gérer votre compte et sécuriser votre accès.</li>
                         <li>Sauvegarder votre progression (niveaux débloqués, étoiles collectées).</li>
                         <li>Afficher vos statistiques personnelles sur votre profil.</li>
@@ -92,10 +92,10 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">03.</span> Partage des données
                     </h2>
-                    <p class="mt-3 text-sm text-slate-300">
+                    <p class="mt-3 text-sm text-white">
                         Vos données ne sont jamais vendues. Elles sont uniquement accessibles :
                     </p>
-                    <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-300">
+                    <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-white">
                         <li>
                             À l'administrateur technique du projet (pour la maintenance).
                         </li>
@@ -110,7 +110,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                          <span class="text-indigo-400 text-sm font-mono">04.</span> Sécurité
                     </h2>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-300">
+                    <p class="mt-3 text-sm leading-relaxed text-white">
                         Nous utilisons des standards de sécurité modernes : HTTPS (connexion chiffrée), hachage des mots de passe (vos mots de passe sont illisibles pour nous), et bases de données sécurisées.
                     </p>
                 </section>
@@ -120,7 +120,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">05.</span> Durée de conservation
                     </h2>
-                    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-300">
+                    <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-white">
                         <li>Vos données sont conservées tant que votre compte est actif.</li>
                         <li>
                             En cas de suppression de compte, vos données personnelles sont effacées de nos bases actives.
@@ -133,10 +133,10 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">06.</span> Vos droits
                     </h2>
-                    <p class="mt-3 text-sm text-slate-300">
+                    <p class="mt-3 text-sm text-white">
                         Conformément au RGPD, vous disposez des droits d'accès, de rectification, et de suppression de vos données.
                     </p>
-                    <p class="mt-3 text-sm text-slate-300">
+                    <p class="mt-3 text-sm text-white">
                         Pour exercer ces droits, envoyez simplement un e-mail à :
                         <a href="mailto:noelie.talhouarn@edu.univ-fcomte.fr"
                             class="text-indigo-300 hover:text-white transition-colors underline decoration-indigo-500/30 underline-offset-4">
@@ -147,7 +147,7 @@ useSeoMeta({
 
                 <!-- Footer -->
                 <footer class="border-t border-white/10 pt-6 text-center">
-                    <p class="text-xs text-slate-500">
+                    <p class="text-xs text-white">
                         © {{ new Date().getFullYear() }} L'Étincelle — Politique de confidentialité
                     </p>
                 </footer>

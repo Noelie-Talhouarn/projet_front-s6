@@ -22,7 +22,7 @@ useSeoMeta({
           <IconLogoEtincelle class="relative h-14 md:h-20 w-auto animate-pulse-slow" />
         </div>
         
-        <p class="text-xl md:text-2xl text-slate-400 font-light max-w-3xl leading-relaxed mb-12">
+        <p class="text-xl md:text-2xl text-white font-light max-w-3xl leading-relaxed mb-12">
           Réenchantez votre quotidien numérique. Un sanctuaire poétique pour <span class="text-white">cultiver la paix</span> et <span class="text-white">libérer votre créativité</span>.
         </p>
 
@@ -54,7 +54,7 @@ useSeoMeta({
             <i class="fi fi-rr-spa text-3xl"></i>
           </div>
           <h3 class="text-2xl font-zen text-white mb-4">Le Souffle Vital</h3>
-          <p class="text-slate-400 leading-relaxed font-light">
+          <p class="text-white leading-relaxed font-light">
             Pratiquez la cohérence cardiaque et la méditation guidée. Un retour immédiat à l'instant présent, où que vous soyez.
           </p>
         </div>
@@ -65,7 +65,7 @@ useSeoMeta({
             <i class="fi fi-rr-moon-stars text-3xl"></i>
           </div>
           <h3 class="text-2xl font-zen text-white mb-4">La Voie Lactée</h3>
-          <p class="text-slate-400 leading-relaxed font-light">
+          <p class="text-white leading-relaxed font-light">
             Confiez vos gratitudes au ciel. Chaque souvenir devient une étoile, créant une constellation unique de vos moments précieux.
           </p>
         </div>
@@ -76,7 +76,7 @@ useSeoMeta({
             <i class="fi fi-rr-magic-wand text-3xl"></i>
           </div>
           <h3 class="text-2xl font-zen text-white mb-4">Éveil Créatif</h3>
-          <p class="text-slate-400 leading-relaxed font-light">
+          <p class="text-white leading-relaxed font-light">
             Réveillez votre artiste intérieur à travers des mandalas sonores et des jeux de mots poétiques sans pression de performance.
           </p>
         </div>
@@ -85,7 +85,7 @@ useSeoMeta({
       <!-- Section Manifeste (Texte Centré) -->
       <section class="max-w-3xl mx-auto text-center mb-32 animate-fade-in-up" style="animation-delay: 0.5s">
         <h2 class="text-3xl font-zen text-white mb-8 tracking-wider">Pourquoi L'Étincelle ?</h2>
-        <p class="text-xl text-slate-400 leading-relaxed font-light mb-8 italic">
+        <p class="text-xl text-white leading-relaxed font-light mb-8 italic">
           "Dans le bruit incessant du numérique, nous avons besoin d'un espace où le temps ralentit, où chaque pixel est une invitation à la paix."
         </p>
         <div class="w-16 h-1 bg-gradient-to-r from-spark to-indigo-500 mx-auto rounded-full"></div>

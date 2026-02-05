@@ -42,13 +42,13 @@ const message = computed(() => getMessage())
   <div 
     class="relative overflow-hidden rounded-lg border-[1.5px] transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-black/10"
     :class="streak > 0 
-      ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-400/50 hover:border-orange-400/70 shadow-lg shadow-orange-500/10' 
-      : 'bg-night-800/90 border-[#D946EF]/40 hover:border-[#D946EF]/60'"
+      ? 'bg-gradient-to-r from-amber-500/10 to-orange-400/10 border-amber-400/30 hover:border-amber-400/50 shadow-lg shadow-amber-500/5' 
+      : 'bg-night-800/90 border-[#D948EF]/40 hover:border-[#D948EF]/60'"
   >
     <!-- Glow effect subtil -->
     <div 
       v-if="streak > 0"
-      class="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity"
+      class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-orange-400/5 opacity-0 group-hover:opacity-100 transition-opacity"
     ></div>
 
     <div class="relative p-3 flex items-center gap-3">
@@ -56,9 +56,9 @@ const message = computed(() => getMessage())
       <div class="flex-shrink-0">
         <div 
           class="text-2xl transition-all duration-300"
-          :class="streak > 0 ? 'text-orange-400' : 'text-slate-600'"
+          :class="streak > 0 ? 'text-amber-400/80' : 'text-white'"
         >
-          <i v-if="streak > 0" class="fi fi-rr-flame animate-pulse inline-block"></i>
+          <i v-if="streak > 0" class="fi fi-rr-flame inline-block"></i>
           <i v-else class="fi fi-rr-flame inline-block"></i>
         </div>
       </div>
@@ -68,15 +68,15 @@ const message = computed(() => getMessage())
         <div class="flex items-baseline gap-2">
           <span 
             class="font-semibold text-base"
-            :class="streak > 0 ? 'text-orange-400' : 'text-white/40'"
+            :class="streak > 0 ? 'text-amber-300/90' : 'text-white/40'"
           >
             {{ streak > 0 ? `${streak} jour${streak > 1 ? 's' : ''}` : 'Aucune série' }}
           </span>
-          <span class="text-sm text-white/60 truncate">
+          <span class="text-sm text-white truncate">
             {{ message.main }}
           </span>
         </div>
-        <p class="text-xs text-white/40 mt-0.5">
+        <p class="text-xs text-white mt-0.5">
           {{ message.sub }}
         </p>
       </div>
@@ -86,9 +86,9 @@ const message = computed(() => getMessage())
         v-if="streak >= 7"
         class="flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1"
         :class="{
-          'bg-orange-500/20 text-orange-300': streak >= 7 && streak < 30,
-          'bg-yellow-500/20 text-yellow-300': streak >= 30 && streak < 100,
-          'bg-purple-500/20 text-purple-300': streak >= 100
+          'bg-amber-500/15 text-amber-300/80': streak >= 7 && streak < 30,
+          'bg-yellow-500/15 text-yellow-300/80': streak >= 30 && streak < 100,
+          'bg-purple-500/15 text-purple-300/80': streak >= 100
         }"
       >
         <i class="fi" :class="streak >= 100 ? 'fi-rr-trophy' : streak >= 30 ? 'fi-rr-star' : 'fi-rr-flame'"></i>

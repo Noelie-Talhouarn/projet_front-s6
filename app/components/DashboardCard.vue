@@ -31,7 +31,7 @@ defineProps<{
                     {{ title }}
                     <span v-if="isFeatured" class="text-xs bg-white/10 text-white px-2 py-0.5 rounded-full font-sans tracking-normal font-normal">Recommandé pour vous</span>
                 </h3>
-                <p class="text-base text-slate-400">{{ desc }}</p>
+                <p class="text-base text-white">{{ desc }}</p>
             </div>
             
             <!-- Bouton d'action visible uniquement sur la carte mise en avant -->

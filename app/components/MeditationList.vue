@@ -49,7 +49,7 @@ const filteredSessions = computed(() => {
         class="whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all border flex items-center gap-2"
         :class="showOnlyFavorites 
           ? 'bg-pink-500 text-white border-pink-500 shadow-[0_0_10px_rgba(236,72,153,0.3)]' 
-          : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10'"
+          : 'bg-white/5 text-white border-white/10 hover:bg-white/10'"
       >
         <i :class="showOnlyFavorites ? 'fi fi-sr-heart' : 'fi fi-rr-heart'"></i>
         Favoris
@@ -64,7 +64,7 @@ const filteredSessions = computed(() => {
         class="whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all border"
         :class="selectedCategory === cat.id 
           ? 'bg-white text-black border-white' 
-          : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10'"
+          : 'bg-white/5 text-white border-white/10 hover:bg-white/10'"
       >
         {{ cat.label }}
       </button>
@@ -89,18 +89,18 @@ const filteredSessions = computed(() => {
         </div>
 
         <div class="flex-1 min-w-0">
-          <h3 class="font-bold text-slate-200 truncate group-hover:text-white transition-colors"
+          <h3 class="font-bold text-white truncate group-hover:text-white transition-colors"
              :class="{'text-indigo-300': currentSessionId === session.id}">
              {{ session.title }}
           </h3>
-          <p class="text-xs text-slate-500 truncate">{{ session.description }}</p>
+          <p class="text-xs text-white truncate">{{ session.description }}</p>
         </div>
 
-        <div class="text-xs text-slate-600 font-mono ml-4">{{ session.duration }}</div>
+        <div class="text-xs text-white font-mono ml-4">{{ session.duration }}</div>
       </button>
 
       <!-- États vides -->
-      <div v-if="isLoading" class="flex flex-col items-center justify-center py-10 text-slate-500 text-xs">
+      <div v-if="isLoading" class="flex flex-col items-center justify-center py-10 text-white text-xs">
         <div class="h-6 w-6 border-2 border-slate-700 border-t-slate-400 rounded-full animate-spin mb-3"></div>
         Chargement de vos vibrations...
       </div>
@@ -108,11 +108,11 @@ const filteredSessions = computed(() => {
       <div v-else-if="filteredSessions.length === 0" class="text-center py-10">
         <template v-if="showOnlyFavorites">
             <i class="fi fi-rr-heart text-white/20 text-3xl mb-4 block"></i>
-            <p class="text-slate-500 text-xs uppercase tracking-widest mb-4">Aucun favori pour le moment</p>
+            <p class="text-white text-xs uppercase tracking-widest mb-4">Aucun favori pour le moment</p>
             <button @click="showOnlyFavorites = false" class="text-pink-400 text-xs hover:text-white underline">Parcourir les séances</button>
         </template>
         <template v-else>
-            <p class="text-slate-500 text-xs uppercase tracking-widest mb-4">Aucune séance trouvée</p>
+            <p class="text-white text-xs uppercase tracking-widest mb-4">Aucune séance trouvée</p>
             <button @click="selectedCategory = 'all'" class="text-indigo-400 text-xs hover:text-white underline">Voir tout</button>
         </template>
       </div>

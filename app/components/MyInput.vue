@@ -18,7 +18,7 @@ const sizeClasses = {
 
 <template>
   <div class="flex flex-col gap-2 group">
-    <label v-if="label" class="text-xs font-bold uppercase tracking-wider text-slate-400 ml-1 transition-colors group-focus-within:text-spark-light">
+    <label v-if="label" class="text-xs font-bold uppercase tracking-wider text-white ml-1 transition-colors group-focus-within:text-spark-light">
       {{ label }}
     </label>
 

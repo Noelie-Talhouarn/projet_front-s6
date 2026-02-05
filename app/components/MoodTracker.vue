@@ -75,7 +75,7 @@ function selectMood(id: string) {
                 ]"
             >
                 <i :class="['fi text-2xl mb-2 transition-transform', mood.icon, mood.color, selectedMood === mood.id ? 'scale-110' : '']"></i>
-                <span class="text-sm uppercase tracking-wider group-hover:text-white" :class="selectedMood === mood.id ? 'text-white font-bold' : 'text-slate-400'">{{ mood.label }}</span>
+                <span class="text-xs md:text-[10px] uppercase tracking-wider text-white" :class="selectedMood === mood.id ? 'font-bold' : ''">{{ mood.label }}</span>
             </button>
         </div>
     </div>

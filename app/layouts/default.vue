@@ -14,7 +14,7 @@
 
 <template>
 
-  <main class="pt-16 bg-night-900 text-slate-200 min-h-screen">
+  <main class="pt-16 bg-night-900 text-white min-h-screen">
     <HeaderPage />
     <ToolBar />
     <slot />

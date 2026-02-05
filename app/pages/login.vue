@@ -76,7 +76,7 @@ async function onSubmit () {
             required 
           />
           <div class="text-right">
-            <NuxtLink to="/forgot-password" class="text-xs text-slate-400 hover:text-spark-light transition-colors">
+            <NuxtLink to="/forgot-password" class="text-xs text-white hover:text-spark-light transition-colors">
               Mot de passe oublié ?
             </NuxtLink>
           </div>
@@ -95,7 +95,7 @@ async function onSubmit () {
             </template>
           </MyButton>
           
-          <p class="text-center text-sm text-slate-400">
+          <p class="text-center text-sm text-white">
             Pas encore de compte ? 
             <NuxtLink to="/register" class="font-bold text-spark-light hover:text-spark-pink hover:underline">
               S'inscrire

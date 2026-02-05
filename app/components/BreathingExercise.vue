@@ -139,11 +139,11 @@ onBeforeUnmount(() => {
 
         <!-- Main Breathing Orb -->
         <div 
-          class="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-spark shadow-[0_0_50px_rgba(217,70,239,0.5)] transition-all ease-in-out will-change-transform"
+          class="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-spark shadow-[0_0_50px_rgba(217,72,239,0.5)] transition-all ease-in-out will-change-transform"
           :class="{
-            'scale-150 shadow-[0_0_100px_rgba(217,70,239,0.7)] duration-[5000ms]': currentPhase === 'inhale' && isRunning,
-            'scale-75 shadow-[0_0_30px_rgba(217,70,239,0.3)] duration-[5000ms]': currentPhase === 'exhale' && isRunning,
-            'scale-100 shadow-[0_0_40px_rgba(217,70,239,0.4)] duration-1000' : !isRunning
+            'scale-150 shadow-[0_0_100px_rgba(217,72,239,0.7)] duration-[5000ms]': currentPhase === 'inhale' && isRunning,
+            'scale-75 shadow-[0_0_30px_rgba(217,72,239,0.3)] duration-[5000ms]': currentPhase === 'exhale' && isRunning,
+            'scale-100 shadow-[0_0_40px_rgba(217,72,239,0.4)] duration-1000' : !isRunning
           }"
         >
           <i class="fi fi-rr-wind text-4xl filter drop-shadow-lg inline-block text-white"></i>
@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="flex flex-col items-center gap-6">
-        <div class="text-2xl font-mono font-bold text-slate-400 tracking-wider">
+        <div class="text-2xl font-mono font-bold text-white tracking-wider">
           {{ formattedTime }}
         </div>
         
@@ -175,7 +175,7 @@ onBeforeUnmount(() => {
           </MyButton>
         </div>
 
-        <p v-if="!isRunning && elapsedTime === 0" class="text-slate-400 text-sm max-w-sm">
+        <p v-if="!isRunning && elapsedTime === 0" class="text-white text-sm max-w-sm">
             Inspirez quand la lumière grandit, expirez quand elle rétrécit.
         </p>
       </div>

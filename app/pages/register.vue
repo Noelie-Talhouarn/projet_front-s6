@@ -126,7 +126,7 @@ async function onSubmit () {
             @click="fileInput?.click()"
           >
             <img v-if="avatarPreview" :src="avatarPreview" class="h-full w-full object-cover" />
-            <div v-else class="flex flex-col items-center justify-center text-slate-500 group-hover:text-slate-300">
+            <div v-else class="flex flex-col items-center justify-center text-white group-hover:text-white">
               <i class="fi fi-rr-camera text-2xl"></i>
               <span class="text-xs mt-1 uppercase font-bold tracking-tighter">Photo</span>
             </div>
@@ -136,7 +136,7 @@ async function onSubmit () {
               <div class="h-6 w-6 border-2 border-spark border-t-transparent rounded-full animate-spin"></div>
             </div>
           </div>
-          <p class="text-xs text-slate-500 italic">Photo de profil (optionnel)</p>
+          <p class="text-xs text-white italic">Photo de profil (optionnel)</p>
           <input 
             ref="fileInput"
             type="file" 
@@ -199,7 +199,7 @@ async function onSubmit () {
             </template>
           </MyButton>
           
-          <p class="text-center text-sm text-slate-400">
+          <p class="text-center text-sm text-white">
             Déjà un compte ? 
             <NuxtLink to="/login" class="font-bold text-spark-light hover:text-spark-pink hover:underline">
               Se connecter

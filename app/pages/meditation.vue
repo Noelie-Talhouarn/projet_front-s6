@@ -72,7 +72,7 @@ function selectSession(session: Meditation) {
       <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Méditation</h1>
       <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
         <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
-        <p class="text-sm text-slate-400 tracking-widest uppercase mt-4 max-w-2xl mx-auto">Votre collection personnelle de sérénité</p>
+        <p class="text-sm text-white tracking-widest uppercase mt-4 max-w-2xl mx-auto">Votre collection personnelle de sérénité</p>
       </div>
     </header>
 
@@ -89,7 +89,7 @@ function selectSession(session: Meditation) {
         </div>
         <div>
           <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Méditation</h3>
-          <p class="text-slate-400 text-sm md:text-base leading-relaxed">Explorez notre bibliothèque de séances apaisantes pour l'esprit.</p>
+          <p class="text-white text-sm md:text-base leading-relaxed">Explorez notre bibliothèque de séances apaisantes pour l'esprit.</p>
         </div>
       </button>
 
@@ -103,7 +103,7 @@ function selectSession(session: Meditation) {
         </div>
         <div>
           <h3 class="text-xl md:text-2xl font-zen tracking-wide text-white mb-2 md:mb-3">Respiration</h3>
-          <p class="text-slate-400 text-sm md:text-base leading-relaxed">Cohérence cardiaque pour calmer votre rythme intérieur.</p>
+          <p class="text-white text-sm md:text-base leading-relaxed">Cohérence cardiaque pour calmer votre rythme intérieur.</p>
         </div>
       </button>
 
@@ -111,7 +111,7 @@ function selectSession(session: Meditation) {
 
     <!-- CONTENU RESPIRATION -->
     <div v-else-if="viewMode === 'breathing'" class="animate-fade-in-up">
-      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-base text-slate-400 transition-colors hover:text-white">
+      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-base text-white transition-colors hover:text-white">
         <i class="fi fi-rr-arrow-small-left text-lg inline-block"></i> Retour au choix
       </button>
 
@@ -120,7 +120,7 @@ function selectSession(session: Meditation) {
 
     <!-- CONTENU MEDITATION -->
     <div v-else-if="viewMode === 'player'" class="animate-fade-in-up">
-      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-base text-slate-400 transition-colors hover:text-white">
+      <button @click="viewMode = 'menu'" class="mb-6 flex items-center gap-2 text-base text-white transition-colors hover:text-white">
         <i class="fi fi-rr-arrow-small-left text-lg inline-block"></i> Retour au choix
       </button>
 

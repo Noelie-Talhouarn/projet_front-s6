@@ -50,7 +50,7 @@ const rawCards = [
         desc: 'Explorez nos séances apaisantes pour retrouver le calme.', 
         icon: 'fi-rr-spa', 
         color: 'text-spark',
-        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,70,239,0.1)]',
+        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,72,239,0.1)]',
         gradient: 'from-spark/10'
     },
     { 
@@ -60,7 +60,7 @@ const rawCards = [
         desc: 'Cohérence cardiaque et exercices de souffle.', 
         icon: 'fi-rr-wind', 
         color: 'text-spark', 
-        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,70,239,0.1)]',
+        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,72,239,0.1)]',
         gradient: 'from-spark/10'
     },
     { 
@@ -70,7 +70,7 @@ const rawCards = [
         desc: 'Mandala, Puzzles et expériences interactives.', 
         icon: 'fi-rr-palette', 
         color: 'text-spark', 
-        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,70,239,0.1)]',
+        bg: 'hover:border-spark/30 hover:shadow-[0_0_20px_rgba(217,72,239,0.1)]',
         gradient: 'from-spark/10'
     }
 ]
@@ -174,7 +174,7 @@ useSeoMeta({
         <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Mon Espace</h1>
         <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
             <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
-            <p class="text-sm text-slate-400 tracking-widest uppercase mt-4 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-sm text-white tracking-widest uppercase mt-4 max-w-2xl mx-auto leading-relaxed">
                 Bienvenue <span class="text-white">{{ user?.prenom || 'Voyageur' }}</span>, prenez un instant pour vous reconnecter
             </p>
         </div>
@@ -225,7 +225,7 @@ useSeoMeta({
 
          <!-- Accès Profil Rapide -->
          <div class="text-center lg:text-left pt-4">
-              <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-slate-500 hover:text-white transition-colors group">
+              <NuxtLink to="/profil" class="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-white hover:text-white transition-colors group">
                  <span>Gérer mon profil</span>
                  <span class="group-hover:translate-x-1 transition-transform">
                    <i class="fi fi-rr-arrow-right text-[10px]"></i>

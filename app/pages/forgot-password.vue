@@ -77,7 +77,7 @@ async function onSubmit() {
               </p>
               <NuxtLink 
                 to="/login" 
-                class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 group"
+                class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-white/5 border border-white/10 text-white hover:text-white hover:bg-white/10 transition-all duration-300 group"
               >
                 <i class="fi fi-rr-arrow-left text-sm transition-transform group-hover:-translate-x-1"></i>
                 Retour au sanctuaire
@@ -88,7 +88,7 @@ async function onSubmit() {
             <div v-else>
               <div class="mb-10 text-center">
                 <h2 class="text-2xl font-zen text-white mb-3">Retrouver ma voie</h2>
-                <p class="text-slate-400 font-light px-4 leading-relaxed">
+                <p class="text-white font-light px-4 leading-relaxed">
                   Confiez-nous votre e-mail pour que nous puissions raviver votre lueur.
                 </p>
               </div>
@@ -101,7 +101,7 @@ async function onSubmit() {
 
               <form class="space-y-8" @submit.prevent="onSubmit">
                 <div class="space-y-3">
-                  <label for="email" class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Espace de connexion</label>
+                  <label for="email" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white ml-1">Espace de connexion</label>
                   <div class="relative group/input">
                     <input 
                       id="email" 
@@ -109,7 +109,7 @@ async function onSubmit() {
                       type="email" 
                       placeholder="eclat@sanctuaire.com" 
                       required
-                      class="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white placeholder:text-slate-600 focus:border-spark/40 focus:bg-white/10 focus:outline-none focus:ring-[6px] focus:ring-spark/5 transition-all duration-500"
+                      class="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white placeholder:text-white focus:border-spark/40 focus:bg-white/10 focus:outline-none focus:ring-[6px] focus:ring-spark/5 transition-all duration-500"
                     />
                     <div class="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 transition-opacity group-focus-within/input:opacity-100">
                       <i class="fi fi-rr-envelope text-spark-light"></i>
@@ -135,7 +135,7 @@ async function onSubmit() {
                 </button>
                 
                 <div class="flex justify-center pt-2">
-                  <NuxtLink to="/login" class="flex items-center gap-2 text-sm text-slate-500 hover:text-spark-light transition-all duration-300">
+                  <NuxtLink to="/login" class="flex items-center gap-2 text-sm text-white hover:text-spark-light transition-all duration-300">
                     <span>Je me souviens de ma route</span>
                   </NuxtLink>
                 </div>
@@ -147,7 +147,7 @@ async function onSubmit() {
       
       <!-- Signature discrète -->
       <footer class="mt-12 text-center animate-fade-in" style="animation-delay: 1s;">
-        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-600">L'Étincelle • Votre sanctuaire intérieur</p>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-white">L'Étincelle • Votre sanctuaire intérieur</p>
       </footer>
     </div>
   </div>

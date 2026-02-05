@@ -26,9 +26,9 @@ export default {
                 },
                 // Accent "Étincelle" (Magenta/Lavande)
                 spark: {
-                    light: '#f472b6',
-                    DEFAULT: '#D946EF',
-                    pink: '#D946EF',
+                    light: '#D948EF',
+                    DEFAULT: '#D948EF',
+                    pink: '#D948EF',
                 },
                 // Accent "Lueur" (Or/Champagne)
                 glow: {
@@ -66,9 +66,9 @@ export default {
                 // Fond global
                 'gradient-night': 'linear-gradient(to bottom right, #1a0e2e, #291947, #130a21)',
                 // Accents
-                'gradient-spark': 'linear-gradient(to right, #D946EF, #a855f7)',
-                'gradient-glow': 'linear-gradient(to right, #fcd34d, #D946EF, #D946EF)',
-                'gradient-btn': 'linear-gradient(to right, #7e22ce, #D946EF)',
+                'gradient-spark': 'linear-gradient(to right, #D948EF, #a855f7)',
+                'gradient-glow': 'linear-gradient(to right, #fcd34d, #D948EF, #D948EF)',
+                'gradient-btn': 'linear-gradient(to right, #7e22ce, #D948EF)',
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],

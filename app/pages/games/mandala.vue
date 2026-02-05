@@ -270,13 +270,13 @@ onMounted(async () => {
     <header class="mb-10 text-center animate-fade-in-up w-full max-w-md relative">
       <NuxtLink 
         to="/games" 
-        class="absolute -top-14 -left-4 p-3 text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
+        class="absolute -top-14 -left-4 p-3 text-white hover:text-white transition-colors flex items-center gap-1 group"
       >
         <i class="fi fi-rr-arrow-small-left text-3xl group-hover:-translate-x-1 transition-transform"></i>
         <span class="text-xs font-bold uppercase tracking-widest hidden sm:inline">Quitter</span>
       </NuxtLink>
       <div class="flex items-center justify-between mb-2">
-          <div class="text-xs font-bold uppercase tracking-widest text-slate-500">Niveau {{ level }}</div>
+          <div class="text-xs font-bold uppercase tracking-widest text-white">Niveau {{ level }}</div>
           <div class="text-xs font-bold uppercase tracking-widest text-spark-light">{{ progress }}%</div>
       </div>
       
@@ -325,7 +325,7 @@ onMounted(async () => {
             class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-night-900/80 backdrop-blur-sm animate-fade-in"
         >
             <h2 class="text-3xl font-bold font-zen tracking-wide text-white mb-2">Magnifique !</h2>
-            <p class="text-slate-300 mb-8">Niveau {{ level }} complété</p>
+            <p class="text-white mb-8">Niveau {{ level }} complété</p>
             
             <MyButton variant="default" size="large" @click="nextLevel">
                 Niveau Suivant →
@@ -342,7 +342,7 @@ onMounted(async () => {
                 :key="name"
                 @click="currentPaletteName = name; selectedColor = colors[0]"
                 class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border transition-colors"
-                :class="currentPaletteName === name ? 'bg-white text-black border-white' : 'bg-transparent text-slate-500 border-white/10 hover:border-white/30'"
+                :class="currentPaletteName === name ? 'bg-white text-black border-white' : 'bg-transparent text-white border-white/10 hover:border-white/30'"
             >
                 {{ name }}
             </button>
@@ -375,7 +375,7 @@ onMounted(async () => {
         
         <div class="mt-6 flex flex-col items-center gap-2">
             <button @click="clearCanvas" class="text-xs text-red-500/50 hover:text-red-400 transition-colors">Recommencer ce niveau</button>
-            <button @click="resetProgression" class="text-[10px] text-slate-600 hover:text-red-500 transition-colors flex items-center gap-1">
+            <button @click="resetProgression" class="text-[10px] text-white hover:text-red-500 transition-colors flex items-center gap-1">
                 <i class="fi fi-rr-skull text-[8px]"></i>
                 Réinitialiser toute ma progression
             </button>

@@ -21,7 +21,7 @@ useSeoMeta({
       <h1 class="text-white font-zen tracking-[0.2em] text-3xl md:text-4xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">L'Étincelle</h1>
       <div class="flex flex-col items-center gap-2 mt-6 md:mt-8">
         <div class="h-1 w-16 md:w-20 bg-spark rounded-full transition-all duration-700"></div>
-        <p class="text-base md:text-lg text-slate-400 tracking-widest uppercase mt-6 max-w-3xl mx-auto leading-relaxed">Votre sanctuaire numérique pour explorer le calme</p>
+        <p class="text-base md:text-lg text-white tracking-widest uppercase mt-6 max-w-3xl mx-auto leading-relaxed">Votre sanctuaire numérique pour explorer le calme</p>
       </div>
     </header>
 
@@ -32,11 +32,11 @@ useSeoMeta({
           <i class="fi fi-rr-bulb text-spark-pink"></i>
           Notre Mission
         </MyTitle>
-        <p class="text-slate-400 leading-relaxed">
+        <p class="text-white leading-relaxed">
           Dans un monde hyper-connecté et bruyant, il est parfois difficile de trouver un moment de répit. 
           <strong class="text-white">L'Étincelle</strong> est née de l'envie d'offrir une parenthèse de douceur.
         </p>
-        <p class="text-slate-400 leading-relaxed">
+        <p class="text-white leading-relaxed">
           Nous croyons que le bien-être ne doit pas être une corvée, mais une exploration ludique. Que ce soit à travers la respiration guidée ou la création artistique, chaque interaction est conçue pour apaiser l'esprit.
         </p>
       </div>
@@ -55,7 +55,7 @@ useSeoMeta({
     <section class="space-y-12 animate-fade-in-up" style="animation-delay: 0.2s">
       <div class="text-center">
          <MyTitle as="h2" size="medium">L'Expérience</MyTitle>
-         <p class="text-slate-400 mt-2">Quatre piliers pour votre bien-être</p>
+         <p class="text-white mt-2">Quatre piliers pour votre bien-être</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -66,7 +66,7 @@ useSeoMeta({
             <i class="fi fi-rr-spa text-2xl"></i>
           </div>
           <h3 class="text-xl font-medium text-white mb-2">Méditation</h3>
-          <p class="text-base text-slate-400">
+          <p class="text-base text-white">
             Des ambiances sonores et guidées pour vous accompagner vers le sommeil ou la relaxation profonde.
           </p>
         </div>
@@ -77,7 +77,7 @@ useSeoMeta({
             <i class="fi fi-rr-wind text-2xl"></i>
           </div>
           <h3 class="text-xl font-medium text-white mb-2">Respiration</h3>
-          <p class="text-base text-slate-400">
+          <p class="text-base text-white">
             Pratiquez la cohérence cardiaque avec un guide visuel intuitif pour réguler votre stress en quelques minutes.
           </p>
         </div>
@@ -88,7 +88,7 @@ useSeoMeta({
             <i class="fi fi-rr-palette text-2xl"></i>
           </div>
           <h3 class="text-xl font-medium text-white mb-2">Créativité</h3>
-          <p class="text-base text-slate-400">
+          <p class="text-base text-white">
             Libérez votre esprit avec nos Mandalas génératifs et nos Puzzles Zen. L'art comme thérapie.
           </p>
         </div>
@@ -99,7 +99,7 @@ useSeoMeta({
              <i class="fi fi-rr-chart-histogram text-2xl"></i>
           </div>
           <h3 class="text-xl font-medium text-white mb-2">Progression</h3>
-          <p class="text-base text-slate-400">
+          <p class="text-base text-white">
             Suivez votre humeur et débloquez des badges bienveillants au fil de votre voyage.
           </p>
         </div>
@@ -110,7 +110,7 @@ useSeoMeta({
     <!-- CONTEXTE PROJET -->
     <section class="rounded-3xl bg-night-800/50 border border-white/10 p-8 md:p-12 text-center animate-fade-in-up" style="animation-delay: 0.3s">
       <h3 class="text-2xl font-zen tracking-wide text-white mb-4">Un Projet Étudiant</h3>
-      <p class="text-slate-400 max-w-2xl mx-auto mb-8">
+      <p class="text-white max-w-2xl mx-auto mb-8">
         Cette application a été réalisée dans le cadre du projet <span class="text-spark-light font-medium">Réenchanter le monde</span>. 
         Elle explore l'intersection entre le développement web moderne (Nuxt 3, Tailwind, TypeScript) et le design d'interface émotionnel.
       </p>

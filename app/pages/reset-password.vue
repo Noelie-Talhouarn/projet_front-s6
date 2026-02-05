@@ -116,7 +116,7 @@ onMounted(() => {
                 <div class="h-1 w-48 bg-white/10 rounded-full overflow-hidden">
                     <div class="h-full bg-spark animate-progress origin-left"></div>
                 </div>
-                <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Retour imminent au sanctuaire</p>
+                <p class="text-xs text-white uppercase tracking-widest font-bold">Retour imminent au sanctuaire</p>
               </div>
             </div>
 
@@ -124,7 +124,7 @@ onMounted(() => {
             <div v-else>
               <div class="mb-10 text-center">
                 <h2 class="text-2xl font-zen text-white mb-3">Raviver ma route</h2>
-                <p class="text-slate-400 font-light px-4 leading-relaxed">
+                <p class="text-white font-light px-4 leading-relaxed">
                   Scellez un nouveau secret pour retrouver votre chemin parmi les étoiles.
                 </p>
               </div>
@@ -138,7 +138,7 @@ onMounted(() => {
               <form v-if="token" class="space-y-6" @submit.prevent="onSubmit">
                 <!-- Nouveau Mot de Passe -->
                 <div class="space-y-3">
-                  <label for="newPassword" class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Nouveau Secret</label>
+                  <label for="newPassword" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white ml-1">Nouveau Secret</label>
                   <div class="relative group/input">
                     <input 
                       id="newPassword" 
@@ -146,7 +146,7 @@ onMounted(() => {
                       type="password" 
                       placeholder="••••••••" 
                       required
-                      class="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white placeholder:text-slate-600 focus:border-spark/40 focus:bg-white/10 focus:outline-none focus:ring-[6px] focus:ring-spark/5 transition-all duration-500"
+                      class="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white placeholder:text-white focus:border-spark/40 focus:bg-white/10 focus:outline-none focus:ring-[6px] focus:ring-spark/5 transition-all duration-500"
                     />
                     <div class="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 transition-opacity group-focus-within/input:opacity-100">
                       <i class="fi fi-rr-lock text-spark-light"></i>
@@ -156,7 +156,7 @@ onMounted(() => {
 
                 <!-- Confirmation -->
                 <div class="space-y-3">
-                  <label for="confirmPassword" class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 ml-1">Confirmer le Secret</label>
+                  <label for="confirmPassword" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white ml-1">Confirmer le Secret</label>
                   <div class="relative group/input">
                     <input 
                       id="confirmPassword" 
@@ -164,7 +164,7 @@ onMounted(() => {
                       type="password" 
                       placeholder="••••••••" 
                       required
-                      class="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white placeholder:text-slate-600 focus:border-spark/40 focus:bg-white/10 focus:outline-none focus:ring-[6px] focus:ring-spark/5 transition-all duration-500"
+                      class="w-full rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white placeholder:text-white focus:border-spark/40 focus:bg-white/10 focus:outline-none focus:ring-[6px] focus:ring-spark/5 transition-all duration-500"
                     />
                     <div class="absolute right-4 top-1/2 -translate-y-1/2 opacity-20 transition-opacity group-focus-within/input:opacity-100">
                       <i class="fi fi-rr-shield-check text-spark-light"></i>
@@ -206,7 +206,7 @@ onMounted(() => {
       
       <!-- Signature discrète -->
       <footer class="mt-12 text-center animate-fade-in" style="animation-delay: 1s;">
-        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-600">L'Étincelle • Sanctuaire de sérénité</p>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-white">L'Étincelle • Sanctuaire de sérénité</p>
       </footer>
     </div>
   </div>

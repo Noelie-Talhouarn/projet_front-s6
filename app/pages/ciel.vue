@@ -170,7 +170,7 @@ async function deleteStar(id: number) {
 </script>
 
 <template>
-  <div class="h-[100dvh] w-full overflow-hidden bg-night-900 relative text-slate-200">
+  <div class="h-[100dvh] w-full overflow-hidden relative text-white" style="background-color: #1A0E2E;">
     <HeaderPage />
     <ToolBar />
 
@@ -185,7 +185,7 @@ async function deleteStar(id: number) {
       <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Ciel Intérieur</h1>
       <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
         <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
-        <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">
+        <p class="text-sm text-white tracking-widest uppercase mt-4">
           {{ stars.length }} lumières intérieures
         </p>
 
@@ -195,7 +195,7 @@ async function deleteStar(id: number) {
     <!-- Info Button -->
     <button 
       @click.stop="showInfoModal = true"
-      class="absolute top-24 right-8 z-40 text-slate-400 hover:text-white transition-all p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:border-white/20"
+      class="absolute top-24 right-8 z-40 text-white hover:text-white transition-all p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md hover:border-white/20"
       title="À propos du Ciel"
     >
       <i class="fi fi-rr-info text-xl"></i>
@@ -245,7 +245,7 @@ async function deleteStar(id: number) {
           <div class="bg-night-900/90 backdrop-blur-xl border border-[#D946EF]/30 p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden">
             <div class="absolute inset-0 bg-spark/5 pointer-events-none"></div>
             <p class="text-xs text-spark-light/60 mb-2 uppercase tracking-[0.2em] font-medium">{{ star.date }}</p>
-            <p class="text-base text-slate-100 font-light italic leading-relaxed relative z-10">"{{ star.message }}"</p>
+            <p class="text-base text-white font-light italic leading-relaxed relative z-10">"{{ star.message }}"</p>
             <button @click.stop="deleteStar(star.id)" class="mt-4 text-xs text-red-400/50 hover:text-red-400 uppercase tracking-widest font-bold transition-colors">× Supprimer</button>
           </div>
         </div>
@@ -272,7 +272,7 @@ async function deleteStar(id: number) {
         <h3 class="text-sm font-bold text-spark-light uppercase tracking-[0.2em] mb-6 text-center">Nouveau Souvenir</h3>
         
         <div class="mb-4 text-left">
-          <label class="block text-xs text-slate-500 uppercase tracking-[0.2em] mb-2 px-1">Date du moment</label>
+          <label class="block text-xs text-white uppercase tracking-[0.2em] mb-2 px-1">Date du moment</label>
           <input 
             v-model="selectedDate"
             type="date" 
@@ -290,7 +290,7 @@ async function deleteStar(id: number) {
 
         <div class="mb-8">
           <div class="flex items-center justify-between mb-3 px-1">
-            <span class="text-xs text-slate-500 uppercase tracking-[0.2em]">Éclat de l'étoile</span>
+            <span class="text-xs text-white uppercase tracking-[0.2em]">Éclat de l'étoile</span>
           </div>
           <div class="flex gap-4 justify-center items-center bg-white/5 p-4 rounded-xl border border-white/5">
             <button @click="selectedIntensity = 'small'" class="flex flex-col items-center gap-2 group">
@@ -308,7 +308,7 @@ async function deleteStar(id: number) {
         </div>
 
         <div class="flex gap-4">
-          <button @click="showModal = false" class="flex-1 py-3 text-sm text-slate-500 hover:text-white transition-colors uppercase tracking-widest font-bold">Fermer</button>
+          <button @click="showModal = false" class="flex-1 py-3 text-sm text-white hover:text-white transition-colors uppercase tracking-widest font-bold">Fermer</button>
           <button 
             @click="addStar" 
             class="flex-[2] py-4 bg-white text-black rounded-xl text-sm font-bold uppercase tracking-widest hover:bg-spark-light transition-all shadow-xl hover:shadow-white/20 flex items-center justify-center gap-2 active:scale-95"
@@ -328,7 +328,7 @@ async function deleteStar(id: number) {
         <i class="fi fi-rr-sparkles text-6xl text-white relative z-10"></i>
       </div>
       <p class="text-xl font-zen tracking-[0.3em] uppercase text-white mb-2">Le ciel est vide</p>
-      <p class="text-sm tracking-[0.1em] uppercase text-slate-500">Cliquez pour allumer une nouvelle lueur</p>
+      <p class="text-sm tracking-[0.1em] uppercase text-white">Cliquez pour allumer une nouvelle lueur</p>
     </div>
 
     <div 
@@ -340,7 +340,7 @@ async function deleteStar(id: number) {
         <div class="absolute top-0 right-0 p-2">
             <button 
               @click="closeInfoModal"
-              class="text-slate-500 hover:text-white transition-colors p-2"
+              class="text-white hover:text-white transition-colors p-2"
             >
               <i class="fi fi-rr-cross-small text-xl"></i>
             </button>
@@ -350,7 +350,7 @@ async function deleteStar(id: number) {
             <i class="fi fi-rr-stars text-3xl"></i>
         </div>
         <h2 class="text-xl font-zen text-white mb-3 uppercase tracking-wider">Le Ciel Intérieur</h2>
-        <p class="text-slate-300 text-sm leading-relaxed mb-5">
+        <p class="text-white text-sm leading-relaxed mb-5">
           Ce ciel est votre <strong>sanctuaire personnel</strong> de gratitude. Chaque étoile représente un moment précieux.
         </p>
         <div class="bg-spark/5 border border-spark/20 rounded-xl p-3 mb-5 text-left">
@@ -361,10 +361,10 @@ async function deleteStar(id: number) {
         </div>
         <div class="space-y-3 text-left mb-6">
             <div class="flex items-start gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
-                <p class="text-[11px] text-slate-400 leading-snug">Cliquez pour créer un souvenir.</p>
+                <p class="text-[11px] text-white leading-snug">Cliquez pour créer un souvenir.</p>
             </div>
             <div class="flex items-start gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
-                <p class="text-[11px] text-slate-400 leading-snug">Cliquer sur une étoile pour redécouvrir l'instant.</p>
+                <p class="text-[11px] text-white leading-snug">Cliquer sur une étoile pour redécouvrir l'instant.</p>
             </div>
         </div>
 

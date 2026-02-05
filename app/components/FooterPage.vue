@@ -8,7 +8,7 @@
           <div class="flex flex-col items-center justify-center gap-4 mb-6">
             <IconLogoEtincelle class="h-8 w-auto" />
           </div>
-          <p class="text-slate-400 text-sm italic leading-relaxed max-w-md mx-auto">
+          <p class="text-white text-sm italic leading-relaxed max-w-md mx-auto">
             Votre sanctuaire numérique conçu pour cultiver le calme, explorer la créativité et reconnecter avec l'essentiel.
           </p>
         </div>
@@ -19,20 +19,20 @@
         
         <!-- Navigation Principale -->
         <div class="flex items-center gap-6 text-sm font-medium">
-          <NuxtLink to="/about" class="text-slate-300 hover:text-white transition-colors underline">À propos</NuxtLink>
-          <NuxtLink to="/contact" class="text-slate-300 hover:text-white transition-colors underline">Contact</NuxtLink>
+          <NuxtLink to="/about" class="text-white hover:text-white transition-colors underline">À propos</NuxtLink>
+          <NuxtLink to="/contact" class="text-white hover:text-white transition-colors underline">Contact</NuxtLink>
         </div>
 
         <!-- Mentions Légales -->
-        <div class="flex flex-wrap justify-center items-center gap-3 text-xs text-slate-500">
-           <NuxtLink to="/mentions-legales" class="hover:text-slate-300 transition-colors">Mentions Légales</NuxtLink>
+        <div class="flex flex-wrap justify-center items-center gap-3 text-xs text-white">
+           <NuxtLink to="/mentions-legales" class="hover:text-white transition-colors">Mentions Légales</NuxtLink>
            <span>•</span>
-           <NuxtLink to="/cgu" class="hover:text-slate-300 transition-colors">CGU</NuxtLink>
+           <NuxtLink to="/cgu" class="hover:text-white transition-colors">CGU</NuxtLink>
            <span>•</span>
-           <NuxtLink to="/politique-confidentialite" class="hover:text-slate-300 transition-colors">Confidentialité</NuxtLink>
+           <NuxtLink to="/politique-confidentialite" class="hover:text-white transition-colors">Confidentialité</NuxtLink>
         </div>
 
-        <p class="text-slate-600 text-xs mt-2">
+        <p class="text-white text-xs mt-2">
           Projet réalisé par Noélie Talhouarn dans le cadre d’un exercice pédagogique au département MMI de Montbéliard
           <br>
           © {{ currentYear }} L'Étincelle. Tous droits réservés.

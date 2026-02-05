@@ -13,7 +13,7 @@ useSeoMeta({
 </script>
 
 <template>
-    <main class="min-h-screen bg-night-900 text-slate-300">
+    <main class="min-h-screen bg-night-900 text-white">
         <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
             <!-- Header -->
             <header class="mb-12 text-center animate-fade-in-up">
@@ -21,7 +21,7 @@ useSeoMeta({
                 <h1 class="text-3xl md:text-4xl font-zen text-white mb-2">
                     Conditions Générales d’Utilisation
                 </h1>
-                <p class="mt-2 text-sm text-slate-400">
+                <p class="mt-2 text-sm text-white">
                     Dernière mise à jour : <span class="font-medium text-indigo-300">28 janvier 2026</span>
                 </p>
             </header>
@@ -34,7 +34,7 @@ useSeoMeta({
                         <span class="text-indigo-400 text-sm font-mono">01.</span> Informations légales
                     </h2>
 
-                    <div class="mt-4 space-y-4 text-sm leading-relaxed text-slate-300">
+                    <div class="mt-4 space-y-4 text-sm leading-relaxed text-white">
                         <div>
                             <p class="mt-2">
                                 Le site <span class="font-medium text-white">L'Étincelle</span>,
@@ -69,7 +69,7 @@ useSeoMeta({
                          <span class="text-indigo-400 text-sm font-mono">02.</span> Accès et services
                     </h2>
 
-                    <div class="mt-4 space-y-6 text-sm leading-relaxed text-slate-300">
+                    <div class="mt-4 space-y-6 text-sm leading-relaxed text-white">
                         <div>
                             <h3 class="font-semibold text-white mb-2">Création de compte</h3>
                             <p>
@@ -94,7 +94,7 @@ useSeoMeta({
                                     <span>Jeux de détente (Mandalas, Puzzle Zen)</span>
                                 </li>
                             </ul>
-                            <p class="mt-4 text-xs bg-slate-800 p-3 rounded text-slate-400">
+                            <p class="mt-4 text-xs bg-slate-800 p-3 rounded text-white">
                                 L’accès au Site est gratuit et réservé à un usage personnel et non commercial.
                             </p>
                         </div>
@@ -106,10 +106,10 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">03.</span> Espace personnel
                     </h2>
-                    <p class="mt-4 text-sm text-slate-300">
+                    <p class="mt-4 text-sm text-white">
                         L'Étincelle est un sanctuaire entièrement privé. Le "Ciel Intérieur" et vos autres données ne sont visibles que par vous. Aucune information n'est partagée avec d'autres utilisateurs.
                     </p>
-                    <ul class="mt-4 space-y-3 pl-2 text-sm text-slate-300">
+                    <ul class="mt-4 space-y-3 pl-2 text-sm text-white">
                         <li class="flex items-start gap-2 text-indigo-300/80">
                             <i class="fi fi-rr-lock mt-1"></i>
                             Vos étoiles et pensées restent strictement confidentielles.
@@ -122,7 +122,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">04.</span> Données et Cookies
                     </h2>
-                    <div class="mt-4 space-y-4 text-sm leading-relaxed text-slate-300">
+                    <div class="mt-4 space-y-4 text-sm leading-relaxed text-white">
                         <p>
                             Nous nous engageons à protéger vos données personnelles. Les données collectées (progression, préférences) ne sont utilisées que pour le fonctionnement de l'application et ne sont jamais revendues.
                         </p>
@@ -140,7 +140,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">05.</span> Propriété intellectuelle
                     </h2>
-                    <p class="mt-4 text-sm leading-relaxed text-slate-300">
+                    <p class="mt-4 text-sm leading-relaxed text-white">
                         Tous les contenus du Site (design, code, logo) sont la propriété de l'autrice dans le cadre du projet étudiant. Les mandalas et créations générées par les utilisateurs leur appartiennent.
                     </p>
                 </section>
@@ -150,14 +150,14 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">06.</span> Responsabilité
                     </h2>
-                    <p class="mt-4 text-sm leading-relaxed text-slate-300">
+                    <p class="mt-4 text-sm leading-relaxed text-white">
                         Le projet étant réalisé dans un cadre académique, L'Étincelle est fourni "tel quel". Nous ne pouvons garantir une accessibilité continue ni l’absence totale de bugs, bien que nous fassions de notre mieux pour offrir une expérience fluide.
                     </p>
                 </section>
 
                 <!-- Footer -->
                 <footer class="border-t border-white/10 pt-6 text-center">
-                    <p class="text-xs text-slate-500">
+                    <p class="text-xs text-white">
                         © {{ new Date().getFullYear() }} L'Étincelle — Fait avec <i class="fi fi-rr-heart text-indigo-400 text-[10px] inline-block mx-1"></i> par Noélie Talhouarn
                     </p>
                 </footer>

@@ -81,7 +81,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-night-900 pt-8 px-6 pb-32 relative overflow-hidden">
+  <div class="pt-8 px-6 pb-32 relative overflow-hidden" style="background-color: #1A0E2E;">
       
       <!-- Background Elements -->
       <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-900/20 to-transparent pointer-events-none"></div>
@@ -92,7 +92,7 @@ onMounted(() => {
           <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Espace Créatif</h1>
           <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
               <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
-              <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">
+              <p class="text-sm text-white tracking-widest uppercase mt-4">
                   Éveillez votre créativité & nourrissez votre esprit
               </p>
           </div>
@@ -123,8 +123,8 @@ onMounted(() => {
 
       <!-- Empty State -->
       <div v-if="!isLoading && games.length === 0" class="text-center mt-20 opacity-50">
-          <i class="fi fi-rr-ghost text-4xl mb-4 text-slate-600 block"></i>
-          <p class="text-sm text-slate-500 uppercase tracking-widest">Aucun jeu trouvé</p>
+          <i class="fi fi-rr-ghost text-4xl mb-4 text-white block"></i>
+          <p class="text-sm text-white uppercase tracking-widest">Aucun jeu trouvé</p>
       </div>
   </div>
 </template>

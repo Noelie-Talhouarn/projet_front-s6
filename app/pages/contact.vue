@@ -24,7 +24,7 @@ useSeoMeta({
               <span class="text-xs font-bold uppercase tracking-[0.3em] text-spark-light/80 mb-3 block font-sans">Contact</span>
               <h1 class="text-4xl md:text-5xl font-zen tracking-wide text-white mb-6">Parlons un peu</h1>
               
-              <p class="text-slate-400 leading-relaxed mb-8 text-lg">
+              <p class="text-white leading-relaxed mb-8 text-lg">
                   Une suggestion pour améliorer L'Étincelle ? Un problème technique ? Ou simplement envie de partager votre expérience ? <br><br>
                   Nous sommes à votre écoute pour rendre ce sanctuaire encore plus apaisant.
               </p>
@@ -43,7 +43,7 @@ useSeoMeta({
                   </div>
                   
                   <h2 class="text-2xl font-bold font-zen tracking-wide text-white">Envoyez-nous un message</h2>
-                  <p class="text-slate-400 max-w-sm mx-auto mb-8">
+                  <p class="text-white max-w-sm mx-auto mb-8">
                       Votre voix est importante. Cliquez ci-dessous pour ouvrir votre messagerie et nous écrire directement.
                   </p>
                   

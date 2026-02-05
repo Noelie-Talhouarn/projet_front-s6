@@ -447,7 +447,7 @@ useSeoMeta({
         <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Mon Profil</h1>
         <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
           <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
-          <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">Gérez vos informations et préférences</p>
+          <p class="text-sm text-white tracking-widest uppercase mt-4">Gérez vos informations et préférences</p>
         </div>
       </header>
 
@@ -464,7 +464,7 @@ useSeoMeta({
       <div v-if="loading" class="flex items-center justify-center py-20">
         <div class="text-center space-y-4">
           <div class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-spark border-t-transparent"></div>
-          <p class="text-slate-400">Chargement de votre profil...</p>
+          <p class="text-white">Chargement de votre profil...</p>
         </div>
       </div>
 
@@ -504,8 +504,8 @@ useSeoMeta({
               <h2 class="text-2xl font-zen tracking-wide text-white mb-1">
                 {{ user.prenom }} {{ user.nom }}
               </h2>
-              <p class="text-slate-400 mb-2">{{ user.email }}</p>
-              <p class="text-sm text-slate-500">
+              <p class="text-white mb-2">{{ user.email }}</p>
+              <p class="text-sm text-white">
                 Membre depuis le {{ formatDate(user.date_inscription) }}
               </p>
             </div>
@@ -621,13 +621,13 @@ useSeoMeta({
             <div class="rounded-xl border-[1.5px] border-[#D946EF]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D946EF]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
               <i class="fi fi-rr-star text-3xl mb-2 text-amber-400 inline-block"></i>
               <div class="text-2xl font-bold text-amber-400 mb-1">{{ stats.stars_count || 0 }}</div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">Étoiles Créées</div>
+              <div class="text-xs text-white uppercase tracking-wider">Étoiles Créées</div>
             </div>
 
             <div class="rounded-xl border-[1.5px] border-[#D946EF]/20 bg-night-900/80 p-4 backdrop-blur-xl hover:border-[#D946EF]/40 transition-all hover:scale-105 shadow-lg shadow-black/20">
               <i class="fi fi-rr-calendar text-3xl mb-2 text-blue-400 inline-block"></i>
               <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.days_active || 0 }}</div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">Jours Actifs</div>
+              <div class="text-xs text-white uppercase tracking-wider">Jours Actifs</div>
             </div>
           </div>
         </div>
@@ -936,12 +936,12 @@ useSeoMeta({
              <i class="fi fi-rr-exclamation text-3xl text-red-400 inline-block"></i>
           </div>
           <h3 class="mb-2 text-2xl font-medium text-white">Supprimer votre compte ?</h3>
-          <p class="text-slate-400">
+          <p class="text-white">
             Cette action est <span class="font-medium text-red-400">irréversible</span>. Toutes vos données seront définitivement supprimées :
           </p>
         </div>
 
-        <div class="mb-6 space-y-2 rounded-lg bg-red-500/10 p-4 text-sm text-slate-300">
+        <div class="mb-6 space-y-2 rounded-lg bg-red-500/10 p-4 text-sm text-white">
           <div class="flex items-center gap-2">
             <i class="fi fi-rr-star text-yellow-400"></i>
             <span>{{ stats.stars_count }} lueurs créées</span>
@@ -965,7 +965,7 @@ useSeoMeta({
             @click="closeDeleteModal"
             variant="outline"
             size="medium"
-            class="flex-1 text-slate-300 border-white/20 hover:bg-white/5"
+            class="flex-1 text-white border-white/20 hover:bg-white/5"
             :disabled="isDeleting"
           >
             Non, annuler

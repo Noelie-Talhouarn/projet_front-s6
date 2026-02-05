@@ -283,14 +283,14 @@ onUnmounted(() => {
     <header class="relative z-10 mb-8 text-center animate-fade-in-down w-full max-w-md mx-auto">
        <NuxtLink 
          to="/games" 
-         class="absolute -top-4 -left-2 p-3 text-slate-400 hover:text-white transition-colors flex items-center gap-1 group"
+         class="absolute -top-4 -left-2 p-3 text-white hover:text-white transition-colors flex items-center gap-1 group"
        >
          <i class="fi fi-rr-arrow-small-left text-3xl group-hover:-translate-x-1 transition-transform"></i>
          <span class="text-xs font-bold uppercase tracking-widest hidden sm:inline">Quitter</span>
        </NuxtLink>
        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 group cursor-default">
          <i class="fi fi-rr-puzzle-piece text-spark-light group-hover:rotate-12 transition-transform"></i>
-         <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">Voyage Poétique</span>
+         <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white">Voyage Poétique</span>
        </div>
        <h1 class="text-3xl md:text-4xl font-zen font-black tracking-tight text-white drop-shadow-sm">
          Niveau <span class="bg-clip-text text-transparent bg-gradient-spark">{{ currentLevelIdx + 1 }}</span>
@@ -298,7 +298,7 @@ onUnmounted(() => {
        
        <!-- Consigne remontée -->
        <div class="mt-6 flex flex-col items-center">
-         <p class="text-slate-500 text-[10px] tracking-[0.3em] font-bold max-w-xs leading-loose uppercase">
+         <p class="text-white text-[10px] tracking-[0.3em] font-bold max-w-xs leading-loose uppercase">
            Glissez les fragments pour rétablir l'ordre.
          </p>
          <div class="w-8 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mt-4"></div>
@@ -390,7 +390,7 @@ onUnmounted(() => {
                 :class="[
                   piece.id === piece.order 
                     ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] scale-110' 
-                    : 'text-slate-200/40',
+                    : 'text-white/40',
                   PIECE_WIDTH > 100 ? 'text-3xl md:text-4xl' : 'text-xl'
                 ]"
               >
@@ -424,7 +424,7 @@ onUnmounted(() => {
 
           <div class="relative z-10 flex flex-col items-center max-w-sm w-full">
             <div class="text-center space-y-3 mb-10">
-              <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] font-sans">Harmonie Retrouvée</p>
+              <p class="text-[10px] font-black text-white uppercase tracking-[0.5em] font-sans">Harmonie Retrouvée</p>
               <h2 class="text-4xl md:text-5xl font-sans font-black text-white tracking-tight uppercase">
                 {{ currentWord }}
               </h2>

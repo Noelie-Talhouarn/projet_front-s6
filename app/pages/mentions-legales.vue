@@ -13,7 +13,7 @@ useSeoMeta({
 </script>
 
 <template>
-    <main class="min-h-screen bg-night-900 text-slate-300">
+    <main class="min-h-screen bg-night-900 text-white">
         <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
             <!-- Header -->
             <header class="mb-12 text-center animate-fade-in-up">
@@ -21,7 +21,7 @@ useSeoMeta({
                 <h1 class="text-3xl md:text-4xl font-zen text-white mb-2">
                     Mentions Légales
                 </h1>
-                <p class="mt-2 text-sm text-slate-400">
+                <p class="mt-2 text-sm text-white">
                     Dernière mise à jour : <span class="font-medium text-indigo-300">28 janvier 2026</span>
                 </p>
             </header>
@@ -37,16 +37,16 @@ useSeoMeta({
                         <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5">
                             <dt class="text-xs uppercase tracking-wider text-indigo-400 bg-indigo-500/10 inline-block px-2 py-1 rounded mb-2">Éditeur</dt>
                             <dd class="text-sm font-medium text-white">Noélie Talhouarn</dd>
-                            <dd class="text-xs text-slate-400 mt-1">Étudiante MMI</dd>
+                            <dd class="text-xs text-white mt-1">Étudiante MMI</dd>
                         </div>
                         <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5">
                             <dt class="text-xs uppercase tracking-wider text-indigo-400 bg-indigo-500/10 inline-block px-2 py-1 rounded mb-2">Statut</dt>
                             <dd class="text-sm font-medium text-white">Projet Étudiant</dd>
-                            <dd class="text-xs text-slate-400 mt-1">Département MMI Montbéliard</dd>
+                            <dd class="text-xs text-white mt-1">Département MMI Montbéliard</dd>
                         </div>
                         <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5">
                             <dt class="text-xs uppercase tracking-wider text-indigo-400 bg-indigo-500/10 inline-block px-2 py-1 rounded mb-2">Adresse</dt>
-                            <dd class="text-sm font-medium text-slate-300">
+                            <dd class="text-sm font-medium text-white">
                                 4 Pl. Lucien Tharradin<br>25200 Montbéliard
                             </dd>
                         </div>
@@ -67,14 +67,14 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">02.</span> Hébergement
                     </h2>
-                    <div class="mt-4 text-sm leading-relaxed text-slate-300">
+                    <div class="mt-4 text-sm leading-relaxed text-white">
                         <p>
                             L'application et l'API sont hébergées par <span class="text-white font-medium">Vercel Inc.</span>, <span class="text-white font-medium">Render</span> et <span class="text-white font-medium">Infomaniak</span>.
                         </p>
                         <ul class="mt-4 list-disc pl-4 space-y-2">
-                            <li><strong class="text-slate-200">Vercel Inc.</strong> : 340 S Lemon Ave #4133 Walnut, CA 91789, USA.</li>
-                            <li><strong class="text-slate-200">Render</strong> : San Francisco, California, USA.</li>
-                            <li><strong class="text-slate-200">Infomaniak Network SA</strong> : Rue Eugène-Marziano 25, 1227 Genève, Suisse.</li>
+                            <li><strong class="text-white">Vercel Inc.</strong> : 340 S Lemon Ave #4133 Walnut, CA 91789, USA.</li>
+                            <li><strong class="text-white">Render</strong> : San Francisco, California, USA.</li>
+                            <li><strong class="text-white">Infomaniak Network SA</strong> : Rue Eugène-Marziano 25, 1227 Genève, Suisse.</li>
                         </ul>
                     </div>
                 </section>
@@ -84,7 +84,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">03.</span> Objet du site
                     </h2>
-                    <p class="mt-4 text-sm leading-relaxed text-slate-300">
+                    <p class="mt-4 text-sm leading-relaxed text-white">
                         L'Étincelle est une application web dédiée au bien-être numérique. Elle propose des outils de relaxation (cohérence cardiaque, méditation) et des activités créatives (coloriage, écriture) dans un cadre apaisant et non-compétitif.
                     </p>
                 </section>
@@ -95,7 +95,7 @@ useSeoMeta({
                          <span class="text-indigo-400 text-sm font-mono">04.</span> Propriété Intellectuelle
                     </h2>
 
-                    <div class="mt-4 space-y-3 text-sm leading-relaxed text-slate-300">
+                    <div class="mt-4 space-y-3 text-sm leading-relaxed text-white">
                         <p>
                             L’ensemble du contenu du site (structure, design, code, logo) est la propriété exclusive de l'autrice, sauf mention contraire (icônes Flaticon, ressources libres de droit).
                         </p>
@@ -111,7 +111,7 @@ useSeoMeta({
                     <h2 class="text-xl font-semibold text-white flex items-center gap-3">
                         <span class="text-indigo-400 text-sm font-mono">05.</span> Données Personnelles
                     </h2>
-                    <div class="mt-4 space-y-3 text-sm leading-relaxed text-slate-300">
+                    <div class="mt-4 space-y-3 text-sm leading-relaxed text-white">
                         <p>
                             Conformément au RGPD, nous minimisons la collecte de données.
                         </p>
@@ -128,7 +128,7 @@ useSeoMeta({
 
                 <!-- Footer -->
                 <footer class="border-t border-white/10 pt-6 text-center">
-                    <p class="text-xs text-slate-500">
+                    <p class="text-xs text-white">
                         © {{ new Date().getFullYear() }} L'Étincelle — Mentions légales.
                     </p>
                 </footer>

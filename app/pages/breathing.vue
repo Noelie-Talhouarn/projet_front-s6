@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
         <h1 class="text-white font-zen tracking-[0.2em] text-2xl md:text-3xl uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">Le Souffle</h1>
         <div class="flex flex-col items-center gap-2 mt-4 md:mt-6">
             <div class="h-1 w-12 md:w-16 bg-spark rounded-full transition-all duration-700"></div>
-            <p class="text-sm text-slate-400 tracking-widest uppercase mt-4">Cohérence cardiaque & apaisement</p>
+            <p class="text-sm text-white tracking-widest uppercase mt-4">Cohérence cardiaque & apaisement</p>
         </div>
     </header>
 
@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
       
-      <p class="text-lg leading-relaxed text-slate-300">
+      <p class="text-lg leading-relaxed text-white">
         Prenez quelques instants pour reconnecter avec votre souffle. 
         Suivez la lumière : inspirez quand elle grandit, expirez quand elle rétrécit.
       </p>
@@ -171,10 +171,10 @@ onBeforeUnmount(() => {
 
         <!-- Main Breathing Orb -->
         <div 
-          class="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-spark shadow-[0_0_50px_rgba(217,70,239,0.5)] transition-all ease-in-out will-change-transform"
+          class="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-spark shadow-[0_0_50px_rgba(217,72,239,0.5)] transition-all ease-in-out will-change-transform"
           :class="{
-            'scale-150 shadow-[0_0_100px_rgba(217,70,239,0.7)] duration-[5000ms]': currentPhase === 'inhale',
-            'scale-75 shadow-[0_0_30px_rgba(217,70,239,0.3)] duration-[5000ms]': currentPhase === 'exhale'
+            'scale-150 shadow-[0_0_100px_rgba(217,72,239,0.7)] duration-[5000ms]': currentPhase === 'inhale',
+            'scale-75 shadow-[0_0_30px_rgba(217,72,239,0.3)] duration-[5000ms]': currentPhase === 'exhale'
           }"
         >
           <span class="text-4xl filter drop-shadow-lg">✨</span>
@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="flex flex-col items-center gap-4">
-        <div class="text-2xl font-mono font-medium text-slate-400 tracking-wider">
+        <div class="text-2xl font-mono font-medium text-white tracking-wider">
           {{ formattedTime }}
         </div>
         
